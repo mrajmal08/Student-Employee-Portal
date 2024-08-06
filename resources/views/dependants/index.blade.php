@@ -13,7 +13,7 @@
                     <breadcrumb>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a role="button">Course</a>
+                                <a role="button">Dependant</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a role="button">list</a>
@@ -25,17 +25,17 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('courses.create') }}" class="btn filter-btn float-end mb-2 me-2">
+                        <a href="{{ route('dependants.create') }}" class="btn filter-btn float-end mb-2 me-2">
                             <span class="icon-plus">
                                 +
                             </span>
-                            Add Course </a>
+                            Add Dependant </a>
                     </div>
                 </div>
                 <div class="container-fluid">
                     <div class="panel">
-                        <form method="GET" action="{{ route('courses.index') }}">
-                            <strong class="sub-title">Search Course</strong>
+                        <form method="GET" action="{{ route('dependants.index') }}">
+                            <strong class="sub-title">Search Dependant</strong>
                             <div class="collapse-div mb-3">
                                 <div class="row extra-padding">
                                     <div class="col-md-3 col-sm-6 filter-item">
@@ -69,18 +69,18 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($courses as $item)
+                            @foreach ($dependants as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
                                 <td class="ealign-items-center">
-                                    <a href="{{ route('courses.edit', [$item->id]) }}" class="me-2">
+                                    <a href="{{ route('dependants.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
                                     </a>
-                                    <form method="GET" action="{{ route('courses.delete', $item->id) }}" class="d-inline">
+                                    <form method="GET" action="{{ route('dependants.delete', $item->id) }}" class="d-inline">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <a href="{{ route('courses.delete', $item->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                        <a href="{{ route('dependants.delete', $item->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
                                             <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
                                         </a>
                                     </form>
@@ -108,7 +108,7 @@
 
         swal({
 
-                title: `Are you sure you want to delete this Course?`,
+                title: `Are you sure you want to delete this dependant?`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

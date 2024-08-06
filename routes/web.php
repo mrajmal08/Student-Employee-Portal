@@ -36,3 +36,11 @@ Route::post('/course/insert', [App\Http\Controllers\CourseController::class, 'in
 Route::get('/course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('courses.edit');
 Route::post('/course/update/{id}', [App\Http\Controllers\CourseController::class, 'update'])->name('courses.update');
 Route::get('/course/delete/{id}', [App\Http\Controllers\CourseController::class, 'delete'])->name('courses.delete');
+
+//Dependant routes
+Route::get('/dependants', [App\Http\Controllers\DependantController::class, 'index'])->name('dependants.index');
+Route::get('/dependant/create', [App\Http\Controllers\DependantController::class, 'create'])->name('dependants.create');
+Route::post('/dependant/insert', [App\Http\Controllers\DependantController::class, 'insert'])->name('dependants.insert');
+Route::get('/dependant/edit/{id}', [App\Http\Controllers\DependantController::class, 'edit'])->name('dependants.edit');
+Route::post('/dependant/update/{id}', [App\Http\Controllers\DependantController::class, 'update'])->name('dependants.update');
+Route::get('/dependant/delete/{id}', [App\Http\Controllers\DependantController::class, 'delete'])->name('dependants.delete');

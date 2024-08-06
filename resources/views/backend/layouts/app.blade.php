@@ -76,7 +76,7 @@
                                 <a href="#!">User Roles</a>
                             </li>
                             <li>
-                                <a href="#!">Dependants</a>
+                                <a href="{{ route('dependants.index') }}">Dependants</a>
                             </li>
                         </ul>
                     </li>
