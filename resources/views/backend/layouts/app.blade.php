@@ -70,7 +70,7 @@
                                 <a href="#!">Users</a>
                             </li>
                             <li>
-                                <a href="#!">Courses</a>
+                                <a href="{{ route('courses.index') }}">Courses</a>
                             </li>
                             <li>
                                 <a href="#!">User Roles</a>
