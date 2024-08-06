@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filterable Div-Based Table</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+
+<body>
+  <header id="header">
+    <div class="container-fluid">
+      <div class="header-flex">
+        <div class="header-hold">
+          <a href="#" class="logo">
+              <img src="./assets/img/img.png">
+          </a>
+        </div>
+    
+        <div class="profile">
+            <img src="./assets/img/img.png" class="profile-img" alt="Profile Picture">
+            <span class="profile-name">SueprAdmin</span>
+        </div>
+
+        <div class="nav-icon">
+          <i class="bi bi-power  ms-5 my-5"></i>
+        </div>
+      </div>
+
+      
+        
+        
+    </div>       
+</header>
+<section class="navigation">
+<div class="nav-container">
+  <nav>
+    <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+    <ul class="nav-list">
+      <li>
+        <a href="#!">Home</a>
+      </li>
+      <li>
+        <a href="#!">About</a>
+      </li>
+      <li>
+        <a href="#!">Services</a>
+        <ul class="navbar-dropdown">
+          <li>
+            <a href="#!">Sass</a>
+          </li>
+          <li>
+            <a href="#!">Less</a>
+          </li>
+          <li>
+            <a href="#!">Stylus</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#!">Portfolio</a>
+      </li>
+      <li>
+        <a href="#!">Category</a>
+        <ul class="navbar-dropdown">
+          <li>
+            <a href="#!">Sass</a>
+          </li>
+          <li>
+            <a href="#!">Less</a>
+          </li>
+          <li>
+            <a href="#!">Stylus</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#!">Contact</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+</section>
+  <div class="container-fluid">
+    <h1 class="page-head my-4">User Name</h1>
+  </div>
+  <div class="user">
+    <div class="container">
+      <div class="user-header">
+        <h4 class="user-role py-3">User Permission</h4>
+        <button class="close-btn">x</button>
+      </div>
+        <div class="search-user">
+            <div class="form-container">
+                <form>
+                  <div class="form-row mt-3">
+                    <div class="form-group">
+                      <label for="firstName">First Name <span>*</span></label>
+                      <input type="text" id="firstName" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="middleName">Middle Name</label>
+                      <input type="text" id="middleName">
+                    </div>
+                    <div class="form-group">
+                      <label for="lastName">Last Name <span>*</span></label>
+                      <input type="text" id="lastName" required>
+                    </div>
+                  </div>
+                  
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="email">Email <span>*</span></label>
+                      <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password <span>*</span></label>
+                      <input type="password" id="password" required>
+                    </div>
+                    <div class="form-group">
+                      <label>Gender <span>*</span></label>
+                      <div class="radio-btn">
+                        <input type="radio" id="male" name="gender" value="male" required>
+                        <label for="male">Male</label>
+                        <input type="radio" id="female" name="gender" value="female">
+                        <label for="female">Female</label>
+                      </div>
+                    </div>
+                  </div>
+              
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="dob">DOB</label>
+                      <input type="date" id="dob">
+                    </div>
+                    <div class="form-group">
+                      <label for="role">Role <span>*</span></label>
+                      <select id="role" required>
+                        <option value="">Select Role</option>
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="socialSecurityNo">Social Security No</label>
+                      <input type="text" id="socialSecurityNo">
+                    </div>
+                  </div>
+              
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="address">Address <span>*</span></label>
+                      <input type="text" id="address" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="zipCode">Zip Code <span>*</span></label>
+                      <input type="text" id="zipCode" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="city">City <span>*</span></label>
+                      <input type="text" id="city" required>
+                    </div>
+                  </div>
+              
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <select id="state">
+                        <option value="">Please Select State</option>
+                        <!-- Add states here -->
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="phone">Phone</label>
+                      <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                      <label for="workPhone">Work Phone Number</label>
+                      <input type="tel" id="workPhone">
+                    </div>
+                  </div>
+              
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="designation">Designation <span>*</span></label>
+                      <select id="designation" required>
+                        <option value="">Select Designation</option>
+                        <!-- Add designations here -->
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="department">Department <span>*</span></label>
+                      <select id="department" required>
+                        <option value="">Select Department</option>
+                        <!-- Add departments here -->
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="employmentType">Employment Type</label>
+                      <select id="employmentType">
+                        <option value="">First Time</option>
+                        <!-- Add employment types here -->
+                      </select>
+                    </div>
+                  </div>
+              
+                  <div class="form-buttons my-4">
+                    <button type="button" class="btn btn-success me-2">Cancel</button>
+                    <button type="submit" class="btn btn-primary me-2">Create</button>
+                    <form action="/action_page.php">
+                      <label for="myFile" class="custom-file-upload">
+                        Upload Signature
+                      </label>
+                      <input type="file" id="myFile" name="filename">
+                    </form>
+                    
+                  </div>
+                </form>
+              </div>
+        </div>
+    </div>
+  </div>
+  <script>
+    (function ($) {
+      $(function () {
+
+        //  open and close nav 
+        $('#navbar-toggle').click(function () {
+          $('nav ul').slideToggle();
+        });
+
+
+        // Hamburger toggle
+        $('#navbar-toggle').on('click', function () {
+          this.classList.toggle('active');
+        });
+
+
+        // If a link has a dropdown, add sub menu toggle.
+        $('nav ul li a:not(:only-child)').click(function (e) {
+          $(this).siblings('.navbar-dropdown').slideToggle("slow");
+
+          // Close dropdown when select another dropdown
+          $('.navbar-dropdown').not($(this).siblings()).hide("slow");
+          e.stopPropagation();
+        });
+
+
+        // Click outside the dropdown will remove the dropdown class
+        $('html').click(function () {
+          $('.navbar-dropdown').hide();
+        });
+      });
+    })(jQuery); 
+  </script>
+</body>
+</html>
+
+
