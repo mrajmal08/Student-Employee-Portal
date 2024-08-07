@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Flasher\Prime\FlasherInterface;
+use App\Models\StudentCourse;
 use Illuminate\Http\Request;
+use App\Models\Dependant;
 use App\Models\Student;
+use App\Models\Course;
 use Validator;
 use Redirect;
 
@@ -50,7 +53,10 @@ class StudentController extends Controller
 
     public function create()
     {
-        return view('students.create');
+        $dependants = Dependant::orderBy('id', 'DESC')->get();
+        $courses = Course::orderBy('id', 'DESC')->get();
+
+        return view('students.create', compact('dependants', 'courses'));
     }
 
     public function view(){
@@ -93,8 +99,20 @@ class StudentController extends Controller
             $data['work_experience'] = $request->work_experience;
             $data['academic_history'] = $request->work_experience;
             $data['travel_history'] = $request->travel_history;
+            $data['previous_cas'] = $request->previous_cas;
+            $data['dependant_id'] = $request->dependant_id;
+            $data['intake'] = $request->intake;
+            $data['notes'] = $request->notes;
 
-            Student::create($data);
+            $students = Student::create($data);
+
+            if($students){
+                StudentCourse::create([
+                    'student_id' => $students->id,
+                    'course_id' => $request->course_id
+                ]);
+            }
+
             $flasher->option('position', 'top-center')->addSuccess('Student added Successfully');
 
             return redirect()->route('students.index')->with('message', 'Student added Successfully');
@@ -125,6 +143,7 @@ class StudentController extends Controller
             'date_of_birth' => 'required|date',
             'gender' => 'required|in:1,2',
             'address' => 'required',
+            'dependant_id' => 'required',
         ]);
 
         $student->update($validatedData);

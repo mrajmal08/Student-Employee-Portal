@@ -1,4 +1,7 @@
 @extends('backend.layouts.app')
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+<link href="{{ asset('assets/css/select.css') }}" rel="stylesheet" />
 @push('css')
 @endpush
 @section('content')
@@ -56,9 +59,7 @@
                                             <label class="label" for="phone_no">Date Of Birth <span>*</span></label>
                                             <input type="date" name="date_of_birth" id="date_of_birth" required>
                                         </div>
-
                                     </div>
-
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="passport">Passport</label>
@@ -66,13 +67,13 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="passport">Course</label>
-                                            <select>
-                                                <option disabled selected>--Select One--</option>
-                                                <option>English</option>
-                                                <option>Math</option>
-                                                <option>Science</option>
+                                            <select name="course_id" class="js-select2" multiple="multiple">
+                                                @foreach ($courses as $item)
+                                                <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="label">Gender <span>*</span></label>
                                             <div class="radio-btn">
@@ -89,21 +90,30 @@
                                             <input type="text" name="previous_cas" id="text" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="passport">Dependants</label>
-                                            <select name="dependant">
+                                            <label class="label" for="passport">Dependants<span>*</span></label>
+                                            <select name="dependant_id">
                                                 <option disabled selected>--Select One--</option>
-                                                <option>dependant 1</option>
-                                                <option>dependant 2</option>
-                                                <option>dependant 3</option>
+                                                @foreach ($dependants as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label class="label">Intake <span>*</span></label>
                                             <select name="intake">
                                                 <option disabled selected>--Select One--</option>
-                                                <option>Jan</option>
-                                                <option>Feb</option>
-                                                <option>March ...</option>
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="September">September</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
                                             </select>
                                         </div>
                                     </div>
@@ -144,6 +154,16 @@
                                         <textarea class="form-control" name="travel_history" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
 
+                                    <div class="my-2">
+                                        <h4 class="address">
+                                            Extra Notes
+                                        </h4>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <textarea class="form-control" name="notes" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+
                                     <div class="form-buttons my-4">
                                         <button type="submit" class="btn filter-btn">Submit</button>
                                     </div>
@@ -160,6 +180,7 @@
 
     </div>
 </section>
+
 <script>
     (function($) {
         $(function() {
@@ -195,5 +216,8 @@
 </script>
 
 @push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
+
 @endpush
 @endsection

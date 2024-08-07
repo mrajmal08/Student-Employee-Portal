@@ -33,7 +33,7 @@ class CreateStudentsTable extends Migration
 			$table->string('application_form')->nullable();
 			$table->string('outstanding_document')->nullable();
 			$table->string('previous_cas')->nullable();
-			$table->string('dependant')->nullable();
+			$table->bigInteger('dependant_id')->nullable();
 			$table->string('intake')->nullable();
 			$table->text('notes')->nullable();
             $table->timestamps();
