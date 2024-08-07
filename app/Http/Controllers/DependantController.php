@@ -64,6 +64,7 @@ class DependantController extends Controller
 
             return redirect()->route('dependants.index')->with('message', 'Dependant added Successfully');
         } catch (\Exception $e) {
+            $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('dependants.index')->with('message', 'Something went wrong');
         }
     }

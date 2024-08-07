@@ -119,6 +119,7 @@ class StudentController extends Controller
 
             return redirect()->route('students.index')->with('message', 'Student added Successfully');
         } catch (\Exception $e) {
+            $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('students.index')->with('message', 'Something went wrong');
         }
     }
@@ -134,6 +135,7 @@ class StudentController extends Controller
         $student = Student::find($id);
 
         if (!$student) {
+            $flasher->option('position', 'top-center')->addError('Id not found');
             return redirect()->route('students.index')->with('error', 'Id not found');
         }
 
@@ -146,6 +148,7 @@ class StudentController extends Controller
             'gender' => 'required|in:1,2',
             'address' => 'required',
             'dependant_id' => 'required',
+            'course_id' => 'required',
         ]);
 
         $student->update($validatedData);

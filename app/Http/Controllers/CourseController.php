@@ -65,6 +65,7 @@ class CourseController extends Controller
 
             return redirect()->route('courses.index')->with('message', 'Course added Successfully');
         } catch (\Exception $e) {
+            $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('courses.index')->with('message', 'Something went wrong');
         }
     }

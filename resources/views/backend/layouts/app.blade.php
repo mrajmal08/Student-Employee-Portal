@@ -51,7 +51,7 @@
                         <a href="#!">Recruitment Agent</a>
                         <ul class="navbar-dropdown">
                             <li>
-                                <a href="#!">Agent List</a>
+                                <a href="{{ route('recruitments.index') }}">Agent List</a>
                             </li>
                         </ul>
                     </li>

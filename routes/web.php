@@ -44,3 +44,12 @@ Route::post('/dependant/insert', [App\Http\Controllers\DependantController::clas
 Route::get('/dependant/edit/{id}', [App\Http\Controllers\DependantController::class, 'edit'])->name('dependants.edit');
 Route::post('/dependant/update/{id}', [App\Http\Controllers\DependantController::class, 'update'])->name('dependants.update');
 Route::get('/dependant/delete/{id}', [App\Http\Controllers\DependantController::class, 'delete'])->name('dependants.delete');
+
+//Recruitment Agent routes
+Route::get('/recruitment/agents', [App\Http\Controllers\RecruitmentAgentController::class, 'index'])->name('recruitments.index');
+Route::get('/recruitment/agent/create', [App\Http\Controllers\RecruitmentAgentController::class, 'create'])->name('recruitments.create');
+Route::post('/recruitment/agent/insert', [App\Http\Controllers\RecruitmentAgentController::class, 'insert'])->name('recruitments.insert');
+Route::get('/recruitment/agent/edit/{id}', [App\Http\Controllers\RecruitmentAgentController::class, 'edit'])->name('recruitments.edit');
+Route::get('/recruitment/agent/view', [App\Http\Controllers\RecruitmentAgentController::class, 'view'])->name('recruitments.view');
+Route::post('/recruitment/agent/update/{id}', [App\Http\Controllers\RecruitmentAgentController::class, 'update'])->name('recruitments.update');
+Route::get('/recruitment/agent/delete/{id}', [App\Http\Controllers\RecruitmentAgentController::class, 'delete'])->name('recruitments.delete');
