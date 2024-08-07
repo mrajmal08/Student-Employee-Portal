@@ -29,44 +29,47 @@
                         </div>
                         <div class="search-user">
                             <div class="form-container">
+                                <div class="my-3">
+                                    <span class="star-color">*</span><span class="label"> <i>Indicates required field</i></span>
+                                </div>
                                 <form method="POST" action="{{ route('students.insert') }}">
                                     @csrf
                                     <div class="form-row mt-3">
                                         <div class="form-group">
-                                            <label class="label" for="firstName">First Name <span>*</span></label>
+                                            <label class="label" for="firstName">First Name:<span class="star-color">*</span></label>
                                             <input type="text" id="firstName" name="first_name" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="middleName">Last Name</label>
+                                            <label class="label" for="middleName">Last Name:<span class="star-color">*</span></label>
                                             <input type="text" name="last_name" id="last_name">
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="email">Email <span>*</span></label>
+                                            <label class="label" for="email">Email <span class="star-color">*</span></label>
                                             <input type="email" name="email" id="email" required>
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="email">Nationality <span>*</span></label>
+                                            <label class="label" for="email">Nationality:<span class="star-color">*</span></label>
                                             <input type="text" name="nationality" id="nationality" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="phone_no">Preferred Contact Number <span>*</span></label>
+                                            <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
                                             <input type="text" name="phone_no" id="phone_no" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="phone_no">Date Of Birth <span>*</span></label>
+                                            <label class="label" for="phone_no">Date Of Birth:<span class="star-color">*</span></label>
                                             <input type="date" name="date_of_birth" id="date_of_birth" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="passport">Passport</label>
+                                            <label class="label" for="passport">Passport:</label>
                                             <input type="text" name="passport" id="text" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="passport">Course</label>
+                                            <label class="label" for="passport">Course:<span class="star-color">*</span></label>
                                             <select name="course_id" class="js-select2" multiple="multiple">
                                                 @foreach ($courses as $item)
                                                 <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
@@ -75,7 +78,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="label">Gender <span>*</span></label>
+                                            <label class="label">Gender:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
                                                 <input type="radio" id="male" name="gender" value="1" required>
                                                 <label class="label" for="male">Male</label>
@@ -86,11 +89,11 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="cas">Previous CAS</label>
+                                            <label class="label" for="cas">Previous CAS:</label>
                                             <input type="text" name="previous_cas" id="text" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="passport">Dependants<span>*</span></label>
+                                            <label class="label" for="passport">Dependants:<span class="star-color">*</span></label>
                                             <select name="dependant_id">
                                                 <option disabled selected>--Select One--</option>
                                                 @foreach ($dependants as $item)
@@ -99,7 +102,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label">Intake <span>*</span></label>
+                                            <label class="label">Intake:<span class="star-color">*</span></label>
                                             <select name="intake">
                                                 <option disabled selected>--Select One--</option>
                                                 <option value="January">January</option>

@@ -773,5 +773,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
   }
   .card {
     margin: 0px !important;
-
+  }
+  .star-color{
+    color: red;
   }
