@@ -15,8 +15,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
+            $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->string('nationality')->unique();
 			$table->string('phone_no')->nullable();
@@ -28,14 +27,18 @@ class CreateStudentsTable extends Migration
 			$table->text('travel_history')->nullable();
 			$table->text('work_experience')->nullable();
 			$table->string('academic_document')->nullable();
-			$table->string('lang_document')->nullable();
-			$table->string('ukvi_document')->nullable();
-			$table->string('application_form')->nullable();
-			$table->string('outstanding_document')->nullable();
-			$table->string('previous_cas')->nullable();
-			$table->bigInteger('dependant_id')->nullable();
 			$table->string('intake')->nullable();
+			$table->string('previous_cas')->nullable();
+            $table->bigInteger('dependant_no')->nullable();
 			$table->text('notes')->nullable();
+			$table->string('passport_doc')->nullable();
+			$table->string('brp_doc')->nullable();
+			$table->string('financial_statement_doc')->nullable();
+			$table->string('qualification_doc')->nullable();
+			$table->string('lang_doc')->nullable();
+			$table->string('miscellaneous_doc')->nullable();
+			$table->string('tb_certificate_doc')->nullable();
+			$table->string('previous_cas_doc')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
         });

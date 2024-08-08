@@ -14,7 +14,7 @@
                         <div class="row justify-content-center" matchHeight="card">
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <div class="card statsTour">
-                                    <div class="card-header text-center demo-title">
+                                    <div class=" dashboard text-center demo-title">
                                         <h1>Few Stats</h1>
                                     </div>
                                     <div class="card-body ">
@@ -41,7 +41,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                 <div class="card emailTour">
-                                    <div class="card-header text-center">
+                                    <div class=" dashboard text-center">
                                         <h1>Emails</h1>
                                     </div>
                                     <div class="card-body tour-middle-content">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 align-self-center">
                                 <div class="card userTour">
-                                    <div class="card-header text-center">
+                                    <div class="dashboard text-center">
                                         <h1>Users</h1>
                                     </div>
                                     <div class="card-body tour-scroll">

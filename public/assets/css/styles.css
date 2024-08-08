@@ -421,12 +421,12 @@ input[type="radio"] {
 
 @media (max-width: 768px) {
     .custom-file-upload {
-        width: 31%;
+        width: 90%;
     }
 }
 
 .custom-file-upload:hover {
-    background-color: #f00;
+    background-color: #38a2bf;
     color: #fff;
 }
 
@@ -777,3 +777,31 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
   .star-color{
     color: red;
   }
+  .card .dashboard {
+     background: #939393;
+     padding: 0.9375rem 1.25rem;
+    border-radius: 5px 5px 0 0;
+    border-bottom: inherit;
+}
+.file_style {
+    display: none !important;
+}
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: .550rem;
+    cursor: pointer;
+    color: #f1e5e6 !important;
+    border-radius: 5px;
+    background-color: #0cc5f7;
+    vertical-align: bottom;
+    text-transform: capitalize;
+    letter-spacing: normal;
+}
+.custom-file-upload i {
+    margin-right: 8px;
+}
+
+.file-docs{
+    vertical-align: middle; margin-top: 0; font-size:larger;
+}

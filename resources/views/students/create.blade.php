@@ -36,47 +36,35 @@
                                     @csrf
                                     <div class="form-row mt-3">
                                         <div class="form-group">
-                                            <label class="label" for="firstName">First Name:<span class="star-color">*</span></label>
-                                            <input type="text" id="firstName" name="first_name" required>
+                                            <label class="label" for="firstName">Student Name<span class="star-color">*</span></label>
+                                            <input type="text" id="firstName" class="form-control" name="first_name" required>
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="middleName">Last Name:<span class="star-color">*</span></label>
-                                            <input type="text" name="last_name" id="last_name">
+                                            <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
+                                            <input type="email" name="email" class="form-control" id="email" required>
                                         </div>
+
                                         <div class="form-group">
-                                            <label class="label" for="email">Email <span class="star-color">*</span></label>
-                                            <input type="email" name="email" id="email" required>
+                                            <label class="label" for="middleName">Home Address:<span class="star-color">*</span></label>
+                                            <input type="text" name="address" class="form-control" id="address">
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="email">Nationality:<span class="star-color">*</span></label>
-                                            <input type="text" name="nationality" id="nationality" required>
+                                            <input type="text" name="nationality" class="form-control" id="nationality" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
-                                            <input type="text" name="phone_no" id="phone_no" required>
+                                            <input type="text" name="phone_no" class="form-control" id="phone_no" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="phone_no">Date Of Birth:<span class="star-color">*</span></label>
-                                            <input type="date" name="date_of_birth" id="date_of_birth" required>
+                                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required>
                                         </div>
                                     </div>
                                     <div class="form-row">
-                                        <div class="form-group">
-                                            <label class="label" for="passport">Passport:</label>
-                                            <input type="text" name="passport" id="text" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label" for="passport">Course:<span class="star-color">*</span></label>
-                                            <select name="course_id" class="js-select2" multiple="multiple">
-                                                @foreach ($courses as $item)
-                                                <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
                                         <div class="form-group">
                                             <label class="label">Gender:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
@@ -86,18 +74,11 @@
                                                 <label class="label" for="female">Female</label>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="cas">Previous CAS:</label>
-                                            <input type="text" name="previous_cas" id="text" required>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label" for="passport">Dependants:<span class="star-color">*</span></label>
-                                            <select name="dependant_id">
-                                                <option disabled selected>--Select One--</option>
-                                                @foreach ($dependants as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                            <label class="label" for="passport">Course Applied For:<span class="star-color">*</span></label>
+                                            <select name="course_id[]" id="course-select" class="js-select2 form-control" multiple="multiple">
+                                                @foreach ($courses as $item)
+                                                <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -120,24 +101,20 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="my-2">
-                                        <h4 class="address">
-                                            Address
-                                        </h4>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="label" for="passport">Passport Number:</label>
+                                            <input type="text" class="form-control" name="passport" id="text" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="cas">Previous CAS:</label>
+                                            <input type="text" class="form-control" name="previous_cas" id="text" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                        </div>
                                     </div>
 
-                                    <div class="form-row">
-                                        <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    </div>
-
-                                    <div class="my-2">
-                                        <h4 class="address">
-                                            Work Experience
-                                        </h4>
-                                    </div>
-                                    <div class="form-row">
-                                        <textarea class="form-control" name="work_experience" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    </div>
                                     <div class="my-2">
                                         <h4 class="address">
                                             Academic History
@@ -146,6 +123,14 @@
 
                                     <div class="form-row">
                                         <textarea class="form-control" name="academic_history" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    </div>
+                                    <div class="my-2">
+                                        <h4 class="address">
+                                            Work Experience
+                                        </h4>
+                                    </div>
+                                    <div class="form-row">
+                                        <textarea class="form-control" name="work_experience" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
                                     <div class="my-2">
                                         <h4 class="address">
@@ -167,6 +152,120 @@
                                         <textarea class="form-control" name="notes" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
 
+                                    <div class="form-row hide-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="label">Travelling Alone:<span class="star-color">*</span></label>
+                                            <div class="radio-btn">
+                                                <input type="radio" id="traveling-yes" name="traveling" value="travelingYes" required>
+                                                <label for="traveling-yes">Yes</label>
+                                                <input type="radio" id="traveling-no" name="traveling" value="travelingNo">
+                                                <label for="traveling-no">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row hide-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="label">How Many Dependents:<span class="star-color">*</span></label>
+                                            <input type="number" class="form-control" name="previous_cas" id="dependants-number" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row hide-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="label" for="passport">Dependents:<span class="star-color">*</span></label>
+                                            <select name="dependant_id[]" class="js-select2" class="form-control" multiple="multiple" id="dependants-select">
+                                                @foreach ($dependants as $item)
+                                                <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Upload documents -->
+                                    <div class="container-fluid mt-3">
+                                        <div class="panel">
+                                            <strong class="sub-title">Documents to be submitted as part of the visa application: </strong>
+                                            <div class="collapse-div mb-3">
+                                                <div class="row extra-padding">
+
+                                                    <div class="col-md-12 mt-1">
+                                                        <label for="file1" class="pe-1 file-docs label">Passport:</label>
+                                                        <input type="file" id="file1" accept="application/pdf" class="file file_style form-control" onchange="displayFileName(this)" data-file-name="file-name1">
+                                                        <label for="file1" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name1" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <label for="file2" class="pe-1 file-docs label">BRP:</label>
+                                                        <input type="file" id="file2" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name2">
+                                                        <label for="file2" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name2" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <label for="file3" class="pe-1 file-docs label">Financial Statement(How Many):</label>
+                                                        <input type="file" id="file3" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name3">
+                                                        <label for="file3" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name3" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <label for="file4" class="pe-1 file-docs label">Qualifications:</label>
+                                                        <input type="file" id="file4" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name4">
+                                                        <label for="file4" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name4" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <label for="file5" class="pe-1 file-docs label">English Language Certificates:</label>
+                                                        <input type="file" id="file5" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name5">
+                                                        <label for="file5" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name5" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <label for="file6" class="pe-1 file-docs label">Miscellaneous Docs:</label>
+                                                        <input type="file" id="file6" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name6">
+                                                        <label for="file6" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name6" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <label for="file7" class="pe-1 file-docs label">TB Certificate:</label>
+                                                        <input type="file" id="file7" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name7">
+                                                        <label for="file7" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name7" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                    <div class="col-md-12 mt-3">
+                                                        <label for="file8" class="pe-1 file-docs label">Previous CAS(If Applicable):</label>
+                                                        <input type="file" id="file8" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name8">
+                                                        <label for="file8" class="custom-file-upload">
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                        </label>
+                                                        <span id="file-name8" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-buttons my-4">
                                         <button type="submit" class="btn filter-btn">Submit</button>
                                     </div>
@@ -178,9 +277,7 @@
             </div>
         </div>
     </div>
-    <!-- <hr class="line-bottom"> -->
     <div class="footer">
-
     </div>
 </section>
 
@@ -193,30 +290,79 @@
                 $('nav ul').slideToggle();
             });
 
-
-            // Hamburger toggle
             $('#navbar-toggle').on('click', function() {
                 this.classList.toggle('active');
             });
 
-
-            // If a link has a dropdown, add sub menu toggle.
             $('nav ul li a:not(:only-child)').click(function(e) {
                 $(this).siblings('.navbar-dropdown').slideToggle("slow");
 
-                // Close dropdown when select another dropdown
                 $('.navbar-dropdown').not($(this).siblings()).hide("slow");
                 e.stopPropagation();
             });
 
-
-            // Click outside the dropdown will remove the dropdown class
             $('html').click(function() {
                 $('.navbar-dropdown').hide();
             });
         });
     })(jQuery);
 </script>
+
+<script>
+    function displayFileName(input) {
+        const fileNameId = input.getAttribute('data-file-name');
+        const fileNameSpan = document.getElementById(fileNameId);
+
+        if (input.files && input.files.length > 0) {
+            fileNameSpan.textContent = input.files[0].name;
+        } else {
+            fileNameSpan.textContent = '';
+        }
+    }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#course-select').on('change', function() {
+            const selectedOptions = $(this).find(':selected');
+            const selectedValues = selectedOptions.map(function() {
+                return $(this).text();
+            }).get();
+
+            const containsGraduation = selectedValues.some(value => value.toLowerCase().includes('graduation'));
+            if (containsGraduation) {
+                $('.hide-row').hide();
+            } else {
+                $('.hide-row').show();
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Function to enable or disable fields based on radio button selection
+        function toggleFields(enable) {
+            if (enable) {
+                $('#dependants-number').prop('disabled', false).removeClass('disabled-field');
+                $('#dependants-select').prop('disabled', false).removeClass('disabled-field');
+            } else {
+                $('#dependants-number').prop('disabled', true).addClass('disabled-field');
+                $('#dependants-select').prop('disabled', true).addClass('disabled-field');
+            }
+        }
+
+        toggleFields(false);
+        $('input[name="traveling"]').change(function() {
+            if ($(this).val() === 'travelingYes') {
+                toggleFields(true);
+            } else {
+                toggleFields(false);
+            }
+        });
+    });
+</script>
+
 
 @push('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>

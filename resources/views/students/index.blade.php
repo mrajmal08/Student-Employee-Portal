@@ -39,15 +39,15 @@
                             <div class="collapse-div mb-3">
                                 <div class="row extra-padding">
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Name</label>
+                                        <label class="label">Student Name</label>
                                         <input type="text" name="name" class="form-control" placeholder="">
                                     </div>
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Email</label>
+                                        <label class="label">Student Email Address</label>
                                         <input type="text" name="email" class="form-control" placeholder="">
                                     </div>
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Phone Number</label>
+                                        <label class="label">Preferred Contact Details</label>
                                         <input type="text" name="phone_no" class="form-control" placeholder="">
                                     </div>
                                     <div class="col-md-3 col-sm-6 filter-item">
@@ -64,7 +64,7 @@
                             <div id="collapsible-filters" class="hidden">
                                 <div class="row">
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Passport</label>
+                                        <label class="label">Passport Number</label>
                                         <input type="text" class="form-control" placeholder="">
                                     </div>
                                 </div>
@@ -81,17 +81,19 @@
                     <table id="example" class="table table-bordered">
                         <thead class="text-center">
                             <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone No</th>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Student Email Address</th>
+                                <th>Preferred Contact Details</th>
                                 <th>Nationality</th>
-                                <th>Passport</th>
+                                <th>Passport Number</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
                             @foreach ($students as $item)
                             <tr>
+                                <td>{{ $item->id }}</td>
                                 <td>{{ $item->first_name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->phone_no }}</td>
