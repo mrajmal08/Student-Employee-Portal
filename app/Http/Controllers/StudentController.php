@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Flasher\Prime\FlasherInterface;
+use App\Models\StudentDependant;
 use App\Models\StudentCourse;
 use Illuminate\Http\Request;
 use App\Models\Dependant;
 use App\Models\Student;
 use App\Models\Course;
+use Carbon\Carbon;
 use Validator;
 use Redirect;
 
@@ -66,8 +68,7 @@ class StudentController extends Controller
     public function insert(Request $request, FlasherInterface $flasher)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|unique:students,email',
             'nationality' => 'required|max:255',
             'phone_no' => 'required',
@@ -89,8 +90,7 @@ class StudentController extends Controller
         }
 
         try {
-            $data['first_name'] = $request->first_name;
-            $data['last_name'] = $request->last_name;
+            $data['name'] = $request->name;
             $data['email'] = $request->email;
             $data['phone_no'] = $request->phone_no;
             $data['date_of_birth'] = $request->date_of_birth;
@@ -98,25 +98,47 @@ class StudentController extends Controller
             $data['passport'] = $request->passport;
             $data['nationality'] = $request->nationality;
             $data['address'] = $request->address;
-            $data['work_experience'] = $request->work_experience;
             $data['academic_history'] = $request->work_experience;
             $data['travel_history'] = $request->travel_history;
-            $data['previous_cas'] = $request->previous_cas;
-            $data['dependant_id'] = $request->dependant_id;
+            $data['work_experience'] = $request->work_experience;
             $data['intake'] = $request->intake;
             $data['notes'] = $request->notes;
+            $data['dependant_no'] = $request->dependant_no;
+            $data['previous_cas'] = $request->previous_cas;
+
+
+            $timestamp = Carbon::now()->timestamp;
+            $documents = ['passport_doc', 'brp_doc', 'financial_statement_doc', 'qualification_doc', 'lang_doc', 'miscellaneous_doc', 'tb_certificate_doc', 'previous_cas_doc'];
+
+            foreach ($documents as $doc) {
+                if ($request->hasFile($doc)) {
+                    $filename = rand(99999, 234567) . $timestamp . '.' . $request->$doc->extension();
+                    $request->$doc->move(public_path('assets/studentFiles'), $filename);
+                    $data[$doc] = $filename;
+                }
+            }
 
             $students = Student::create($data);
+            if ($students) {
+                $studentId = $students->id;
+                $courseIds = $request->course_id ?? [];
+                foreach ($courseIds as $courseId) {
+                    StudentCourse::create([
+                        'student_id' => $studentId,
+                        'course_id' => $courseId
+                    ]);
+                }
 
-            if($students){
-                StudentCourse::create([
-                    'student_id' => $students->id,
-                    'course_id' => $request->course_id
-                ]);
+                $dependantIds = $request->dependant_id ?? [];
+                foreach ($dependantIds as $dependantId) {
+                    StudentDependant::create([
+                        'student_id' => $studentId,
+                        'dependant_id' => $dependantId
+                    ]);
+                }
             }
 
             $flasher->option('position', 'top-center')->addSuccess('Student added Successfully');
-
             return redirect()->route('students.index')->with('message', 'Student added Successfully');
         } catch (\Exception $e) {
             $flasher->option('position', 'top-center')->addError('Something went wrong');

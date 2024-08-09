@@ -94,7 +94,7 @@
                             @foreach ($students as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->first_name }}</td>
+                                <td>{{ $item->name }}</td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->phone_no }}</td>
                                 <td>{{ $item->nationality }}</td>

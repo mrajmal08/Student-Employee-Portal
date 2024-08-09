@@ -32,12 +32,12 @@
                                 <div class="my-3">
                                     <span class="star-color">*</span><span class="label"> <i>Indicates required field</i></span>
                                 </div>
-                                <form method="POST" action="{{ route('students.insert') }}">
+                                <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-row mt-3">
                                         <div class="form-group">
                                             <label class="label" for="firstName">Student Name<span class="star-color">*</span></label>
-                                            <input type="text" id="firstName" class="form-control" name="first_name" required>
+                                            <input type="text" id="firstName" class="form-control" name="name" required>
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
@@ -110,7 +110,6 @@
                                             <label class="label" for="cas">Previous CAS:</label>
                                             <input type="text" class="form-control" name="previous_cas" id="text" required>
                                         </div>
-
                                         <div class="form-group">
                                         </div>
                                     </div>
@@ -154,7 +153,7 @@
 
                                     <div class="form-row hide-row">
                                         <div class="form-group col-md-4">
-                                            <label class="label">Travelling Alone:<span class="star-color">*</span></label>
+                                            <label class="label">Traveling Alone:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
                                                 <input type="radio" id="traveling-yes" name="traveling" value="travelingYes" required>
                                                 <label for="traveling-yes">Yes</label>
@@ -167,7 +166,7 @@
                                     <div class="form-row hide-row">
                                         <div class="form-group col-md-4">
                                             <label class="label">How Many Dependents:<span class="star-color">*</span></label>
-                                            <input type="number" class="form-control" name="previous_cas" id="dependants-number" required>
+                                            <input type="number" class="form-control" name="dependant_no" id="dependants-number" required>
                                         </div>
                                     </div>
 
@@ -191,7 +190,7 @@
 
                                                     <div class="col-md-12 mt-1">
                                                         <label for="file1" class="pe-1 file-docs label">Passport:</label>
-                                                        <input type="file" id="file1" accept="application/pdf" class="file file_style form-control" onchange="displayFileName(this)" data-file-name="file-name1">
+                                                        <input type="file" id="file1" name="passport_doc" accept="application/pdf" class="file file_style form-control" onchange="displayFileName(this)" data-file-name="file-name1">
                                                         <label for="file1" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
@@ -200,7 +199,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file2" class="pe-1 file-docs label">BRP:</label>
-                                                        <input type="file" id="file2" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name2">
+                                                        <input type="file" id="file2" name="brp_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name2">
                                                         <label for="file2" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
@@ -209,7 +208,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file3" class="pe-1 file-docs label">Financial Statement(How Many):</label>
-                                                        <input type="file" id="file3" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name3">
+                                                        <input type="file" id="file3" name="financial_statement_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name3">
                                                         <label for="file3" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
@@ -218,7 +217,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file4" class="pe-1 file-docs label">Qualifications:</label>
-                                                        <input type="file" id="file4" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name4">
+                                                        <input type="file" id="file4" name="qualification_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name4">
                                                         <label for="file4" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
@@ -227,7 +226,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file5" class="pe-1 file-docs label">English Language Certificates:</label>
-                                                        <input type="file" id="file5" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name5">
+                                                        <input type="file" id="file5" name="lang_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name5">
                                                         <label for="file5" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
@@ -236,7 +235,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file6" class="pe-1 file-docs label">Miscellaneous Docs:</label>
-                                                        <input type="file" id="file6" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name6">
+                                                        <input type="file" id="file6" name="miscellaneous_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name6">
                                                         <label for="file6" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
@@ -245,7 +244,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file7" class="pe-1 file-docs label">TB Certificate:</label>
-                                                        <input type="file" id="file7" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name7">
+                                                        <input type="file" id="file7" name="tb_certificate_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name7">
                                                         <label for="file7" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
@@ -254,7 +253,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file8" class="pe-1 file-docs label">Previous CAS(If Applicable):</label>
-                                                        <input type="file" id="file8" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name8">
+                                                        <input type="file" id="file8" name="previous_cas_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name8">
                                                         <label for="file8" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>

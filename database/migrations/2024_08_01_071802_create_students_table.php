@@ -26,11 +26,12 @@ class CreateStudentsTable extends Migration
 			$table->text('academic_history')->nullable();
 			$table->text('travel_history')->nullable();
 			$table->text('work_experience')->nullable();
-			$table->string('academic_document')->nullable();
 			$table->string('intake')->nullable();
-			$table->string('previous_cas')->nullable();
-            $table->bigInteger('dependant_no')->nullable();
 			$table->text('notes')->nullable();
+            $table->bigInteger('dependant_no')->nullable();
+			$table->string('previous_cas')->nullable();
+
+			$table->string('academic_document')->nullable();
 			$table->string('passport_doc')->nullable();
 			$table->string('brp_doc')->nullable();
 			$table->string('financial_statement_doc')->nullable();

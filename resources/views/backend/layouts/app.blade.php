@@ -59,18 +59,26 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#!">Recruitment Agent</a>
+                        <a href="#!">Pre CAS Application</a>
                         <ul class="navbar-dropdown">
                             <li>
-                                <a href="{{ route('recruitments.index') }}">Agent List</a>
+                                <a href="#!">Application List</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#!">Pre Application</a>
+                        <a href="#!">Post CAS Application</a>
                         <ul class="navbar-dropdown">
                             <li>
                                 <a href="#!">Application List</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#!">Recruitment Agent</a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="{{ route('recruitments.index') }}">Agent List</a>
                             </li>
                         </ul>
                     </li>
