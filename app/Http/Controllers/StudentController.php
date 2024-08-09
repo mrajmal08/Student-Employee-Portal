@@ -61,7 +61,8 @@ class StudentController extends Controller
         return view('students.create', compact('dependants', 'courses'));
     }
 
-    public function view(){
+    public function view()
+    {
         return view('students.view');
     }
 
@@ -76,6 +77,14 @@ class StudentController extends Controller
             'gender' => 'required|in:1,2',
             'address' => 'required',
             'course_id' => 'required',
+            'passport_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
+            'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
+            'financial_statement_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
+            'qualification_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
+            'lang_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
+            'miscellaneous_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
+            'tb_certificate_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
+            'previous_cas_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -88,6 +97,7 @@ class StudentController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         }
+
 
         try {
             $data['name'] = $request->name;
@@ -112,9 +122,16 @@ class StudentController extends Controller
 
             foreach ($documents as $doc) {
                 if ($request->hasFile($doc)) {
-                    $filename = rand(99999, 234567) . $timestamp . '.' . $request->$doc->extension();
-                    $request->$doc->move(public_path('assets/studentFiles'), $filename);
-                    $data[$doc] = $filename;
+                    $filenames = [];
+                    foreach ($request->file($doc) as $file) {
+                        $extension = $file->getClientOriginalExtension();
+                        $filename = rand(99999, 234567) . $timestamp . '.' . $extension;
+                        $file->move(public_path('assets/studentFiles'), $filename);
+
+                        $filenames[] = $filename;
+                    }
+
+                    $data[$doc] = implode(',', $filenames);
                 }
             }
 

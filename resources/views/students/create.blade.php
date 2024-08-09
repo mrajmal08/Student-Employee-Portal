@@ -52,7 +52,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="email">Nationality:<span class="star-color">*</span></label>
+                                            <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
                                             <input type="text" name="nationality" class="form-control" id="nationality" required>
                                         </div>
                                         <div class="form-group">
@@ -166,7 +166,7 @@
                                     <div class="form-row hide-row">
                                         <div class="form-group col-md-4">
                                             <label class="label">How Many Dependents:<span class="star-color">*</span></label>
-                                            <input type="number" class="form-control" name="dependant_no" id="dependants-number" required>
+                                            <input type="number" class="form-control" name="dependant_no" id="dependants-number">
                                         </div>
                                     </div>
 
@@ -190,74 +190,83 @@
 
                                                     <div class="col-md-12 mt-1">
                                                         <label for="file1" class="pe-1 file-docs label">Passport:</label>
-                                                        <input type="file" id="file1" name="passport_doc" accept="application/pdf" class="file file_style form-control" onchange="displayFileName(this)" data-file-name="file-name1">
+                                                        <input type="file" id="file1" name="passport_doc[]" accept="application/pdf" class="file file_style form-control"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name1" multiple>
                                                         <label for="file1" class="custom-file-upload">
-                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload Files
                                                         </label>
-                                                        <span id="file-name1" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name1" class="ms-2 label file-names-display" style="word-break: break-all;">No Files Chosen.</span>
                                                     </div>
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file2" class="pe-1 file-docs label">BRP:</label>
-                                                        <input type="file" id="file2" name="brp_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name2">
+                                                        <input type="file" id="file2" name="brp_doc[]" accept="application/pdf" class="file file_style form-control"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name2" multiple>
                                                         <label for="file2" class="custom-file-upload">
-                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
+                                                            <i aria-hidden="true" class="fa fa-upload"></i> Upload Files
                                                         </label>
-                                                        <span id="file-name2" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name2" class="ms-2 label file-names-display" style="word-break: break-all;">No Files Chosen.</span>
                                                     </div>
+
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file3" class="pe-1 file-docs label">Financial Statement(How Many):</label>
-                                                        <input type="file" id="file3" name="financial_statement_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name3">
+                                                        <input type="file" id="file3" name="financial_statement_doc[]" accept="application/pdf" class="file file_style form-control"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name3" multiple>
                                                         <label for="file3" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
-                                                        <span id="file-name3" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name3" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
                                                     </div>
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file4" class="pe-1 file-docs label">Qualifications:</label>
-                                                        <input type="file" id="file4" name="qualification_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name4">
+                                                        <input type="file" id="file4" name="qualification_doc[]" accept="application/pdf" class="file file_style"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name4" multiple>
                                                         <label for="file4" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
-                                                        <span id="file-name4" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name4" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
                                                     </div>
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file5" class="pe-1 file-docs label">English Language Certificates:</label>
-                                                        <input type="file" id="file5" name="lang_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name5">
+                                                        <input type="file" id="file5" name="lang_doc[]" accept="application/pdf" class="file file_style"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name5" multiple>
                                                         <label for="file5" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
-                                                        <span id="file-name5" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name5" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
                                                     </div>
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file6" class="pe-1 file-docs label">Miscellaneous Docs:</label>
-                                                        <input type="file" id="file6" name="miscellaneous_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name6">
+                                                        <input type="file" id="file6" name="miscellaneous_doc[]" accept="application/pdf" class="file file_style"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name6" multiple>
                                                         <label for="file6" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
-                                                        <span id="file-name6" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name6" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
                                                     </div>
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file7" class="pe-1 file-docs label">TB Certificate:</label>
-                                                        <input type="file" id="file7" name="tb_certificate_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name7">
+                                                        <input type="file" id="file7" name="tb_certificate_doc[]" accept="application/pdf" class="file file_style"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name7" multiple>
                                                         <label for="file7" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
-                                                        <span id="file-name7" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name7" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
                                                     </div>
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file8" class="pe-1 file-docs label">Previous CAS(If Applicable):</label>
-                                                        <input type="file" id="file8" name="previous_cas_doc" accept="application/pdf" class="file file_style" onchange="displayFileName(this)" data-file-name="file-name8">
+                                                        <input type="file" id="file8" name="previous_cas_doc[]" accept="application/pdf" class="file file_style"
+                                                            onchange="displayFileNames(this)" data-file-name="file-name8" multiple>
                                                         <label for="file8" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
                                                         </label>
-                                                        <span id="file-name8" class="ms-2 label" style="word-break: break-all;">No File Chosen.</span>
+                                                        <span id="file-name8" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
                                                     </div>
 
                                                 </div>
@@ -279,6 +288,19 @@
     <div class="footer">
     </div>
 </section>
+
+<script>
+    function displayFileNames(input) {
+        const fileNameId = input.getAttribute('data-file-name');
+        const fileNameSpan = document.getElementById(fileNameId);
+        if (input.files && input.files.length > 0) {
+            const fileNames = Array.from(input.files).map(file => file.name).join(' || ');
+            fileNameSpan.textContent = fileNames;
+        } else {
+            fileNameSpan.textContent = 'No Files Chosen.';
+        }
+    }
+</script>
 
 <script>
     (function($) {
@@ -305,19 +327,6 @@
             });
         });
     })(jQuery);
-</script>
-
-<script>
-    function displayFileName(input) {
-        const fileNameId = input.getAttribute('data-file-name');
-        const fileNameSpan = document.getElementById(fileNameId);
-
-        if (input.files && input.files.length > 0) {
-            fileNameSpan.textContent = input.files[0].name;
-        } else {
-            fileNameSpan.textContent = '';
-        }
-    }
 </script>
 
 <script>
