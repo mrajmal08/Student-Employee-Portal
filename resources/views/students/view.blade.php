@@ -17,48 +17,48 @@
                             <li class="breadcrumb-item">
                                 <a role="button">View</a>
                             <li class="breadcrumb-item">
-                                <span>123</span>
+                                <span>{{ $student->id }}</span>
                             </li>
                         </ul>
                     </breadcrumb>
                 </div>
                 <div class="my-3 ms-3 ">
-                    <h4 class="student-detail">Student Name (23 year | 08/26/2000 | Male)</h4>
+                    <h4 class="student-detail">{{ $student->name }} ( {{ \Carbon\Carbon::parse($student->date_of_birth)->age  }} years | {{ $student->date_of_birth }} | {{ $student->gender == 1 ? 'Male' : 'Female' }} )</h4>
                 </div>
                 <div class="container-fluid datatable">
                     <table class="table table-borderless table-striped">
                         <tbody>
                             <tr>
                                 <th scope="row">Email:</th>
-                                <td>mark@gmail.com</td>
+                                <td>{{ $student->email }}</td>
                                 <th>Nationality:</th>
-                                <td>Pakistan</td>
+                                <td>{{ $student->nationality }}</td>
                                 <th>Preferred Contact Number:</th>
-                                <td>92304957473</td>
+                                <td>{{ $student->phone_no }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Passport:</th>
-                                <td>Pakistan</td>
+                                <td>{{ $student->passport }}</td>
                                 <th>Course:</th>
-                                <td>English, Math</td>
+                                <td>{{ $student->courses->pluck('name')->implode(', ') }}</td>
                                 <th>Previous CAS:</th>
-                                <td>test</td>
+                                <td>{{ $student->previous_cas }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Dependant:</th>
-                                <td>Larry</td>
+                                <td>{{ $student->dependants->pluck('name')->implode(', ') }}</td>
                                 <th>Intake:</th>
-                                <td>January</td>
+                                <td>{{ $student->intake }}</td>
                                 <th>Address:</th>
-                                <td>lahore airport road, deline garden</td>
+                                <td>{{ $student->address }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Work Experience:</th>
-                                <td>Software Egnineer 4 year experience</td>
+                                <td>{{ $student->work_experience }}</td>
                                 <th>Academic History:</th>
-                                <td>Graduation in Software Engineering</td>
+                                <td>{{ $student->academic_history }}</td>
                                 <th>Travel History:</th>
-                                <td>Dubai, Sri Lanka</td>
+                                <td>{{ $student->travel_history }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -71,27 +71,32 @@
                                 <table id="example" class="table table-bordered">
                                     <thead class="text-center">
                                         <tr>
-                                            <th>Work Doc</th>
-                                            <th>Travel Doc</th>
-                                            <th>Viki doc</th>
-                                            <th>Other Doc</th>
-                                            <th>Doc</th>
-                                            <th>Doc</th>
-                                            <th>Doc</th>
-                                            <th>Doc</th>
+                                            <th>Passport Documents</th>
+                                            <th>BRP Documents</th>
+                                            <th>Financial Statement Documents</th>
+                                            <th>Qualification Documents</th>
+                                            <th>English Language Certificates</th>
+                                            <th>Miscellaneous Documents</th>
+                                            <th>TB Certificate</th>
+                                            <th>Previous CAS Documents</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-center">
                                         <tr>
-                                            <td>view</i></td>
-                                            <td>view</i></td>
-                                            <td>view</i></td>
-                                            <td>view</i></td>
-                                            <td>view</i></td>
-                                            <td>view</i></td>
-                                            <td>view</i></td>
-                                            <td>view</i></td>
-
+                                            @foreach ([
+                                            'passport_doc' => 'Passport',
+                                            'brp_doc' => 'BRP',
+                                            'financial_statement_doc' => 'Financial Statement',
+                                            'qualification_doc' => 'Qualification',
+                                            'lang_doc' => 'Language',
+                                            'miscellaneous_doc' => 'Miscellaneous',
+                                            'tb_certificate_doc' => 'TB Certificate',
+                                            'previous_cas_doc' => 'Previous CAS'
+                                            ] as $docType => $docTitle)
+                                            <td>
+                                                <a data-bs-toggle="modal" data-bs-target="#{{ $docType }}">view</a>
+                                            </td>
+                                            @endforeach
                                         </tr>
                                     </tbody>
                                 </table>
@@ -102,6 +107,40 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    @foreach ([
+    'passport_doc' => 'Passport Documents',
+    'brp_doc' => 'BRP Documents',
+    'financial_statement_doc' => 'Financial Statement Documents',
+    'qualification_doc' => 'Qualification Documents',
+    'lang_doc' => 'Language Documents',
+    'miscellaneous_doc' => 'Miscellaneous Documents',
+    'tb_certificate_doc' => 'TB Certificate Documents',
+    'previous_cas_doc' => 'Previous CAS Documents'
+    ] as $docType => $docTitle)
+    <div class="modal fade" id="{{ $docType }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $docType }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel{{ $docType }}">{{ $docTitle }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        @foreach(explode(',', $student->$docType) as $document)
+                        <li>{{ $document }} <a href="{{ asset('assets/studentFiles/' . $document) }}" target="_blank">view</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+
     <!-- <hr class="line-bottom"> -->
     <div class="footer">
 
@@ -109,14 +148,14 @@
 </section>
 
 <div class="card border-0">
-  <div class="card-header">
+    <div class="card-header">
 
-  </div>
-  <div class="card-body">
-    <h5 class="card-title"></h5>
-    <p class="card-text"></p>
-    <a href="#" class=""></a>
-  </div>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title"></h5>
+        <p class="card-text"></p>
+        <a href="#" class=""></a>
+    </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">
@@ -175,16 +214,9 @@
         });
     })(jQuery);
 </script>
-<script>
-    $(document).ready(function() {
-        $('#example').DataTable({
-            searching: false "paging": false
-
-        });
-    });
-</script>
 
 @push('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 @endpush

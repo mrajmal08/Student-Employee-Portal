@@ -11,4 +11,14 @@ class Student extends Model
     use HasFactory, SoftDeletes;
     protected $table = "students";
     protected $guarded = [];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'student_courses', 'student_id', 'course_id');
+    }
+
+    public function dependants()
+    {
+        return $this->belongsToMany(Dependant::class, 'student_dependants', 'student_id', 'dependant_id');
+    }
 }

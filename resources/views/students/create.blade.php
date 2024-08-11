@@ -165,7 +165,7 @@
 
                                     <div class="form-row hide-row">
                                         <div class="form-group col-md-4">
-                                            <label class="label">How Many Dependents:<span class="star-color">*</span></label>
+                                            <label class="label">How Many Dependents:</span></label>
                                             <input type="number" class="form-control" name="dependant_no" id="dependants-number">
                                         </div>
                                     </div>
