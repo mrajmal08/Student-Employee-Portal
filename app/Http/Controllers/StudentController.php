@@ -30,7 +30,7 @@ class StudentController extends Controller
         $studentsQuery = Student::orderBy('id', 'DESC');
 
         $filters = [
-            'email' => 'name',
+            'name' => 'name',
             'email' => 'email',
             'phone_no' => 'phone_no',
             'nationality' => 'nationality'
@@ -221,19 +221,19 @@ class StudentController extends Controller
         $validatedData = [];
         foreach ($documentFields as $field) {
             if ($request->hasFile($field)) {
-                $existingFiles = explode(',', $student->$field);
+                // $existingFiles = explode(',', $student->$field);
 
-                try {
-                    foreach ($existingFiles as $file) {
-                        $filePath = public_path('assets/studentFiles/' . $file);
-                        if (file_exists($filePath)) {
-                            unlink($filePath);
-                        }
-                    }
-                } catch (\Exception $e) {
-                    $flasher->option('position', 'top-center')->addError('Failed to delete old files for');
-                    return redirect()->back()->with('error', 'Failed to delete old files for ' . $field);
-                }
+                // try {
+                //     foreach ($existingFiles as $file) {
+                //         $filePath = public_path('assets/studentFiles/' . $file);
+                //         if (file_exists($filePath)) {
+                //             unlink($filePath);
+                //         }
+                //     }
+                // } catch (\Exception $e) {
+                //     $flasher->option('position', 'top-center')->addError('Failed to delete old files for');
+                //     return redirect()->back()->with('error', 'Failed to delete old files for ' . $field);
+                // }
 
                 $newFilesArray = [];
                 foreach ($request->file($field) as $file) {

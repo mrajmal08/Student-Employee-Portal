@@ -53,3 +53,12 @@ Route::get('/recruitment/agent/edit/{id}', [App\Http\Controllers\RecruitmentAgen
 Route::get('/recruitment/agent/view', [App\Http\Controllers\RecruitmentAgentController::class, 'view'])->name('recruitments.view');
 Route::post('/recruitment/agent/update/{id}', [App\Http\Controllers\RecruitmentAgentController::class, 'update'])->name('recruitments.update');
 Route::get('/recruitment/agent/delete/{id}', [App\Http\Controllers\RecruitmentAgentController::class, 'delete'])->name('recruitments.delete');
+
+//Recruitment Agent routes
+Route::get('/pre/cas/application', [App\Http\Controllers\PreCasApplicationController::class, 'index'])->name('precas.index');
+Route::get('/pre/cas/application/create', [App\Http\Controllers\PreCasApplicationController::class, 'create'])->name('precas.create');
+Route::post('/pre/cas/application/insert', [App\Http\Controllers\PreCasApplicationController::class, 'insert'])->name('precas.insert');
+Route::get('/pre/cas/application/edit/{id}', [App\Http\Controllers\PreCasApplicationController::class, 'edit'])->name('precas.edit');
+Route::get('/pre/cas/application/view', [App\Http\Controllers\PreCasApplicationController::class, 'view'])->name('precas.view');
+Route::post('/pre/cas/application/update/{id}', [App\Http\Controllers\PreCasApplicationController::class, 'update'])->name('precas.update');
+Route::get('/pre/cas/application/delete/{id}', [App\Http\Controllers\PreCasApplicationController::class, 'delete'])->name('precas.delete');

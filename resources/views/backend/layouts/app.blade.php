@@ -62,7 +62,7 @@
                         <a href="#!">Pre CAS Application</a>
                         <ul class="navbar-dropdown">
                             <li>
-                                <a href="#!">Application List</a>
+                                <a href="{{ route('precas.index') }}">Application List</a>
                             </li>
                         </ul>
                     </li>

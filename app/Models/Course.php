@@ -16,4 +16,9 @@ class Course extends Model
     {
         return $this->belongsToMany(Student::class, 'student_courses', 'course_id', 'student_id');
     }
+
+    public function preCasApplications()
+    {
+        return $this->belongsToMany(PreCasApplication::class, 'pre_cas_application_courses', 'course_id', 'pre_cas_application_id');
+    }
 }

@@ -817,3 +817,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+    vertical-align: middle !important;
+}
