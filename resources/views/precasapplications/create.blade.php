@@ -49,9 +49,9 @@
                                         <div class="form-group col-md-4 me-2">
                                             <label class="label">Does the student require a Pre Cas compliance interview:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="yes" name="check" value="yes">
+                                                <input type="radio" id="yes" name="check" value="yes" onclick="toggleFields(true)">
                                                 <label class="label" for="yes">Yes</label>
-                                                <input type="radio" id="no" name="check" value="no">
+                                                <input type="radio" id="no" name="check" value="no" onclick="toggleFields(false)">
                                                 <label class="label" for="no">No</label>
                                             </div>
                                         </div>
@@ -77,16 +77,16 @@
                                         </h4>
                                     </div>
                                     <div class="form-row">
-                                        <textarea class="form-control" name="note" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control" name="note" id="note" rows="3"></textarea>
                                     </div>
 
                                     <div class="form-row me-3">
                                         <div class="form-group col-md-4 me-2">
                                             <label class="label">Interview:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="pass" name="check" value="pass">
+                                                <input type="radio" id="yes_option" name="check" value="pass">
                                                 <label class="label" for="pass">Pass</label>
-                                                <input type="radio" id="fail" name="check" value="fail">
+                                                <input type="radio" id="no_option" name="check" value="fail">
                                                 <label class="label" for="fail">Fail</label>
                                             </div>
                                         </div>
@@ -107,11 +107,11 @@
                                     <div class="form-group">
                                         <div class="form-group col-md-4 me-2">
                                             <label class="label">Has The Student Been Notified:<span class="star-color">*</span></label>
-                                            <div class="radio-btn">
-                                                <input type="radio" id="yes" name="student_notified" value="yes">
-                                                <label class="label" for="yes">yes</label>
-                                                <input type="radio" id="no" name="student_notified" value="no">
-                                                <label class="label" for="no">No</label>
+                                            <div class="radio-btn" id="radioBtn">
+                                                <input type="radio" id="notified_yes" name="student_notified" value="yes">
+                                                <label class="label" for="notified_yes">Yes</label>
+                                                <input type="radio" id="notified_no" name="student_notified" value="no">
+                                                <label class="label" for="notified_no">No</label>
                                             </div>
                                         </div>
                                     </div>
@@ -142,6 +142,10 @@
                             </div>
                         </div>
 
+                        @php
+                        $userRole = auth()->user()->role_id;
+                        @endphp
+
                         <!-- Upload documents -->
                         <div class="container-fluid mt-5" style="--bs-gutter-x: 0rem !important;">
                             <div class="panel">
@@ -159,7 +163,11 @@
 
                                             <div class="form-group">
                                                 <label class="label" for="middleName">Name Of Interviewer 2:<span class="star-color">*</span></label>
+                                                @if($userRole == 1)
                                                 <input type="text" name="name_of_interviewer2" class="form-control" id="name_of_interviewer">
+                                                @else
+                                                <input type="text" name="name_of_interviewer2" class="form-control" id="name_of_interviewer" disabled>
+                                                @endif
                                             </div>
                                             <div class="form-group">
                                             </div>
@@ -171,7 +179,11 @@
                                             </h4>
                                         </div>
                                         <div class="form-row">
+                                            @if($userRole == 1)
                                             <textarea class="form-control" name="note2" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            @else
+                                            <textarea class="form-control" name="note2" id="exampleFormControlTextarea1" rows="3" disabled></textarea>
+                                            @endif
                                         </div>
 
                                         <div class="my-2">
@@ -180,7 +192,13 @@
                                             </h4>
                                         </div>
                                         <div class="form-row">
+                                            @if($userRole == 1)
+
                                             <textarea class="form-control" name="outcome" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            @else
+                                            <textarea class="form-control" name="outcome" id="exampleFormControlTextarea1" rows="3" disabled></textarea>
+                                            @endif
+
                                         </div>
 
                                     </div>
@@ -242,6 +260,37 @@
             });
         });
     })(jQuery);
+</script>
+
+
+<script>
+    function toggleFields(isEnabled) {
+        document.getElementById('date_of_interview').disabled = !isEnabled;
+        document.getElementById('name_of_interviewer').disabled = !isEnabled;
+        document.getElementById('note').disabled = !isEnabled;
+    }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#yes_option').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#notified_yes').prop('disabled', false);
+                $('#notified_no').prop('disabled', false);
+                $('#date_of_referral').prop('disabled', false);
+
+            }
+        });
+
+        $('#no_option').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#notified_yes').prop('disabled', true);
+                $('#notified_no').prop('disabled', true);
+                $('#date_of_referral').prop('disabled', true);
+
+            }
+        });
+    });
 </script>
 
 
