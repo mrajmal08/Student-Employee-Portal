@@ -70,7 +70,7 @@
                         <a href="#!">Post CAS Application</a>
                         <ul class="navbar-dropdown">
                             <li>
-                                <a href="#!">Application List</a>
+                                <a href="{{ route('postcas.index') }}">Application List</a>
                             </li>
                         </ul>
                     </li>

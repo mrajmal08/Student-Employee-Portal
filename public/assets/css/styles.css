@@ -821,3 +821,16 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
 table.table-bordered.dataTable th, table.table-bordered.dataTable td {
     vertical-align: middle !important;
 }
+
+.table th, .table td {
+    white-space: nowrap;
+}
+
+table.table-bordered.dataTable thead tr th {
+    border-top-width: 1px;
+    background-color: #00b5e9;
+    color: #ffffff;
+    position: relative !important;
+    top: -2px !important;
+
+}

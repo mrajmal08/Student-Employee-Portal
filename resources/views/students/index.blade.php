@@ -65,7 +65,7 @@
                                 <div class="row">
                                     <div class="col-md-3 col-sm-6 filter-item">
                                         <label class="label">Passport Number</label>
-                                        <input type="text" class="form-control" placeholder="">
+                                        <input type="text" name="passport" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="search-filter-btn-group text-center mt-3">

@@ -13,7 +13,7 @@
                     <breadcrumb>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a role="button">Pre Cas Application</a>
+                                <a role="button">Post Cas Application</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a role="button">list</a>
@@ -25,26 +25,34 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('precas.create') }}" class="btn filter-btn float-end mb-2 me-2">
+                        <a href="{{ route('postcas.create') }}" class="btn filter-btn float-end mb-2 me-2">
                             <span class="icon-plus">
                                 +
                             </span>
-                            Add Pre Cas Application </a>
+                            Add Post Cas Application </a>
                     </div>
                 </div>
                 <div class="container-fluid">
                     <div class="panel">
-                        <form method="GET" action="{{ route('precas.index') }}">
-                            <strong class="sub-title">Search Pre Cas Application</strong>
+                        <form method="GET" action="{{ route('postcas.index') }}">
+                            <strong class="sub-title">Search Post Cas Application</strong>
                             <div class="collapse-div mb-3">
                                 <div class="row extra-padding">
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Date of Interview</label>
-                                        <input type="text" name="date_of_interview" class="form-control" placeholder="">
+                                        <label class="label">Cas Number</label>
+                                        <input type="text" name="cas_no" class="form-control" placeholder="">
                                     </div>
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Name Of Interviewer</label>
-                                        <input type="text" name="name_of_interviewer" class="form-control" placeholder="">
+                                        <label class="label">Cas Obsolete Visa Granted Date</label>
+                                        <input type="text" name="cas_date" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">Date Of Home Office Reporting</label>
+                                        <input type="text" name="reporting_date" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">BRP Start Date</label>
+                                        <input type="text" name="brp_start_date" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="toggle-button" onclick="toggleFilters()">
@@ -54,6 +62,12 @@
                                 </div>
                             </div>
                             <div id="collapsible-filters" class="hidden">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">BRP End Date</label>
+                                        <input type="text" name="brp_end_date" class="form-control" placeholder="">
+                                    </div>
+                                </div>
                                 <div class="search-filter-btn-group text-center mt-3">
                                     <button class="btn filter-btn">Filter</button>
                                     <button class="btn reset-btn ms-2">Reset</button>
@@ -64,43 +78,83 @@
                 </div>
 
                 <div class="datatable my-4 table-responsive">
-                    <table id="example" class="table table-bordered">
+                    <!-- <table id="example" class="table table-bordered w-100"> -->
+                    <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
+
                         <thead class="text-center">
                             <tr>
                                 <th>ID</th>
-                                <th>Course Applied For</th>
-                                <th>Interview Questions</th>
-                                <th>Date Of Interview</th>
-                                <th>Name Of Interviewer</th>
-                                <th>Note</th>
-                                <th>Date Of Referral</th>
-                                <th>Student Notified</th>
-                                <th>Date Of Interview 2</th>
-                                <th>Name Of Interviewer</th>
-                                <th>Note 2</th>
-                                <th>Outcome</th>
+                                <th>Cas Number</th>
+                                <th>Cas Date</th>
+                                <th>Vignette Docs</th>
+                                <th>vignette_stamp_doc</th>
+                                <th>date_of_entry</th>
+                                <th>after_vignette</th>
+                                <th>before_vignette</th>
+                                <th>student_notified</th>
+                                <th>is_egates</th>
+                                <th>e_ticket</th>
+                                <th>brp_received</th>
+                                <th>brp_error</th>
+                                <th>reporting_date</th>
+                                <th>brp_start_date</th>
+                                <th>brp_end_date</th>
+                                <th>sms_reporting_date</th>
+                                <th>sms_screen_shot</th>
+                                <th>brp_doc</th>
+                                <th>brp_correction_note</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            @foreach ($preCas as $item)
+                            @foreach ($postCas as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->courses->pluck('name')->implode(', ') }}</td>
+                                <td>{{ $item->cas_no }}</td>
+                                <td>{{ $item->cas_date }}</td>
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
-                                <td>{{ $item->date_of_interview }}</td>
-                                <td>{{ $item->name_of_interviewer }}</td>
-                                <td>{{ $item->note }}</td>
-                                <td>{{ $item->date_of_referral }}</td>
-                                <td>{{ $item->student_notified }}</td>
-                                <td>{{ $item->date_of_interview2 }}</td>
-                                <td>{{ $item->name_of_interviewer2 }}</td>
-                                <td>{{ $item->note2 }}</td>
-                                <td>{{ $item->outcome }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>{{ $item->date_of_entry }}</td>
+                                <td>{{ $item->after_vignette }}</td>
+                                <td>{{ $item->before_vignette }}</td>
+                                <td>{{ $item->is_egates }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+
+                                <td>{{ $item->brp_received }}</td>
+                                <td>{{ $item->brp_error }}</td>
+                                <td>{{ $item->reporting_date }}</td>
+
+                                <td>{{ $item->brp_start_date }}</td>
+                                <td>{{ $item->brp_end_date }}</td>
+                                <td>{{ $item->sms_reporting_date }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>{{ $item->brp_correction_note }}</td>
                                 <td class="ealign-items-center">
                                     <a href="{{ route('precas.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
@@ -124,7 +178,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <ul>
-                                                @foreach(explode(',', $item->interview_questions) as $document)
+                                                @foreach(explode(',', $item->vignette_doc) as $document)
                                                 <li>{{ $document }} <a href="{{ asset('assets/PreCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
                                                 @endforeach
                                             </ul>
@@ -212,10 +266,10 @@
         $('#example').DataTable({
             searching: false,
             "scrollX": true,
-
         });
     });
 </script>
+
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

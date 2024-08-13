@@ -264,15 +264,27 @@
 
 
 <script>
+    // Function to toggle the fields
     function toggleFields(isEnabled) {
         document.getElementById('date_of_interview').disabled = !isEnabled;
         document.getElementById('name_of_interviewer').disabled = !isEnabled;
         document.getElementById('note').disabled = !isEnabled;
     }
+
+    // Disable the fields on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleFields(false); // Set false to disable the fields
+    });
 </script>
+
 
 <script>
     $(document).ready(function() {
+
+        $('#notified_yes').prop('disabled', true);
+        $('#notified_no').prop('disabled', true);
+        $('#date_of_referral').prop('disabled', true);
+
         $('#yes_option').on('change', function() {
             if ($(this).is(':checked')) {
                 $('#notified_yes').prop('disabled', false);
