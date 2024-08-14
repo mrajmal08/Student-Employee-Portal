@@ -190,7 +190,7 @@
 
                                                     <div class="col-md-12 mt-1">
                                                         <label for="file1" class="pe-1 file-docs label">Passport:</label>
-                                                        <input type="file" id="file1" name="passport_doc[]" accept="application/pdf" class="file file_style form-control"
+                                                        <input type="file" id="file1" name="passport_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style form-control"
                                                             onchange="displayFileNames(this)" data-file-name="file-name1" multiple>
                                                         <label for="file1" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload Files
@@ -200,7 +200,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file2" class="pe-1 file-docs label">BRP:</label>
-                                                        <input type="file" id="file2" name="brp_doc[]" accept="application/pdf" class="file file_style form-control"
+                                                        <input type="file" id="file2" name="brp_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style form-control"
                                                             onchange="displayFileNames(this)" data-file-name="file-name2" multiple>
                                                         <label for="file2" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload Files
@@ -211,7 +211,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file3" class="pe-1 file-docs label">Financial Statement(How Many):</label>
-                                                        <input type="file" id="file3" name="financial_statement_doc[]" accept="application/pdf" class="file file_style form-control"
+                                                        <input type="file" id="file3" name="financial_statement_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style form-control"
                                                             onchange="displayFileNames(this)" data-file-name="file-name3" multiple>
                                                         <label for="file3" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
@@ -221,7 +221,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file4" class="pe-1 file-docs label">Qualifications:</label>
-                                                        <input type="file" id="file4" name="qualification_doc[]" accept="application/pdf" class="file file_style"
+                                                        <input type="file" id="file4" name="qualification_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
                                                             onchange="displayFileNames(this)" data-file-name="file-name4" multiple>
                                                         <label for="file4" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
@@ -231,7 +231,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file5" class="pe-1 file-docs label">English Language Certificates:</label>
-                                                        <input type="file" id="file5" name="lang_doc[]" accept="application/pdf" class="file file_style"
+                                                        <input type="file" id="file5" name="lang_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
                                                             onchange="displayFileNames(this)" data-file-name="file-name5" multiple>
                                                         <label for="file5" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
@@ -241,7 +241,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file6" class="pe-1 file-docs label">Miscellaneous Docs:</label>
-                                                        <input type="file" id="file6" name="miscellaneous_doc[]" accept="application/pdf" class="file file_style"
+                                                        <input type="file" id="file6" name="miscellaneous_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
                                                             onchange="displayFileNames(this)" data-file-name="file-name6" multiple>
                                                         <label for="file6" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
@@ -251,7 +251,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file7" class="pe-1 file-docs label">TB Certificate:</label>
-                                                        <input type="file" id="file7" name="tb_certificate_doc[]" accept="application/pdf" class="file file_style"
+                                                        <input type="file" id="file7" name="tb_certificate_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
                                                             onchange="displayFileNames(this)" data-file-name="file-name7" multiple>
                                                         <label for="file7" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
@@ -261,7 +261,7 @@
 
                                                     <div class="col-md-12 mt-3">
                                                         <label for="file8" class="pe-1 file-docs label">Previous CAS(If Applicable):</label>
-                                                        <input type="file" id="file8" name="previous_cas_doc[]" accept="application/pdf" class="file file_style"
+                                                        <input type="file" id="file8" name="previous_cas_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
                                                             onchange="displayFileNames(this)" data-file-name="file-name8" multiple>
                                                         <label for="file8" class="custom-file-upload">
                                                             <i aria-hidden="true" class="fa fa-upload"></i> Upload a File

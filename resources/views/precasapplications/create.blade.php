@@ -130,7 +130,7 @@
 
                                         <div class="col-md-12 mt-1">
                                             <label for="file1" class="pe-1 file-docs label">Interview Questions:</label>
-                                            <input type="file" id="file1" name="interview_questions[]" accept="application/pdf" class="file file_style form-control"
+                                            <input type="file" id="file1" name="interview_questions[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style form-control"
                                                 onchange="displayFileNames(this)" data-file-name="file-name1" multiple>
                                             <label for="file1" class="custom-file-upload">
                                                 <i aria-hidden="true" class="fa fa-upload"></i> Upload Files

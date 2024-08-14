@@ -28,9 +28,9 @@ class PostCasApplicationController extends Controller
         $filters = [
             'cas_no' => 'cas_no',
             'cas_date' => 'cas_date',
-            'date_of_entry' => 'date_of_entry',
             'brp_start_date' => 'brp_start_date',
-            'brp_end_date' => 'brp_end_date'
+            'brp_end_date' => 'brp_end_date',
+            'sms_reporting_date' => 'sms_reporting_date'
         ];
 
         foreach ($filters as $requestKey => $column) {
@@ -45,20 +45,18 @@ class PostCasApplicationController extends Controller
 
     public function create()
     {
-
         return view('postcasapplications.create');
-    }
-
-    public function view($id)
-    {
-        $postCas = PostCasApplication::findOrFail($id);
-        return view('postcasapplications.view', compact('postCas'));
     }
 
     public function insert(Request $request, FlasherInterface $flasher)
     {
         $validator = Validator::make($request->all(), [
-            'interview_questions.*' => 'required|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'cas_no' => 'required',
+            'vignette_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'vignette_stamp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'e_ticket.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'sms_screen_shot.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
         ]);
 
         if ($validator->fails()) {
@@ -73,19 +71,24 @@ class PostCasApplicationController extends Controller
         }
 
         try {
-            $data['date_of_interview'] = $request->date_of_interview;
-            $data['name_of_interviewer'] = $request->name_of_interviewer;
-            $data['note'] = $request->note;
-            $data['date_of_referral'] = $request->date_of_referral;
+            $data['cas_no'] = $request->cas_no;
+            $data['cas_date'] = $request->cas_date;
+            $data['after_vignette'] = $request->after_vignette;
+            $data['before_vignette'] = $request->before_vignette;
             $data['student_notified'] = $request->student_notified;
-            $data['date_of_interview2'] = $request->date_of_interview2;
-            $data['name_of_interviewer2'] = $request->name_of_interviewer2;
-            $data['note2'] = $request->note2;
-            $data['outcome'] = $request->outcome;
-
+            $data['date_of_entry'] = $request->date_of_entry;
+            $data['is_egates'] = $request->is_egates;
+            $data['brp_received'] = $request->brp_received;
+            $data['brp_error'] = $request->brp_error;
+            $data['brp_start_date'] = $request->brp_start_date;
+            $data['brp_end_date'] = $request->brp_end_date;
+            $data['reporting_date'] = $request->reporting_date;
+            $data['sms_reporting_date'] = $request->sms_reporting_date;
+            $data['brp_correction_note'] = $request->brp_correction_note;
+            $data['correct_identified'] = $request->correct_identified;
 
             $timestamp = Carbon::now()->timestamp;
-            $documents = ['interview_questions'];
+            $documents = ['vignette_doc', 'vignette_stamp_doc', 'e_ticket', 'sms_screen_shot', 'brp_doc'];
 
             foreach ($documents as $doc) {
                 if ($request->hasFile($doc)) {
@@ -105,17 +108,16 @@ class PostCasApplicationController extends Controller
             PostCasApplication::create($data);
 
             $flasher->option('position', 'top-center')->addSuccess('Post Cas Application added Successfully');
-            return redirect()->route('postCas.index')->with('message', 'Post Cas Application added Successfully');
+            return redirect()->route('postcas.index')->with('message', 'Post Cas Application added Successfully');
         } catch (\Exception $e) {
             $flasher->option('position', 'top-center')->addError('Something went wrong');
-            return redirect()->route('postCas.index')->with('message', 'Something went wrong');
+            return redirect()->route('postcas.index')->with('message', 'Something went wrong');
         }
     }
 
     public function edit($id)
     {
         $postCas = PostCasApplication::findOrFail($id);
-
         return view('postcasapplications.edit', compact('postCas'));
     }
 
@@ -128,7 +130,12 @@ class PostCasApplicationController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'interview_questions.*' => 'required|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'cas_no' => 'required',
+            'vignette_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'vignette_stamp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'e_ticket.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'sms_screen_shot.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
 
         ]);
 
@@ -145,7 +152,11 @@ class PostCasApplicationController extends Controller
 
         $timestamp = Carbon::now()->timestamp;
         $documentFields = [
-            'interview_questions'
+            'vignette_doc',
+            'vignette_stamp_doc',
+            'e_ticket',
+            'sms_screen_shot',
+            'brp_doc',
         ];
 
         $validatedData = [];
@@ -163,38 +174,72 @@ class PostCasApplicationController extends Controller
             }
         }
 
-        if ($request->date_of_interview) {
-            $validatedData['date_of_interview'] = $request->date_of_interview;
+        $data['cas_no'] = $request->cas_no;
+        $data['cas_date'] = $request->cas_date;
+        $data['after_vignette'] = $request->after_vignette;
+        $data['before_vignette'] = $request->before_vignette;
+        $data['student_notified'] = $request->student_notified;
+        $data['date_of_entry'] = $request->date_of_entry;
+        $data['is_egates'] = $request->is_egates;
+        $data['brp_received'] = $request->brp_received;
+        $data['brp_error'] = $request->brp_error;
+        $data['brp_start_date'] = $request->brp_start_date;
+        $data['brp_end_date'] = $request->brp_end_date;
+        $data['reporting_date'] = $request->reporting_date;
+        $data['sms_reporting_date'] = $request->sms_reporting_date;
+        $data['brp_correction_note'] = $request->brp_correction_note;
+        $data['correct_identified'] = $request->correct_identified;
+
+        if ($request->cas_no) {
+            $validatedData['cas_no'] = $request->cas_no;
         }
-        if ($request->name_of_interviewer) {
-            $validatedData['name_of_interviewer'] = $request->name_of_interviewer;
+        if ($request->cas_date) {
+            $validatedData['cas_date'] = $request->cas_date;
         }
-        if ($request->note) {
-            $validatedData['note'] = $request->note;
+        if ($request->after_vignette) {
+            $validatedData['after_vignette'] = $request->after_vignette;
         }
-        if ($request->date_of_referral) {
-            $validatedData['date_of_referral'] = $request->date_of_referral;
+        if ($request->before_vignette) {
+            $validatedData['before_vignette'] = $request->before_vignette;
         }
         if ($request->student_notified) {
             $validatedData['student_notified'] = $request->student_notified;
         }
-        if ($request->date_of_interview2) {
-            $validatedData['date_of_interview2'] = $request->date_of_interview2;
+        if ($request->date_of_entry) {
+            $validatedData['date_of_entry'] = $request->date_of_entry;
         }
-        if ($request->name_of_interviewer2) {
-            $validatedData['name_of_interviewer2'] = $request->name_of_interviewer2;
+        if ($request->is_egates) {
+            $validatedData['is_egates'] = $request->is_egates;
         }
-        if ($request->note2) {
-            $validatedData['note2'] = $request->note2;
+        if ($request->brp_received) {
+            $validatedData['brp_received'] = $request->brp_received;
         }
-        if ($request->outcome) {
-            $validatedData['outcome'] = $request->outcome;
+        if ($request->brp_error) {
+            $validatedData['brp_error'] = $request->brp_error;
+        }
+        if ($request->brp_start_date) {
+            $validatedData['brp_start_date'] = $request->brp_start_date;
+        }
+        if ($request->brp_end_date) {
+            $validatedData['brp_end_date'] = $request->brp_end_date;
+        }
+        if ($request->reporting_date) {
+            $validatedData['reporting_date'] = $request->reporting_date;
+        }
+        if ($request->sms_reporting_date) {
+            $validatedData['sms_reporting_date'] = $request->sms_reporting_date;
+        }
+        if ($request->brp_correction_note) {
+            $validatedData['brp_correction_note'] = $request->brp_correction_note;
+        }
+        if ($request->correct_identified) {
+            $validatedData['correct_identified'] = $request->correct_identified;
         }
 
         $postCas->update($validatedData);
 
         $flasher->option('position', 'top-center')->addSuccess('Post Cas Application updated Successfully');
-        return redirect()->route('postCas.index')->with('message', 'Student updated Successfully');
+        return redirect()->route('postcas.index')->with('message', 'Post Cas Application updated Successfully');
     }
 
     public function delete($id, FlasherInterface $flasher)
@@ -210,6 +255,6 @@ class PostCasApplicationController extends Controller
             'timeout' => 3000,
             'position' => 'top-center',
         ])->addSuccess('Post Cas Application deleted Successfully');
-        return redirect()->route('postCas.index')->with('message', 'Post Cas Application deleted Successfully');
+        return redirect()->route('postcas.index')->with('message', 'Post Cas Application deleted Successfully');
     }
 }

@@ -69,6 +69,5 @@ Route::get('/post/cas/application', [App\Http\Controllers\PostCasApplicationCont
 Route::get('/post/cas/application/create', [App\Http\Controllers\PostCasApplicationController::class, 'create'])->name('postcas.create');
 Route::post('/post/cas/application/insert', [App\Http\Controllers\PostCasApplicationController::class, 'insert'])->name('postcas.insert');
 Route::get('/post/cas/application/edit/{id}', [App\Http\Controllers\PostCasApplicationController::class, 'edit'])->name('postcas.edit');
-Route::get('/post/cas/application/view', [App\Http\Controllers\PostCasApplicationController::class, 'view'])->name('postcas.view');
 Route::post('/post/cas/application/update/{id}', [App\Http\Controllers\PostCasApplicationController::class, 'update'])->name('postcas.update');
 Route::get('/post/cas/application/delete/{id}', [App\Http\Controllers\PostCasApplicationController::class, 'delete'])->name('postcas.delete');

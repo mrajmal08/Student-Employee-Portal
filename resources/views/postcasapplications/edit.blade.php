@@ -16,7 +16,7 @@
                                 <a role="button">Post Cas Application</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <span>Add</span>
+                                <span>Update</span>
                             </li>
                         </ul>
                     </breadcrumb>
@@ -24,7 +24,7 @@
                 <div class="user">
                     <div class="container">
                         <div class="user-header">
-                            <h4 class="user-role py-3">Add Post Cas Application</h4>
+                            <h4 class="user-role py-3">Update Post Cas Application</h4>
                             <button class="close-btn">x</button>
                         </div>
                         <div class="search-user">
@@ -32,18 +32,18 @@
                                 <div class="my-3">
                                     <span class="star-color">*</span><span class="label"> <i>Indicates required field</i></span>
                                 </div>
-                                <form method="POST" action="{{ route('postcas.insert') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('postcas.update', [$postCas->id]) }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-row ">
 
                                         <div class="form-group">
                                             <label class="label" for="cas_no">Cas Number<span class="star-color">*</span></label>
-                                            <input type="text" name="cas_no" class="form-control" id="cas_no">
+                                            <input type="text" name="cas_no" class="form-control" value="{{ $postCas->cas_no }}" id="cas_no">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="label" for="middleName">Cas Obsolete Visa Granted Date:<span class="star-color">*</span></label>
-                                            <input type="date" name="cas_date" class="form-control" id="cas_date">
+                                            <input type="date" name="cas_date" class="form-control" value="{{ $postCas->cas_date }}" id="cas_date">
                                         </div>
                                         <div class="form-group">
                                         </div>
@@ -87,9 +87,9 @@
                                         <div class="form-group col-md-4">
                                             <label class="label">Did The Student Enter After The Start Date Of The Vignette:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="yes" name="after_vignette" value="yes">
+                                                <input type="radio" id="yes" name="after_vignette" value="yes" {{ $postCas->after_vignette == "yes" ? 'checked' : '' }}>
                                                 <label class="label" for="yes">Yes</label>
-                                                <input type="radio" id="no" name="after_vignette" value="no">
+                                                <input type="radio" id="no" name="after_vignette" value="no" {{ $postCas->after_vignette === "no" ? 'selected' : '' }}>
                                                 <label class="label" for="no">No</label>
                                             </div>
                                         </div>
@@ -98,9 +98,9 @@
                                         <div class="form-group col-md-6">
                                             <label class="label">Did The Student Enter Before The Start Date Of The Vignette:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="before_vignette_yes" name="before_vignette" value="yes">
+                                                <input type="radio" id="before_vignette_yes" name="before_vignette" value="yes" {{ $postCas->before_vignette == "yes" ? 'checked' : '' }}>
                                                 <label class="label" for="yes">Yes ( <span style="color: red;">Refer case to head of Compliance</span> )</label>
-                                                <input type="radio" id="before_vignette_no" name="before_vignette" value="no">
+                                                <input type="radio" id="before_vignette_no" name="before_vignette" value="no" {{ $postCas->before_vignette == "no" ? 'checked' : '' }}>
                                                 <label class="label" for="no">No</label>
                                             </div>
                                         </div>
@@ -109,15 +109,15 @@
                                         <div class="form-group ">
                                             <label class="label">Has The Student Been Notified:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="student_notified_yes" name="student_notified" value="yes">
+                                                <input type="radio" id="student_notified_yes" name="student_notified" value="yes" {{ $postCas->student_notified == "yes" ? 'checked' : '' }}>
                                                 <label class="label" for="yes">Yes</label>
-                                                <input type="radio" id="student_notified_no" name="student_notified" value="no">
+                                                <input type="radio" id="student_notified_no" name="student_notified" value="no" {{ $postCas->student_notified == "no" ? 'checked' : '' }}>
                                                 <label class="label" for="no">No</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="date_of_entry">Date Of Entry<span class="star-color">*</span></label>
-                                            <input type="date" name="date_of_entry" class="form-control" id="date_of_entry">
+                                            <input type="date" name="date_of_entry" class="form-control" value="{{ $postCas->date_of_entry }}" id="date_of_entry">
                                         </div>
                                         <div class="form-group">
                                         </div>
@@ -131,9 +131,9 @@
                                                 <div class="form-group col-md-4">
                                                     <label class="label">Did The Student Enter Via E-Gates:<span class="star-color">*</span></label>
                                                     <div class="radio-btn">
-                                                        <input type="radio" id="yes" name="is_egates" value="yes">
+                                                        <input type="radio" id="yes" name="is_egates" value="yes" {{ $postCas->is_egates == "yes" ? 'checked' : '' }}>
                                                         <label class="label" for="yes">Yes</label>
-                                                        <input type="radio" id="no" name="is_egates" value="no">
+                                                        <input type="radio" id="no" name="is_egates" value="no" {{ $postCas->is_egates == "no" ? 'checked' : '' }}>
                                                         <label class="label" for="no">No</label>
                                                     </div>
                                                 </div>
@@ -157,28 +157,28 @@
                                     <div class="form-row mt-3">
                                         <div class="form-group">
                                             <label class="label" for="brp_received">BRP Received<span class="star-color">*</span></label>
-                                            <input type="text" name="brp_received" class="form-control" id="brp_received">
+                                            <input type="text" name="brp_received" class="form-control" value="{{ $postCas->brp_received }}" id="brp_received">
                                         </div>
 
                                         <div class="form-group me-2">
                                             <label class="label">Corrections Identified:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="yes" name="correct_identified" value="yes">
+                                                <input type="radio" id="yes" name="correct_identified" value="yes" {{ $postCas->correct_identified == "yes" ? 'checked' : '' }}>
                                                 <label class="label" for="yes">Pass</label>
-                                                <input type="radio" id="no" name="correct_identified" value="no">
+                                                <input type="radio" id="no" name="correct_identified" value="no" {{ $postCas->correct_identified == "no" ? 'checked' : '' }}>
                                                 <label class="label" for="no">Fail</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="brp_error">BRP Error<span class="star-color">*</span></label>
-                                            <input type="text" name="brp_error" class="form-control" id="brp_error">
+                                            <input type="text" name="brp_error" class="form-control" value="{{ $postCas->brp_error }}" id="brp_error">
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="reporting_date">Date Of Home Office Reporting<span class="star-color">*</span></label>
-                                            <input type="date" name="reporting_date" class="form-control" id="reporting_date">
+                                            <input type="date" name="reporting_date" class="form-control" value="{{ $postCas->reporting_date }}" id="reporting_date">
                                         </div>
                                         <div class="form-group">
                                         </div>
@@ -189,11 +189,11 @@
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="brp_start_date">BRP Start Date<span class="star-color">*</span></label>
-                                            <input type="date" name="brp_start_date" class="form-control" id="brp_start_date">
+                                            <input type="date" name="brp_start_date" value="{{ $postCas->brp_start_date }}" class="form-control" id="brp_start_date">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="brp_end_date">BRP End Date<span class="star-color">*</span></label>
-                                            <input type="date" name="brp_end_date" class="form-control" id="brp_end_date">
+                                            <input type="date" name="brp_end_date" value="{{ $postCas->brp_end_date }}" class="form-control" id="brp_end_date">
                                         </div>
                                         <div class="form-group">
                                         </div>
@@ -202,7 +202,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label class="label" for="sms_reporting_date">SMS Reporting Date<span class="star-color">*</span></label>
-                                            <input type="date" name="sms_reporting_date" class="form-control" id="sms_reporting_date">
+                                            <input type="date" name="sms_reporting_date" value="{{ $postCas->sms_reporting_date }}" class="form-control" id="sms_reporting_date">
                                         </div>
                                     </div>
 
@@ -246,7 +246,7 @@
                                     </div>
 
                                     <div class="form-row">
-                                        <textarea class="form-control" name="brp_correction_note" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control" name="brp_correction_note" id="exampleFormControlTextarea1" rows="3">{{ $postCas->brp_correction_note  }}</textarea>
                                     </div>
 
                             </div>

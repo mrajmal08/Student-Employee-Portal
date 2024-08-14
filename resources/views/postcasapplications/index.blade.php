@@ -67,6 +67,10 @@
                                         <label class="label">BRP End Date</label>
                                         <input type="text" name="brp_end_date" class="form-control" placeholder="">
                                     </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">SMS Reporting Date</label>
+                                        <input type="text" name="sms_reporting_date" class="form-control" placeholder="">
+                                    </div>
                                 </div>
                                 <div class="search-filter-btn-group text-center mt-3">
                                     <button class="btn filter-btn">Filter</button>
@@ -87,22 +91,23 @@
                                 <th>Cas Number</th>
                                 <th>Cas Date</th>
                                 <th>Vignette Docs</th>
-                                <th>vignette_stamp_doc</th>
-                                <th>date_of_entry</th>
-                                <th>after_vignette</th>
-                                <th>before_vignette</th>
-                                <th>student_notified</th>
-                                <th>is_egates</th>
-                                <th>e_ticket</th>
-                                <th>brp_received</th>
-                                <th>brp_error</th>
-                                <th>reporting_date</th>
-                                <th>brp_start_date</th>
-                                <th>brp_end_date</th>
-                                <th>sms_reporting_date</th>
-                                <th>sms_screen_shot</th>
-                                <th>brp_doc</th>
-                                <th>brp_correction_note</th>
+                                <th>Vignette Stamp</th>
+                                <th>After Vignette</th>
+                                <th>Before Vignette</th>
+                                <th>Student Notified</th>
+                                <th>Date Of Entry</th>
+                                <th>Is E-Gates</th>
+                                <th>E-Ticket</th>
+                                <th>BRP Received</th>
+                                <th>Correct Identified</th>
+                                <th>BRP Error</th>
+                                <th>Reporting Date</th>
+                                <th>BRP Start Date</th>
+                                <th>BRP End Date</th>
+                                <th>SMS Reporting Date</th>
+                                <th>SMS Screen Shot</th>
+                                <th>BRP Docs</th>
+                                <th>BRP Correction Note</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -113,73 +118,69 @@
                                 <td>{{ $item->cas_no }}</td>
                                 <td>{{ $item->cas_date }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                    <a data-bs-toggle="modal" data-bs-target="#vignetteDocModal{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                    <a data-bs-toggle="modal" data-bs-target="#vignetteStampDocModal{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
-                                <td>{{ $item->date_of_entry }}</td>
                                 <td>{{ $item->after_vignette }}</td>
                                 <td>{{ $item->before_vignette }}</td>
+                                <td>{{ $item->student_notified }}</td>
+                                <td>{{ $item->date_of_entry }}</td>
                                 <td>{{ $item->is_egates }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                    <a data-bs-toggle="modal" data-bs-target="#eTicketModal{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
-
                                 <td>{{ $item->brp_received }}</td>
+                                <td>{{ $item->correct_identified }}</td>
                                 <td>{{ $item->brp_error }}</td>
                                 <td>{{ $item->reporting_date }}</td>
-
                                 <td>{{ $item->brp_start_date }}</td>
                                 <td>{{ $item->brp_end_date }}</td>
                                 <td>{{ $item->sms_reporting_date }}</td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                    <a data-bs-toggle="modal" data-bs-target="#smsScreenshotModal{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
                                 <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
-                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
-                                    </a>
-                                </td>
-                                <td>
-                                    <a data-bs-toggle="modal" data-bs-target="#docs{{ $item->id }}">
+                                    <a data-bs-toggle="modal" data-bs-target="#brpDocModal{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
                                 <td>{{ $item->brp_correction_note }}</td>
                                 <td class="ealign-items-center">
-                                    <a href="{{ route('precas.edit', [$item->id]) }}" class="me-2">
+                                    <a href="{{ route('postcas.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
                                     </a>
-                                    <form method="GET" action="{{ route('precas.delete', $item->id) }}" class="d-inline">
+                                    <form method="GET" action="{{ route('postcas.delete', $item->id) }}" class="d-inline">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <a href="{{ route('precas.delete', $item->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                        <a href="{{ route('postcas.delete', $item->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
                                             <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
                                         </a>
                                     </form>
                                 </td>
                             </tr>
 
-                            <div class="modal fade" id="docs{{ $item->id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ $item->id }}" aria-hidden="true">
+                            <!-- Vignette Document Modal -->
+                            <div class="modal fade" id="vignetteDocModal{{ $item->id }}" tabindex="-1" aria-labelledby="vignetteDocLabel{{ $item->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel{{ $item->id }}">Interview Documents</h5>
+                                            <h5 class="modal-title" id="vignetteDocLabel{{ $item->id }}">Vignette Documents</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->vignette_doc) as $document)
-                                                <li>{{ $document }} <a href="{{ asset('assets/PreCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -190,9 +191,96 @@
                                 </div>
                             </div>
 
+                            <!-- Vignette Stamp Document Modal -->
+                            <div class="modal fade" id="vignetteStampDocModal{{ $item->id }}" tabindex="-1" aria-labelledby="vignetteStampDocLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="vignetteStampDocLabel{{ $item->id }}">Vignette Stamp Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->vignette_stamp_doc) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- e-Ticket Modal -->
+                            <div class="modal fade" id="eTicketModal{{ $item->id }}" tabindex="-1" aria-labelledby="eTicketLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="eTicketLabel{{ $item->id }}">e-Ticket Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->e_ticket) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SMS Screenshot Modal -->
+                            <div class="modal fade" id="smsScreenshotModal{{ $item->id }}" tabindex="-1" aria-labelledby="smsScreenshotLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="smsScreenshotLabel{{ $item->id }}">SMS Screenshot Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->sms_screen_shot) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BRP Document Modal -->
+                            <div class="modal fade" id="brpDocModal{{ $item->id }}" tabindex="-1" aria-labelledby="brpDocLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="brpDocLabel{{ $item->id }}">BRP Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->brp_doc) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
+
                     </table>
                 </div>
             </div>
