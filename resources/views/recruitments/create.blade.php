@@ -39,72 +39,87 @@
                                     @csrf
                                     <div class="form-row mt-3">
                                         <div class="form-group">
-                                            <label class="label" for="firstName">First Name:<span class="star-color">*</span></label>
-                                            <input type="text" id="firstName" name="first_name" required>
+                                            <label class="label" for="name">Name Of Agent:<span class="star-color">*</span></label>
+                                            <input type="text" id="name" name="name">
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="middleName">Last Name:<span class="star-color">*</span></label>
-                                            <input type="text" name="last_name" id="last_name">
+                                            <label class="label" for="directors">List The Name Of All Your Directors:<span class="star-color">*</span></label>
+                                            <input type="text" name="directors" id="directors">
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="email">Email <span class="star-color">*</span></label>
-                                            <input type="email" name="email" id="email" required>
+                                            <label class="label" for="company_register_number">Company Register Number:<span class="star-color">*</span></label>
+                                            <input type="text" name="company_register_number" id="company_register_number">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-3">
+                                            <label class="label" for="date_of_registration">Date Of Registration:<span class="star-color">*</span></label>
+                                            <input type="date" name="date_of_registration" id="date_of_registration">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-4">
+                                            <label class="label" for="payment_method">Payment Method:<span class="star-color">*</span></label>
+                                            <select id="payment_method" name="payment_method">
+                                                <option default selected>--Select One--</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="Bank Account">Bank Account</option>
+                                                <option value="Paypal">Paypal</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group" id="account_name_group" style="display: none;">
+                                            <label class="label" for="account_name">Account Name:</label>
+                                            <input type="text" name="account_name" id="account_name">
+                                        </div>
+                                        <div class="form-group" id="account_number_group" style="display: none;">
+                                            <label class="label" for="account_number">Account Number:</label>
+                                            <input type="text" name="account_number" id="account_number">
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="email">Nationality:<span class="star-color">*</span></label>
-                                            <input type="text" name="nationality" id="nationality" required>
+                                            <label class="label" for="institutions">Institutions:</label>
+                                            <input type="text" name="institutions" id="institutions">
                                         </div>
                                         <div class="form-group">
-                                            <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
-                                            <input type="text" name="phone_no" id="phone_no" required>
+                                            <label class="label" for="career_history">Career History:</label>
+                                            <input type="text" name="career_history" id="career_history">
                                         </div>
+
                                         <div class="form-group">
-                                            <label class="label" for="phone_no">Date Of Birth:<span class="star-color">*</span></label>
-                                            <input type="date" name="date_of_birth" id="date_of_birth" required>
+                                            <label class="label" for="address_uk">Address In UK:</label>
+                                            <input type="text" name="address_uk" id="address_uk">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="passport">Passport:</label>
-                                            <input type="text" name="passport" id="text" required>
+                                            <label class="label" for="address">Address If Company Not In UK:</label>
+                                            <input type="text" name="address" id="address">
                                         </div>
                                         <div class="form-group">
-                                            <label class="label">Gender:<span class="star-color">*</span></label>
+                                            <label class="label">Compliance Check:</label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="male" name="gender" value="1" required>
-                                                <label class="label" for="male">Male</label>
-                                                <input type="radio" id="female" name="gender" value="2">
-                                                <label class="label" for="female">Female</label>
+                                                <input type="radio" id="yes" name="compliance_check" value="Yes">
+                                                <label class="label" for="yes">Yes</label>
+                                                <input type="radio" id="no" name="compliance_check" value="No">
+                                                <label class="label" for="no">No</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                         </div>
-
                                     </div>
 
                                     <div class="my-2">
                                         <h4 class="address">
-                                            Address
+                                            Career History
                                         </h4>
                                     </div>
-
                                     <div class="form-row">
-                                        <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control" name="career_history" id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
-
-                                    <div class="my-2">
-                                        <h4 class="address">
-                                            Extra Notes
-                                        </h4>
-                                    </div>
-
-                                    <div class="form-row">
-                                        <textarea class="form-control" name="notes" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    </div>
-
                                     <div class="form-buttons my-4">
                                         <button type="submit" class="btn filter-btn">Submit</button>
                                     </div>
@@ -121,6 +136,24 @@
 
     </div>
 </section>
+
+<script>
+    $(document).ready(function() {
+        $('#payment_method').on('change', function() {
+            var selectedValue = $(this).val();
+            if (selectedValue === 'Bank Account' || selectedValue === 'Paypal') {
+                $('#account_name_group').show();
+                $('#account_number_group').show();
+            } else {
+                $('#account_name_group').hide();
+                $('#account_number_group').hide();
+            }
+        });
+
+        // Initial check in case the page is loaded with a value selected
+        $('#payment_method').trigger('change');
+    });
+</script>
 
 <script>
     (function($) {

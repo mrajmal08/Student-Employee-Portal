@@ -43,16 +43,12 @@
                                         <input type="text" name="name" class="form-control" placeholder="">
                                     </div>
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Email</label>
-                                        <input type="text" name="email" class="form-control" placeholder="">
+                                        <label class="label">Company Register Number</label>
+                                        <input type="text" name="company_register_number" class="form-control" placeholder="">
                                     </div>
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Phone Number</label>
-                                        <input type="text" name="phone_no" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Nationality</label>
-                                        <input type="text" name="nationality" class="form-control" placeholder="">
+                                        <label class="label">Date Of Registration</label>
+                                        <input type="text" name="date_of_registration" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="toggle-button" onclick="toggleFilters()">
@@ -72,29 +68,44 @@
                 </div>
 
                 <div class="datatable my-4 table-responsive">
-                    <table id="example" class="table table-bordered">
+                    <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
                         <thead class="text-center">
                             <tr>
+                                <th>ID</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone No</th>
-                                <th>Nationality</th>
-                                <th>Passport</th>
+                                <th>directors</th>
+                                <th>company_register_number</th>
+                                <th>date_of_registration</th>
+                                <th>payment_method</th>
+                                <th>account_name</th>
+                                <th>account_number</th>
+                                <th>institutions</th>
+                                <th>career_history</th>
+                                <th>address_uk</th>
+                                <th>address</th>
+                                <th>compliance_check</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-center">
                             @foreach ($recruitments as $item)
                             <tr>
-                                <td>{{ $item->first_name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->phone_no }}</td>
-                                <td>{{ $item->nationality }}</td>
-                                <td>{{ $item->passport }}</td>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->directors }}</td>
+                                <td>{{ $item->company_register_number }}</td>
+                                <td>{{ $item->date_of_registration }}</td>
+                                <td>{{ $item->payment_method }}</td>
+                                <td>{{ $item->account_name }}</td>
+                                <td>{{ $item->account_number }}</td>
+                                <td>{{ $item->institutions }}</td>
+                                <td>{!! Str::words($item->career_history, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#officerNoteModal-' . $item->id . '">read more...</a>') !!}</td>
+
+                                <td>{{ $item->address_uk }}</td>
+                                <td>{{ $item->address }}</td>
+                                <td>{{ $item->compliance_check }}</td>
+
                                 <td class="ealign-items-center">
-                                    <a href="{{ route('recruitments.view', [$item->id]) }}" class="me-2">
-                                        <i class="bi bi-eye-fill text-primary"></i>
-                                    </a>
                                     <a href="{{ route('recruitments.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
                                     </a>
@@ -107,6 +118,25 @@
                                     </form>
                                 </td>
                             </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="officerNoteModal-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="officerNoteModalLabel-{{ $item->id }}">Officer Note</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $item->career_history }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -177,14 +207,16 @@
     })(jQuery);
 </script>
 <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                searching: false
-            });
+    $(document).ready(function() {
+        $('#example').DataTable({
+            searching: false,
+            "scrollX": true,
         });
-    </script>
+    });
+</script>
 
 @push('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 @endpush

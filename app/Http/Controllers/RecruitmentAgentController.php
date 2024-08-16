@@ -24,18 +24,10 @@ class RecruitmentAgentController extends Controller
     {
         $recruitmentQuery = RecruitmentAgent::orderBy('id', 'DESC');
 
-
-        if ($request->has('name')) {
-            $recruitmentQuery->where(function ($query) use ($request) {
-                $query->where('first_name', 'like', '%' . $request->name . '%')
-                    ->orWhere('last_name', 'like', '%' . $request->name . '%');
-            });
-        }
-
         $filters = [
-            'email' => 'email',
-            'phone_no' => 'phone_no',
-            'nationality' => 'nationality'
+            'name' => 'name',
+            'company_register_number' => 'company_register_number',
+            'date_of_registration' => 'date_of_registration',
         ];
 
         foreach ($filters as $requestKey => $column) {
@@ -61,10 +53,10 @@ class RecruitmentAgentController extends Controller
     public function insert(Request $request, FlasherInterface $flasher)
     {
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|unique:recruitement_agents,email',
-            'phone_no' => 'required',
+            'name' => 'required|max:255',
+            'directors' => 'required|max:255',
+            'company_register_number' => 'required|max:255',
+            'payment_method' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -79,16 +71,18 @@ class RecruitmentAgentController extends Controller
         }
 
         try {
-            $data['first_name'] = $request->first_name;
-            $data['last_name'] = $request->last_name;
-            $data['email'] = $request->email;
-            $data['phone_no'] = $request->phone_no;
-            $data['date_of_birth'] = $request->date_of_birth;
-            $data['gender'] = $request->gender;
-            $data['passport'] = $request->passport;
-            $data['nationality'] = $request->nationality;
+            $data['name'] = $request->name;
+            $data['directors'] = $request->directors;
+            $data['company_register_number'] = $request->company_register_number;
+            $data['date_of_registration'] = $request->date_of_registration;
+            $data['payment_method'] = $request->payment_method;
+            $data['account_name'] = $request->account_name;
+            $data['account_number'] = $request->account_number;
+            $data['institutions'] = $request->institutions;
+            $data['career_history'] = $request->career_history;
+            $data['address_uk'] = $request->address_uk;
             $data['address'] = $request->address;
-            $data['notes'] = $request->notes;
+            $data['compliance_check'] = $request->compliance_check;
 
             RecruitmentAgent::create($data);
 
@@ -115,13 +109,34 @@ class RecruitmentAgentController extends Controller
             return redirect()->route('recruitments.index')->with('error', 'Id not found');
         }
 
-        $validatedData = $request->validate([
-            'first_name' => 'required|max:255',
-            'email' => 'required',
-            'phone_no' => 'required',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'directors' => 'required|max:255',
+            'company_register_number' => 'nullable|max:255',
+            'date_of_registration' => 'nullable|date',
+            'payment_method' => 'required',
+            'account_name' => 'nullable|max:255',
+            'account_number' => 'nullable|max:255',
+            'institutions' => 'nullable|max:255',
+            'career_history' => 'nullable|max:255',
+            'address_uk' => 'nullable|max:255',
+            'address' => 'nullable|max:255',
+            'compliance_check' => 'nullable|max:255',
         ]);
 
-        $recruitment->update($validatedData);
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach ($errors as $error) {
+                $flasher->options([
+                    'timeout' => 3000,
+                    'position' => 'top-center',
+                ])->addError('Validation Error', $error);
+            }
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $recruitment->update($validator->validated());
+
         $flasher->option('position', 'top-center')->addSuccess('Recruitment updated Successfully');
         return redirect()->route('recruitments.index')->with('message', 'Recruitment updated Successfully');
     }

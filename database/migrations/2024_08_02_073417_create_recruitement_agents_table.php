@@ -15,17 +15,18 @@ class CreateRecruitementAgentsTable extends Migration
     {
         Schema::create('recruitement_agents', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('email')->unique();
-            $table->string('nationality')->unique();
-			$table->string('phone_no')->nullable();
-            $table->date('date_of_birth')->nullable();
-			$table->tinyInteger('gender')->comment('1=male,2=female');
-            $table->string('address')->nullable();
-			$table->string('passport')->nullable();
-			$table->text('work_experience')->nullable();
-			$table->text('notes')->nullable();
+            $table->string('name')->nullable();
+            $table->string('directors')->nullable();
+            $table->string('company_register_number')->nullable();
+            $table->string('date_of_registration')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->string('account_name')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('institutions')->nullable();
+            $table->string('career_history')->nullable();
+            $table->string('address_uk')->nullable();
+            $table->text('address')->nullable();
+            $table->string('compliance_check')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
 
