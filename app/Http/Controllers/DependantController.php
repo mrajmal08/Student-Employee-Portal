@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Http\Request;
 use App\Models\Dependant;
+use Carbon\Carbon;
 use Validator;
 use Redirect;
 
@@ -25,9 +26,16 @@ class DependantController extends Controller
 
         $dependantQuery = Dependant::orderBy('id', 'DESC');
 
+        $filters = [
+            'name' => 'name',
+            'nationality' => 'nationality',
+            'date_of_birth' => 'date_of_birth',
+        ];
 
-        if ($request->has('name')) {
-            $dependantQuery->where('name', 'like', '%' . $request->name . '%');
+        foreach ($filters as $requestKey => $column) {
+            if ($request->filled($requestKey)) {
+                $dependantQuery->where($column, 'like', '%' . $request->$requestKey . '%');
+            }
         }
 
         $dependants = $dependantQuery->get();
@@ -44,6 +52,16 @@ class DependantController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'nationality' => 'required',
+            'date_of_birth' => 'required',
+            'financial_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'qualification_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'pay_slip.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'employer_letter.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'marriage_certificate.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'birth_certificate.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+
+
         ]);
 
         if ($validator->fails()) {
@@ -57,9 +75,34 @@ class DependantController extends Controller
             }
         }
         try {
+
             $data['name'] = $request->name;
+            $data['nationality'] = $request->nationality;
+            $data['date_of_birth'] = $request->date_of_birth;
+            $data['travel_outside'] = $request->travel_outside;
+            $data['travel_history'] = $request->travel_history;
+            $data['officer_note'] = $request->officer_note;
+
+            $timestamp = Carbon::now()->timestamp;
+            $documents = ['financial_doc', 'qualification_doc', 'pay_slip', 'employer_letter', 'marriage_certificate', 'birth_certificate'];
+
+            foreach ($documents as $doc) {
+                if ($request->hasFile($doc)) {
+                    $filenames = [];
+                    foreach ($request->file($doc) as $file) {
+                        $extension = $file->getClientOriginalExtension();
+                        $filename = rand(99999, 234567) . $timestamp . '.' . $extension;
+                        $file->move(public_path('assets/DependantDoc'), $filename);
+
+                        $filenames[] = $filename;
+                    }
+
+                    $data[$doc] = implode(',', $filenames);
+                }
+            }
 
             Dependant::create($data);
+
             $flasher->option('position', 'top-center')->addSuccess('Dependant added Successfully');
 
             return redirect()->route('dependants.index')->with('message', 'Dependant added Successfully');
@@ -84,9 +127,67 @@ class DependantController extends Controller
             return redirect()->route('dependants.index')->with('error', 'Id not found');
         }
 
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'nationality' => 'required',
+            'date_of_birth' => 'required',
+            'financial_doc.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'qualification_doc.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'pay_slip.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'employer_letter.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'marriage_certificate.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'birth_certificate.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+
+
         ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach ($errors as $error) {
+                $flasher->options([
+                    'timeout' => 3000,
+                    'position' => 'top-center',
+                ])->option('position', 'top-center')->addError('Validation Error', $error);
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+        }
+
+        $timestamp = Carbon::now()->timestamp;
+        $documents = ['financial_doc', 'qualification_doc', 'pay_slip', 'employer_letter', 'marriage_certificate', 'birth_certificate'];
+        $validatedData = [];
+        foreach ($documents as $field) {
+            if ($request->hasFile($field)) {
+                $newFilesArray = [];
+                foreach ($request->file($field) as $file) {
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = rand(99999, 234567) . $timestamp . '.' . $extension;
+                    $file->move(public_path('assets/DependantDoc'), $filename);
+                    $newFilesArray[] = $filename;
+                }
+
+                $validatedData[$field] = implode(',', $newFilesArray);
+            }
+        }
+
+        if ($request->name) {
+            $validatedData['name'] = $request->name;
+        }
+        if ($request->nationality) {
+            $validatedData['nationality'] = $request->nationality;
+        }
+        if ($request->date_of_birth) {
+            $validatedData['date_of_birth'] = $request->date_of_birth;
+        }
+        if ($request->travel_outside) {
+            $validatedData['travel_outside'] = $request->travel_outside;
+        }
+        if ($request->travel_history) {
+            $validatedData['travel_history'] = $request->travel_history;
+        }
+        if ($request->officer_note) {
+            $validatedData['officer_note'] = $request->officer_note;
+        }
+
 
         $dependant->update($validatedData);
         $flasher->option('position', 'top-center')->addSuccess('Dependant updated Successfully');

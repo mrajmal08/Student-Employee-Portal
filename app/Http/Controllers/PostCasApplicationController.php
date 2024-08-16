@@ -174,22 +174,6 @@ class PostCasApplicationController extends Controller
             }
         }
 
-        $data['cas_no'] = $request->cas_no;
-        $data['cas_date'] = $request->cas_date;
-        $data['after_vignette'] = $request->after_vignette;
-        $data['before_vignette'] = $request->before_vignette;
-        $data['student_notified'] = $request->student_notified;
-        $data['date_of_entry'] = $request->date_of_entry;
-        $data['is_egates'] = $request->is_egates;
-        $data['brp_received'] = $request->brp_received;
-        $data['brp_error'] = $request->brp_error;
-        $data['brp_start_date'] = $request->brp_start_date;
-        $data['brp_end_date'] = $request->brp_end_date;
-        $data['reporting_date'] = $request->reporting_date;
-        $data['sms_reporting_date'] = $request->sms_reporting_date;
-        $data['brp_correction_note'] = $request->brp_correction_note;
-        $data['correct_identified'] = $request->correct_identified;
-
         if ($request->cas_no) {
             $validatedData['cas_no'] = $request->cas_no;
         }

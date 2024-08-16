@@ -87,6 +87,7 @@
                                 <th>Preferred Contact Details</th>
                                 <th>Nationality</th>
                                 <th>Passport Number</th>
+                                <th>Dependants</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -99,6 +100,11 @@
                                 <td>{{ $item->phone_no }}</td>
                                 <td>{{ $item->nationality }}</td>
                                 <td>{{ $item->passport }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#dependants{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
                                 <td class="ealign-items-center">
                                     <a href="{{ route('students.view', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-eye-fill text-primary"></i>
@@ -115,6 +121,96 @@
                                     </form>
                                 </td>
                             </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="dependants{{ $item->id }}" tabindex="-1" aria-labelledby="dependantsLabel{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="dependantsLabel{{ $item->id }}">Dependants of {{ $item->name }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @if($item->dependants->isEmpty())
+                                            <p>No dependants found.</p>
+                                            @else
+                                            <div class="row">
+                                                <?php $count = 1; ?>
+                                                @foreach ($item->dependants as $dependant)
+
+                                                <div class="dependant-heading mb-2">Dependant {{ $count }}</div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Name:</strong> <strong class="label">{{ $dependant->name }}</strong><br>
+                                                        <strong>Nationality:</strong> <strong class="label"> {{ $dependant->nationality }}</strong><br>
+                                                        <strong>Date of Birth:</strong> <strong class="label"> {{ $dependant->date_of_birth }}</strong><br>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Travel Outside:</strong> <strong class="label">{{ $dependant->travel_outside }}</strong><br>
+                                                        <strong>Travel History:</strong> <strong class="label">{{ $dependant->travel_history }}</strong><br>
+                                                        <strong>Financial Docs:</strong>
+
+                                                        @foreach(explode(',', $dependant->financial_doc) as $document)
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Qualification Doc:</strong>
+                                                        @foreach(explode(',', $dependant->qualification_doc) as $document)
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @endforeach
+                                                        <br>
+                                                        <strong>Pay Slip:</strong>
+                                                        @foreach(explode(',', $dependant->pay_slip) as $document)
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @endforeach<br>
+                                                        <strong>Employer Letter:</strong>
+                                                        @foreach(explode(',', $dependant->employer_letter) as $document)
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @endforeach
+                                                        <br>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Marriage Certificate:</strong>
+                                                        @foreach(explode(',', $dependant->marriage_certificate) as $document)
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @endforeach<br>
+                                                        <strong>Birth Certificate:</strong>
+                                                        @foreach(explode(',', $dependant->birth_certificate) as $document)
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @endforeach<br>
+
+                                                        <strong>Officer Note:</strong>
+                                                        <span class="short-text">
+                                                            {!! Str::words($dependant->officer_note, 2) !!}
+                                                        </span>
+                                                        <span class="full-text" style="display: none;">
+                                                            {{ $dependant->officer_note }}
+                                                        </span>
+                                                        <a href="#" class="text-success read-more-toggle" data-target="#officerNote-{{ $dependant->id }}">read more...</a>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                <?php $count++; ?>
+                                                @endforeach
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -127,6 +223,30 @@
 
     </div>
 </section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.read-more-toggle').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                var target = document.querySelector(link.getAttribute('data-target'));
+                var shortText = link.previousElementSibling.previousElementSibling;
+                var fullText = link.previousElementSibling;
+
+                if (fullText.style.display === 'none') {
+                    fullText.style.display = 'inline';
+                    shortText.style.display = 'none';
+                    link.textContent = 'read less';
+                } else {
+                    fullText.style.display = 'none';
+                    shortText.style.display = 'inline';
+                    link.textContent = 'read more...';
+                }
+            });
+        });
+    });
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
 <script type="text/javascript">
     $('.show_confirm').click(function(event) {
@@ -185,14 +305,15 @@
     })(jQuery);
 </script>
 <script>
-        $(document).ready(function() {
-            $('#example').DataTable({
-                searching: false
-            });
+    $(document).ready(function() {
+        $('#example').DataTable({
+            searching: false
         });
-    </script>
+    });
+</script>
 
 @push('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 @endpush

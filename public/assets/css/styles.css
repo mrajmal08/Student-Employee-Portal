@@ -832,5 +832,9 @@ table.table-bordered.dataTable thead tr th {
     color: #ffffff;
     position: relative !important;
     top: -2px !important;
-
+}
+.dependant-heading{
+    background: #00b5e9;
+    color: #ffffff;
+    border-radius: 5px;
 }

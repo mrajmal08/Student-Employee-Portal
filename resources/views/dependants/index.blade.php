@@ -39,8 +39,16 @@
                             <div class="collapse-div mb-3">
                                 <div class="row extra-padding">
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Name</label>
+                                        <label class="label">Name Of Dependant</label>
                                         <input type="text" name="name" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">Nationality of Dependant</label>
+                                        <input type="text" name="nationality" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">Date Of Birth</label>
+                                        <input type="text" name="date_of_birth" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
@@ -60,11 +68,22 @@
                 </div>
 
                 <div class="datatable my-4 table-responsive">
-                    <table id="example" class="table table-bordered">
+                    <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
                         <thead class="text-center">
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
+                                <th>Nationality</th>
+                                <th>date_of_birth</th>
+                                <th>travel_outside</th>
+                                <th>travel_history</th>
+                                <th>financial_doc</th>
+                                <th>qualification_doc</th>
+                                <th>pay_slip</th>
+                                <th>employer_letter</th>
+                                <th>marriage_certificate</th>
+                                <th>birth_certificate</th>
+                                <th>officer_note</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -73,6 +92,43 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
+                                <td>{{ $item->nationality }}</td>
+                                <td>{{ $item->date_of_birth }}</td>
+                                <td>{{ $item->travel_outside }}</td>
+                                <td>{{ $item->travel_history }}</td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#financial_doc{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#qualification_doc{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#pay_slip{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#employer_letter{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#marriage_certificate{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a data-bs-toggle="modal" data-bs-target="#birth_certificate{{ $item->id }}">
+                                        <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                    </a>
+                                </td>
+                                <td>
+                                    {!! Str::words($item->officer_note, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#officerNoteModal-' . $item->id . '">read more...</a>') !!}
+                                </td>
                                 <td class="ealign-items-center">
                                     <a href="{{ route('dependants.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
@@ -86,6 +142,152 @@
                                     </form>
                                 </td>
                             </tr>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="officerNoteModal-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="officerNoteModalLabel-{{ $item->id }}">Officer Note</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $item->officer_note }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Financail Document Modal -->
+                            <div class="modal fade" id="financial_doc{{ $item->id }}" tabindex="-1" aria-labelledby="financial_doc{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="financial_doc{{ $item->id }}">Vignette Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->financial_doc) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Qualification Document Modal -->
+                            <div class="modal fade" id="qualification_doc{{ $item->id }}" tabindex="-1" aria-labelledby="qualification_doc{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="qualification_doc{{ $item->id }}">Vignette Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->qualification_doc) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Pay Slip Document Modal -->
+                            <div class="modal fade" id="pay_slip{{ $item->id }}" tabindex="-1" aria-labelledby="pay_slip{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="pay_slip{{ $item->id }}">Vignette Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->pay_slip) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Employer Letter Document Modal -->
+                            <div class="modal fade" id="employer_letter{{ $item->id }}" tabindex="-1" aria-labelledby="employer_letter{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="employer_letter{{ $item->id }}">Vignette Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->employer_letter) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Marriage Certificate Document Modal -->
+                            <div class="modal fade" id="marriage_certificate{{ $item->id }}" tabindex="-1" aria-labelledby="marriage_certificate{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="marriage_certificate{{ $item->id }}">Vignette Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->marriage_certificate) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Qualification Document Modal -->
+                            <div class="modal fade" id="birth_certificate{{ $item->id }}" tabindex="-1" aria-labelledby="birth_certificate{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="birth_certificate{{ $item->id }}">Vignette Documents</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <ul>
+                                                @foreach(explode(',', $item->birth_certificate) as $document)
+                                                <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             @endforeach
                         </tbody>
                     </table>
@@ -158,12 +360,14 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-            searching: false
+            searching: false,
+            "scrollX": true,
         });
     });
 </script>
 
 @push('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 @endpush

@@ -27,7 +27,9 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        $studentsQuery = Student::orderBy('id', 'DESC');
+        // $studentsQuery = Student::orderBy('id', 'DESC');
+        $studentsQuery = Student::with('dependants')->orderBy('id', 'DESC');
+
 
         $filters = [
             'name' => 'name',

@@ -16,6 +16,17 @@ class CreateDependantTable extends Migration
         Schema::create('dependants', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('nationality')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->string('travel_outside')->nullable();
+            $table->text('travel_history')->nullable();
+            $table->text('financial_doc')->nullable();
+            $table->text('qualification_doc')->nullable();
+            $table->text('pay_slip')->nullable();
+            $table->text('employer_letter')->nullable();
+            $table->text('marriage_certificate')->nullable();
+            $table->text('birth_certificate')->nullable();
+            $table->string('officer_note')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
         });
