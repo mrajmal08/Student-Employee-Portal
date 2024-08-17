@@ -63,7 +63,6 @@ Route::get('/pre/cas/application/view', [App\Http\Controllers\PreCasApplicationC
 Route::post('/pre/cas/application/update/{id}', [App\Http\Controllers\PreCasApplicationController::class, 'update'])->name('precas.update');
 Route::get('/pre/cas/application/delete/{id}', [App\Http\Controllers\PreCasApplicationController::class, 'delete'])->name('precas.delete');
 
-
 //Post Cas Application routes
 Route::get('/post/cas/application', [App\Http\Controllers\PostCasApplicationController::class, 'index'])->name('postcas.index');
 Route::get('/post/cas/application/create', [App\Http\Controllers\PostCasApplicationController::class, 'create'])->name('postcas.create');
@@ -71,3 +70,11 @@ Route::post('/post/cas/application/insert', [App\Http\Controllers\PostCasApplica
 Route::get('/post/cas/application/edit/{id}', [App\Http\Controllers\PostCasApplicationController::class, 'edit'])->name('postcas.edit');
 Route::post('/post/cas/application/update/{id}', [App\Http\Controllers\PostCasApplicationController::class, 'update'])->name('postcas.update');
 Route::get('/post/cas/application/delete/{id}', [App\Http\Controllers\PostCasApplicationController::class, 'delete'])->name('postcas.delete');
+
+//Users routes
+Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('user.index');
+Route::get('/user/create', [App\Http\Controllers\UserController::class, 'create'])->name('user.create');
+Route::post('/user/insert', [App\Http\Controllers\UserController::class, 'insert'])->name('user.insert');
+Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
+Route::post('/user/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
+Route::get('/user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');

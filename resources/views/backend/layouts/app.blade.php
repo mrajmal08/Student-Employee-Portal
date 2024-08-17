@@ -24,7 +24,7 @@
 
                 <div class="profile">
                     <img src="{{ asset('assets/img/user.png') }}" class="profile-img" alt="Profile Picture">
-                    <span class="profile-name">SuperAdmin</span>
+                    <span class="profile-name">{{ auth()->user()->name }}</span>
                 </div>
 
                 <div class="nav-icon">
@@ -86,13 +86,10 @@
                         <a href="#!">Master</a>
                         <ul class="navbar-dropdown">
                             <li>
-                                <a href="#!">Users</a>
+                                <a href="{{ route('user.index') }}">Users</a>
                             </li>
                             <li>
                                 <a href="{{ route('courses.index') }}">Courses</a>
-                            </li>
-                            <li>
-                                <a href="#!">User Roles</a>
                             </li>
                             <li>
                                 <a href="{{ route('dependants.index') }}">Dependants</a>
