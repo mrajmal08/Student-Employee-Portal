@@ -771,9 +771,7 @@ input[type="text"], input[type="email"], input[type="password"], input[type="dat
     height: -webkit-fill-available;
     background: #f8f8f8;
   }
-  .card {
-    margin: 0px !important;
-  }
+
   .star-color{
     color: red;
   }
