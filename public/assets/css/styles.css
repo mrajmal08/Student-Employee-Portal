@@ -836,3 +836,23 @@ table.table-bordered.dataTable thead tr th {
     color: #ffffff;
     border-radius: 5px;
 }
+.btn-cancel{
+    margin-left: 10px;
+    background-color: #00b5e9;
+    color: #ffffff;
+    width: auto !important;
+    min-width: 110px;
+    padding: 0.25rem 0.625rem;
+    font: 400 0.938rem / 1.25rem "Poppins", Arial, Helvetica, sans-serif;
+}
+
+@media (max-width: 768px) {
+    .btn-cancel {
+        margin-left: 0;
+    }
+}
+
+ .btn-cancel:hover{
+     background: #0396be;
+     color: #ffffff;
+  }

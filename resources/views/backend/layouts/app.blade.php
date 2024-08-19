@@ -24,7 +24,7 @@
 
                 <div class="profile">
                     <img src="{{ asset('assets/img/user.png') }}" class="profile-img" alt="Profile Picture">
-                    <span class="profile-name">{{ auth()->user()->name }}</span>
+                    <span class="profile-name">{{ auth()->user() ? auth()->user()->name : 'Guest' }}</span>
                 </div>
 
                 <div class="nav-icon">

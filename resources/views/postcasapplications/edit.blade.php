@@ -25,7 +25,7 @@
                     <div class="container">
                         <div class="user-header">
                             <h4 class="user-role py-3">Update Post Cas Application</h4>
-                            <button class="close-btn">x</button>
+                            <a href="{{ route('postcas.index') }}" class="close-btn">x</a>
                         </div>
                         <div class="search-user">
                             <div class="form-container">
@@ -258,6 +258,7 @@
 
                         <div class="form-buttons my-4">
                             <button type="submit" class="btn filter-btn">Submit</button>
+                            <a href="{{ route('postcas.index') }}" type="submit" class="btn btn-cancel">Create</a>
                         </div>
                         </form>
                     </div>

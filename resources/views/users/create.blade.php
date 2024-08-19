@@ -13,7 +13,7 @@
                     <breadcrumb>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a role="button">USer</a>
+                                <a role="button">User</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <span>Add</span>
@@ -25,7 +25,7 @@
                     <div class="container">
                         <div class="user-header">
                             <h4 class="user-role py-3">Add User</h4>
-                            <button class="close-btn">x</button>
+                            <a href="{{ route('user.index') }}" class="close-btn">x</a>
                         </div>
                         <div class="search-user">
                             <div class="form-container">
@@ -62,6 +62,7 @@
                                     </div>
                                     <div class="form-buttons my-4">
                                         <button type="submit" class="btn filter-btn">Submit</button>
+                                        <a href="{{ route('user.index') }}" type="submit" class="btn btn-cancel">Create</a>
                                     </div>
                                 </form>
                             </div>
