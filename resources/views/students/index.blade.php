@@ -107,7 +107,7 @@
                                 </td>
                                 <td class="ealign-items-center">
                                     <a href="{{ route('students.view', [$item->id]) }}" class="me-2">
-                                        <i class="bi bi-eye-fill text-primary"></i>
+                                        <i class="bi bi-eye-fill"></i>
                                     </a>
                                     <a href="{{ route('students.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>

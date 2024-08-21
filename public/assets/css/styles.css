@@ -733,14 +733,17 @@ div.dataTables_wrapper div.dataTables_info {
 }
 
 .datatable table tbody tr td {
-    color: #8f8f8f !important;
+    /* color: #8f8f8f !important; */
     font-size: smaller !important;
 }
 .datatable table thead tr th {
     font-size: smaller !important;
+    font-weight: 500;
 }
 .datatable table tr th {
     font-size: smaller !important;
+    font-weight: 500;
+
 }
 .datatable .dataTables_wrapper .dataTables_paginate ul li a{
     font-size: x-small;
