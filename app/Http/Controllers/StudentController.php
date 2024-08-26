@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Flasher\Prime\FlasherInterface;
+use App\Models\RecruitmentAgent;
 use App\Models\StudentDependant;
 use App\Models\StudentCourse;
 use Illuminate\Http\Request;
@@ -27,9 +28,7 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        // $studentsQuery = Student::orderBy('id', 'DESC');
         $studentsQuery = Student::with('dependants')->orderBy('id', 'DESC');
-
 
         $filters = [
             'name' => 'name',
@@ -52,8 +51,9 @@ class StudentController extends Controller
     {
         $dependants = Dependant::orderBy('id', 'DESC')->get();
         $courses = Course::orderBy('id', 'DESC')->get();
+        $recruitmentAgent = RecruitmentAgent::orderBy('id', 'DESC')->get();
 
-        return view('students.create', compact('dependants', 'courses'));
+        return view('students.create', compact('dependants', 'courses', 'recruitmentAgent'));
     }
 
     public function view($id)

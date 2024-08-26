@@ -51,10 +51,13 @@
                 <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
                 <ul class="nav-list">
                     <li>
-                        <a href="#!">Students</a>
+                        <a href="#!">Pre Application</a>
                         <ul class="navbar-dropdown">
                             <li>
                                 <a href="{{ route('students.index') }}">Student List</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('students.create') }}">Add New Student</a>
                             </li>
                         </ul>
                     </li>

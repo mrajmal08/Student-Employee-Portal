@@ -327,6 +327,41 @@ input[type="radio"] {
     width: 13%;
 }
 
+.btn-agent {
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+
+}
+
+.disabled-link {
+    pointer-events: none;
+    opacity: 0.6;
+    cursor: not-allowed; 
+}
+.yellow-color{
+    width: 45%;
+    color: #ffffff;
+    background-color: #ff9700;
+}
+.grey-color{
+    width: 28%;
+    color: #ffffff;
+    background-color: #878e96;
+}
+
+.yellow-color:hover{
+    color: #ffffff;
+    background-color: #a36810;
+}
+.grey-color:hover{
+    color: #ffffff;
+    background-color: #656a70;
+}
+
 .form-group .gender {
     display: flex;
     align-items: center;

@@ -35,13 +35,63 @@
                                 <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-row mt-3">
+                                        <div class="form-group col-md-3"></div>
+                                        <div class="form-group col-md-6">
+                                            <div class="panel">
+                                                <strong class="sub-title"></strong>
+                                                <div class="collapse-div mb-3">
+                                                    <div class="d-flex flex-column align-items-center">
+                                                        <label class="mb-2">Please Choose Preferred Method Of Contact:<span class="star-color">*</span></label>
+                                                        <div class="d-flex justify-content-center">
+                                                            <input type="radio" id="preferred_method_yes" name="preferred_method" value="direct">
+                                                            <label for="preferred_method_yes" class="mr-3">Direct</label>
+                                                            <input type="radio" id="preferred_method_no" name="preferred_method" value="indirect">
+                                                            <label for="preferred_method_no">Indirect</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-3"></div>
+                                    </div>
+
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-4">
+                                            <label class="label">Recruitment Agent:<span class="star-color">*</span></label>
+                                            <select name="agent_id" id="agent_id" class="form-control">
+                                                <option disabled selected>--Select One--</option>
+                                                @foreach ($recruitmentAgent as $item)
+                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-4 d-flex align-items-end">
+                                            <a href="" id="agent_btn" class="btn-agent yellow-color mr-2 disabled-link" disabled>Add New Agent</a>
+                                            <a href="" id="view_btn" class="btn-agent grey-color disabled-link" disabled>View/Edit</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-4">
+                                            <label class="label" for="email">Referral<span class="star-color">*</span></label>
+                                            <input type="text" name="referral" class="form-control" id="referral">
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-3">
+                                        <div class="form-group col-md-4">
+                                            <label class="label" for="middleName">Other Stakeholder:<span class="star-color">*</span></label>
+                                            <input type="text" name="stakeholder" class="form-control" id="stakeholder">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mt-3">
                                         <div class="form-group">
-                                            <label class="label" for="firstName">Student Name<span class="star-color">*</span></label>
-                                            <input type="text" id="firstName" class="form-control" name="name" required>
+                                            <label class="label" for="name">Student Name<span class="star-color">*</span></label>
+                                            <input type="text" id="name" class="form-control" name="name">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
-                                            <input type="email" name="email" class="form-control" id="email" required>
+                                            <input type="email" name="email" class="form-control" id="email">
                                         </div>
 
                                         <div class="form-group">
@@ -53,22 +103,22 @@
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
-                                            <input type="text" name="nationality" class="form-control" id="nationality" required>
+                                            <input type="text" name="nationality" class="form-control" id="nationality">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
-                                            <input type="text" name="phone_no" class="form-control" id="phone_no" required>
+                                            <input type="text" name="phone_no" class="form-control" id="phone_no">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="phone_no">Date Of Birth:<span class="star-color">*</span></label>
-                                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" required>
+                                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label">Gender:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="male" name="gender" value="1" required>
+                                                <input type="radio" id="male" name="gender" value="1">
                                                 <label class="label" for="male">Male</label>
                                                 <input type="radio" id="female" name="gender" value="2">
                                                 <label class="label" for="female">Female</label>
@@ -84,7 +134,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="label">Intake:<span class="star-color">*</span></label>
-                                            <select name="intake">
+                                            <select name="intake" id="intake_select">
                                                 <option disabled selected>--Select One--</option>
                                                 <option value="January">January</option>
                                                 <option value="February">February</option>
@@ -104,11 +154,11 @@
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="passport">Passport Number:</label>
-                                            <input type="text" class="form-control" name="passport" id="text" required>
+                                            <input type="text" class="form-control" name="passport" id="text">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="cas">Previous CAS:</label>
-                                            <input type="text" class="form-control" name="previous_cas" id="text" required>
+                                            <input type="text" class="form-control" name="previous_cas" id="text">
                                         </div>
                                         <div class="form-group">
                                         </div>
@@ -155,7 +205,7 @@
                                         <div class="form-group col-md-4">
                                             <label class="label">Traveling Alone:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="traveling-yes" name="traveling" value="travelingYes" required>
+                                                <input type="radio" id="traveling-yes" name="traveling" value="travelingYes">
                                                 <label for="traveling-yes">Yes</label>
                                                 <input type="radio" id="traveling-no" name="traveling" value="travelingNo">
                                                 <label for="traveling-no">No</label>
@@ -274,6 +324,32 @@
                                         </div>
                                     </div>
 
+                                    <div class="container-fluid mt-3">
+                                        <div class="panel">
+                                            <strong class="sub-title">Screener: </strong>
+                                            <div class="collapse-div mb-3">
+                                                <div class="row extra-padding">
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group">
+                                                            <label class="label" for="get_student">Student:</span></label>
+                                                            <input type="text" id="get_student" class="form-control" value="" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="email">Intake:</span></label>
+                                                            <input type="text" class="form-control" id="get_intake" value="" disabled>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="label" for="middleName">Screened By:</span></label>
+                                                            <input type="text" name="screened_by" class="form-control" id="screened_by">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-buttons my-4">
                                         <button type="submit" class="btn filter-btn">Submit</button>
                                         <a href="{{ route('students.index') }}" type="submit" class="btn btn-cancel">Create</a>
@@ -289,6 +365,45 @@
     <div class="footer">
     </div>
 </section>
+
+
+<script>
+    $(document).ready(function() {
+
+        $('#preferred_method_yes').prop('checked', true);
+        $('#preferred_method_no').prop('disabled', false);
+        $('#agent_id').prop('disabled', true);
+        $('#agent_btn').prop('disabled', true);
+        $('#view_btn').prop('disabled', true);
+        $('#referral').prop('disabled', true);
+        $('#stakeholder').prop('disabled', true);
+
+        $('#preferred_method_yes').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#preferred_method_no').prop('disabled', false);
+                $('#agent_id').prop('disabled', true);
+                $('#agent_btn').addClass('disabled-link');
+                $('#view_btn').addClass('disabled-link');
+                $('#referral').prop('disabled', true);
+                $('#stakeholder').prop('disabled', true);
+
+            }
+        });
+
+        $('#preferred_method_no').on('change', function() {
+            if ($(this).is(':checked')) {
+                $('#preferred_method_no').prop('disabled', false);
+                $('#agent_id').prop('disabled', false);
+                $('#agent_btn').removeClass('disabled-link');
+                $('#view_btn').removeClass('disabled-link');
+                $('#referral').prop('disabled', false);
+                $('#stakeholder').prop('disabled', false);
+
+            }
+        });
+    });
+</script>
+
 
 <script>
     function displayFileNames(input) {
@@ -328,6 +443,17 @@
             });
         });
     })(jQuery);
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#name').on('input', function() {
+            $('#get_student').val($(this).val());
+        });
+    });
+    $('#intake_select').on('change', function() {
+            $('#get_intake').val($(this).val());
+        });
 </script>
 
 <script>

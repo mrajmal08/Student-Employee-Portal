@@ -29,8 +29,9 @@ class CreateStudentsTable extends Migration
 			$table->string('intake')->nullable();
 			$table->text('notes')->nullable();
             $table->bigInteger('dependant_no')->nullable();
+            $table->bigInteger('agent_id')->nullable();
+            $table->string('stakeholder')->nullable();
 			$table->string('previous_cas')->nullable();
-
 			$table->string('academic_document')->nullable();
 			$table->string('passport_doc')->nullable();
 			$table->string('brp_doc')->nullable();
