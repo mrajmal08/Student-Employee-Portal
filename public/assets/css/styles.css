@@ -337,21 +337,44 @@ input[type="radio"] {
 
 }
 
-.disabled-link {
-    pointer-events: none;
-    opacity: 0.6;
-    cursor: not-allowed; 
+
+.btn.disabled, .btn:disabled, fieldset:disabled, .yellow-color{
+    background-color: #ff9700 !important;
+
 }
-.yellow-color{
+
+.btn.disabled, .btn:disabled, fieldset:disabled, .grey-color{
+    background-color: #878e96 !important;
+
+}
+
+.btn.disabled, .btn:disabled, fieldset:disabled .btn {
+    color: #ffffff;
+    pointer-events: none;
+    border-color: var(--bs-btn-disabled-border-color);
+    opacity: var(--bs-btn-disabled-opacity);
+}
+
+.yellow-color {
     width: 45%;
     color: #ffffff;
     background-color: #ff9700;
 }
-.grey-color{
+
+.yellow-color.disabled, .yellow-color:disabled, fieldset:disabled .yellow-color {
+    background-color: #ffbc71 !important;
+}
+
+.grey-color {
     width: 28%;
     color: #ffffff;
     background-color: #878e96;
 }
+
+.grey-color.disabled, .grey-color:disabled, fieldset:disabled .grey-color {
+    background-color: #b0b7bf !important;
+}
+
 
 .yellow-color:hover{
     color: #ffffff;

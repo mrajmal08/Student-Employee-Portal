@@ -87,6 +87,9 @@ class RecruitmentAgentController extends Controller
             RecruitmentAgent::create($data);
 
             $flasher->option('position', 'top-center')->addSuccess('Recruitment added Successfully');
+            if($request->student_form){
+                return redirect()->route('students.create')->with('message', 'Recruitment added Successfully');
+            }
             return redirect()->route('recruitments.index')->with('message', 'Recruitment added Successfully');
         } catch (\Exception $e) {
             $flasher->option('position', 'top-center')->addError('Something went wrong');

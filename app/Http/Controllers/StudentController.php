@@ -111,6 +111,10 @@ class StudentController extends Controller
             $data['notes'] = $request->notes;
             $data['dependant_no'] = $request->dependant_no;
             $data['previous_cas'] = $request->previous_cas;
+            $data['agent_id'] = $request->agent_id;
+            $data['referral'] = $request->referral;
+            $data['stakeholder'] = $request->stakeholder;
+            $data['screened_by'] = $request->screened_by;
 
 
             $timestamp = Carbon::now()->timestamp;
@@ -166,8 +170,9 @@ class StudentController extends Controller
         $courses = Course::all();
         $selectedCourses = $student->courses->pluck('id')->toArray();
         $selectedDependants = $student->dependants->pluck('id')->toArray();
+        $recruitmentAgent = RecruitmentAgent::orderBy('id', 'DESC')->get();
 
-        return view('students.edit', compact('student', 'courses', 'dependants', 'selectedCourses', 'selectedDependants'));
+        return view('students.edit', compact('student', 'courses', 'dependants', 'selectedCourses', 'selectedDependants', 'recruitmentAgent'));
     }
 
     public function update(Request $request, $id, FlasherInterface $flasher)
@@ -275,6 +280,18 @@ class StudentController extends Controller
         }
         if ($request->previous_cas) {
             $validatedData['previous_cas'] = $request->previous_cas;
+        }
+        if ($request->agent_id) {
+            $validatedData['agent_id'] = $request->agent_id;
+        }
+        if ($request->referral) {
+            $validatedData['referral'] = $request->referral;
+        }
+        if ($request->stakeholder) {
+            $validatedData['stakeholder'] = $request->stakeholder;
+        }
+        if ($request->screened_by) {
+            $validatedData['screened_by'] = $request->screened_by;
         }
 
         $student->update($validatedData);

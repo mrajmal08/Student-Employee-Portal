@@ -57,29 +57,144 @@
 
                                     <div class="form-row mt-3">
                                         <div class="form-group col-md-4">
-                                            <label class="label">Recruitment Agent:<span class="star-color">*</span></label>
+                                            <label class="label">Recruitment Agent:</label>
                                             <select name="agent_id" id="agent_id" class="form-control">
                                                 <option disabled selected>--Select One--</option>
-                                                @foreach ($recruitmentAgent as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                @foreach ($recruitmentAgent as $agent)
+                                                <option value="{{ $agent->id }}"
+                                                    data-name="{{ $agent->name }}"
+                                                    data-directors="{{ $agent->directors }}"
+                                                    data-company-register-number="{{ $agent->company_register_number }}"
+                                                    data-date-of-registration="{{ $agent->date_of_registration }}"
+                                                    data-account-name="{{ $agent->account_name }}"
+                                                    data-account-number="{{ $agent->account_number }}"
+                                                    data-institutions="{{ $agent->institutions }}"
+                                                    data-career-history="{{ $agent->career_history }}"
+                                                    data-address-uk="{{ $agent->address_uk }}"
+                                                    data-address="{{ $agent->address }}"
+                                                    data-compliance-check="{{ $agent->compliance_check }}"
+                                                    data-payment-method="{{ $agent->payment_method }}">
+                                                    {{ $agent->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
+
                                         <div class="form-group col-md-4 d-flex align-items-end">
-                                            <a href="" id="agent_btn" class="btn-agent yellow-color mr-2 disabled-link" disabled>Add New Agent</a>
-                                            <a href="" id="view_btn" class="btn-agent grey-color disabled-link" disabled>View/Edit</a>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#addAgent" class="btn btn-agent yellow-color mr-2 btnHide">Add New Agent</button>
+                                            <button type="button" id="openModalBtn" class="btn btn-agent grey-color btnHide">View/Edit</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <form method="POST" action="">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">View Recruitment Agent</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="my-3">
+                                                            <span class="star-color">*</span><span class="label"> <i>Indicates required field</i></span>
+                                                        </div>
+                                                        <div class="form-row mt-3">
+                                                            <div class="form-group">
+                                                                <label class="label" for="name">Name Of Agent:<span class="star-color">*</span></label>
+                                                                <input type="text" class="form-control" id="name" name="name">
+                                                                <input type="hidden" class="form-control" id="student_form" value="stundet form" name="student_form">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="directors">List The Name Of All Your Directors:<span class="star-color">*</span></label>
+                                                                <input type="text" class="form-control" name="directors" id="directors">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="company_register_number">Company Register Number:<span class="star-color">*</span></label>
+                                                                <input type="text" class="form-control" name="company_register_number" id="company_register_number">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-4">
+                                                                <label class="label" for="date_of_registration">Date Of Registration:<span class="star-color">*</span></label>
+                                                                <input type="date" class="form-control" name="date_of_registration" id="date_of_registration">
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-4">
+                                                                <label class="label" for="payment_method">Payment Method:<span class="star-color">*</span></label>
+                                                                <select id="payment_method" class="form-control" name="payment_method">
+                                                                    <option default selected>--Select One--</option>
+                                                                    <option value="Cash">Cash</option>
+                                                                    <option value="Bank Account">Bank Account</option>
+                                                                    <option value="Paypal">Paypal</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group" id="account_name_group" style="display: none;">
+                                                                <label class="label" for="account_name">Account Name:</label>
+                                                                <input type="text" class="form-control" name="account_name" id="account_name">
+                                                            </div>
+                                                            <div class="form-group" id="account_number_group" style="display: none;">
+                                                                <label class="label" for="account_number">Account Number:</label>
+                                                                <input type="text" class="form-control" name="account_number" id="account_number">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row">
+                                                            <div class="form-group">
+                                                                <label class="label" for="institutions">Institutions:</label>
+                                                                <input type="text" class="form-control" name="institutions" id="institutions">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="address_uk">Address In UK:</label>
+                                                                <input type="text" class="form-control" name="address_uk" id="address_uk">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="label" for="address">Address If Company Not In UK:</label>
+                                                                <input type="text" class="form-control" name="address" id="address">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <div class="form-group col-md-4">
+                                                                <label class="label">Compliance Check:</label>
+                                                                <div class="radio-btn">
+                                                                    <input type="radio" id="yes" name="compliance_check" value="Yes">
+                                                                    <label class="label" for="yes">Yes</label>
+                                                                    <input type="radio" id="no" name="compliance_check" value="No">
+                                                                    <label class="label" for="no">No</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="my-2">
+                                                            <h4 class="address">
+                                                                Career History
+                                                            </h4>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <textarea class="form-control" name="career_history" id="career_history" rows="3"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer d-flex justify-content-center w-100">
+                                                        <button type="submit" class="btn filter-btn" data-bs-dismiss="modal">Submit</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
                                         </div>
                                     </div>
 
                                     <div class="form-row mt-3">
                                         <div class="form-group col-md-4">
-                                            <label class="label" for="email">Referral<span class="star-color">*</span></label>
+                                            <label class="label" for="email">Referral</label>
                                             <input type="text" name="referral" class="form-control" id="referral">
                                         </div>
                                     </div>
                                     <div class="form-row mt-3">
                                         <div class="form-group col-md-4">
-                                            <label class="label" for="middleName">Other Stakeholder:<span class="star-color">*</span></label>
+                                            <label class="label" for="middleName">Other Stakeholder:</label>
                                             <input type="text" name="stakeholder" class="form-control" id="stakeholder">
                                         </div>
                                     </div>
@@ -364,8 +479,196 @@
     </div>
     <div class="footer">
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="addAgent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form method="POST" action="{{ route('recruitments.insert') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Recruitment Agent</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="my-3">
+                            <span class="star-color">*</span><span class="label"> <i>Indicates required field</i></span>
+                        </div>
+                        <div class="form-row mt-3">
+                            <div class="form-group">
+                                <label class="label" for="name">Name Of Agent:<span class="star-color">*</span></label>
+                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="hidden" class="form-control" id="name" value="stundet form" name="student_form">
+                            </div>
+                            <div class="form-group">
+                                <label class="label" for="directors">List The Name Of All Your Directors:<span class="star-color">*</span></label>
+                                <input type="text" class="form-control" name="directors" id="directors">
+                            </div>
+                            <div class="form-group">
+                                <label class="label" for="company_register_number">Company Register Number:<span class="star-color">*</span></label>
+                                <input type="text" class="form-control" name="company_register_number" id="company_register_number">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label class="label" for="date_of_registration">Date Of Registration:<span class="star-color">*</span></label>
+                                <input type="date" class="form-control" name="date_of_registration" id="date_of_registration">
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label class="label" for="payment_method">Payment Method add:<span class="star-color">*</span></label>
+                                <select id="payment_method_add" class="form-control" name="payment_method">
+                                    <option default selected>--Select One--</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Bank Account">Bank Account</option>
+                                    <option value="Paypal">Paypal</option>
+                                </select>
+                            </div>
+                            <div class="form-group" id="account_name_group_add" style="display: none;">
+                                <label class="label" for="account_name">Account Name:</label>
+                                <input type="text" class="form-control" name="account_name" id="account_name">
+                            </div>
+                            <div class="form-group" id="account_number_group_add" style="display: none;">
+                                <label class="label" for="account_number">Account Number:</label>
+                                <input type="text" class="form-control" name="account_number" id="account_number">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label" for="institutions">Institutions:</label>
+                                <input type="text" class="form-control" name="institutions" id="institutions">
+                            </div>
+                            <div class="form-group">
+                                <label class="label" for="career_history">Career History:</label>
+                                <input type="text" class="form-control" name="career_history" id="career_history">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label" for="address_uk">Address In UK:</label>
+                                <input type="text" class="form-control" name="address_uk" id="address_uk">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="label" for="address">Address If Company Not In UK:</label>
+                                <input type="text" class="form-control" name="address" id="address">
+                            </div>
+                            <div class="form-group">
+                                <label class="label">Compliance Check:</label>
+                                <div class="radio-btn">
+                                    <input type="radio" id="yes" name="compliance_check" value="Yes">
+                                    <label class="label" for="yes">Yes</label>
+                                    <input type="radio" id="no" name="compliance_check" value="No">
+                                    <label class="label" for="no">No</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                            </div>
+                        </div>
+
+                        <div class="my-2">
+                            <h4 class="address">
+                                Career History
+                            </h4>
+                        </div>
+                        <div class="form-row">
+                            <textarea class="form-control" name="career_history" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center w-100">
+                        <button type="submit" class="btn filter-btn" data-bs-dismiss="modal">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
 </section>
 
+<script>
+    $(document).ready(function() {
+        // On dropdown selection change
+        $('#agent_id').change(function() {
+            // Get the selected option data
+            var selectedOption = $(this).find('option:selected');
+            var name = selectedOption.data('name');
+            var directors = selectedOption.data('directors');
+            var companyRegisterNumber = selectedOption.data('company-register-number');
+            var dateOfRegistration = selectedOption.data('date-of-registration');
+            var accountName = selectedOption.data('account-name');
+            var accountNumber = selectedOption.data('account-number');
+            var institutions = selectedOption.data('institutions');
+            var careerHistory = selectedOption.data('career-history');
+            var addressUK = selectedOption.data('address-uk');
+            var address = selectedOption.data('address');
+            var complianceCheck = selectedOption.data('compliance-check');
+            var paymentMethod = selectedOption.data('payment-method');
+            var agentId = selectedOption.val();
+
+            // Update form fields with the selected data
+            $('#name').val(name);
+            $('#directors').val(directors);
+            $('#company_register_number').val(companyRegisterNumber);
+            $('#date_of_registration').val(dateOfRegistration);
+            $('#account_name').val(accountName);
+            $('#account_number').val(accountNumber);
+            $('#institutions').val(institutions);
+            $('#career_history').val(careerHistory);
+            $('#address_uk').val(addressUK);
+            $('#address').val(address);
+            $('#agent_id_hidden').val(agentId);
+            $('#payment_method').val(paymentMethod);
+
+
+            if (complianceCheck === 'Yes') {
+                $('#yes').prop('checked', true);
+            } else if (complianceCheck === 'No') {
+                $('#no').prop('checked', true);
+            }
+
+        });
+
+        // Open Modal on Button Click
+        $('#openModalBtn').click(function() {
+            $('#exampleModal').modal('show');
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#payment_method').on('change', function() {
+            var selectedValue = $(this).val();
+            if (selectedValue === 'Bank Account' || selectedValue === 'Paypal') {
+                $('#account_name_group').show();
+                $('#account_number_group').show();
+            } else {
+                $('#account_name_group').hide();
+                $('#account_number_group').hide();
+            }
+        });
+        $('#payment_method').trigger('change');
+
+        $('#payment_method_add').on('change', function() {
+            var selectedValue = $(this).val();
+            if (selectedValue === 'Bank Account' || selectedValue === 'Paypal') {
+                $('#account_name_group_add').show();
+                $('#account_number_group_add').show();
+            } else {
+                $('#account_name_group_add').hide();
+                $('#account_number_group_add').hide();
+            }
+        });
+        $('#payment_method_add').trigger('change');
+
+    });
+</script>
 
 <script>
     $(document).ready(function() {
@@ -373,20 +676,17 @@
         $('#preferred_method_yes').prop('checked', true);
         $('#preferred_method_no').prop('disabled', false);
         $('#agent_id').prop('disabled', true);
-        $('#agent_btn').prop('disabled', true);
-        $('#view_btn').prop('disabled', true);
         $('#referral').prop('disabled', true);
         $('#stakeholder').prop('disabled', true);
+        $('.btnHide').prop('disabled', true);
 
         $('#preferred_method_yes').on('change', function() {
             if ($(this).is(':checked')) {
                 $('#preferred_method_no').prop('disabled', false);
                 $('#agent_id').prop('disabled', true);
-                $('#agent_btn').addClass('disabled-link');
-                $('#view_btn').addClass('disabled-link');
                 $('#referral').prop('disabled', true);
                 $('#stakeholder').prop('disabled', true);
-
+                $('.btnHide').prop('disabled', true);
             }
         });
 
@@ -394,11 +694,9 @@
             if ($(this).is(':checked')) {
                 $('#preferred_method_no').prop('disabled', false);
                 $('#agent_id').prop('disabled', false);
-                $('#agent_btn').removeClass('disabled-link');
-                $('#view_btn').removeClass('disabled-link');
                 $('#referral').prop('disabled', false);
                 $('#stakeholder').prop('disabled', false);
-
+                $('.btnHide').prop('disabled', false);
             }
         });
     });
@@ -452,8 +750,8 @@
         });
     });
     $('#intake_select').on('change', function() {
-            $('#get_intake').val($(this).val());
-        });
+        $('#get_intake').val($(this).val());
+    });
 </script>
 
 <script>
@@ -500,6 +798,7 @@
 
 
 @push('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 

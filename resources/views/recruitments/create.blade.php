@@ -40,29 +40,29 @@
                                     <div class="form-row mt-3">
                                         <div class="form-group">
                                             <label class="label" for="name">Name Of Agent:<span class="star-color">*</span></label>
-                                            <input type="text" id="name" name="name">
+                                            <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="directors">List The Name Of All Your Directors:<span class="star-color">*</span></label>
-                                            <input type="text" name="directors" id="directors">
+                                            <input type="text" class="form-control" name="directors" id="directors">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="company_register_number">Company Register Number:<span class="star-color">*</span></label>
-                                            <input type="text" name="company_register_number" id="company_register_number">
+                                            <input type="text" class="form-control" name="company_register_number" id="company_register_number">
                                         </div>
                                     </div>
 
                                     <div class="form-row">
-                                        <div class="form-group col-md-3">
+                                        <div class="form-group col-md-4">
                                             <label class="label" for="date_of_registration">Date Of Registration:<span class="star-color">*</span></label>
-                                            <input type="date" name="date_of_registration" id="date_of_registration">
+                                            <input type="date" class="form-control" name="date_of_registration" id="date_of_registration">
                                         </div>
 
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-4">
                                             <label class="label" for="payment_method">Payment Method:<span class="star-color">*</span></label>
-                                            <select id="payment_method" name="payment_method">
+                                            <select id="payment_method" class="form-control" name="payment_method">
                                                 <option default selected>--Select One--</option>
                                                 <option value="Cash">Cash</option>
                                                 <option value="Bank Account">Bank Account</option>
@@ -71,33 +71,33 @@
                                         </div>
                                         <div class="form-group" id="account_name_group" style="display: none;">
                                             <label class="label" for="account_name">Account Name:</label>
-                                            <input type="text" name="account_name" id="account_name">
+                                            <input type="text" class="form-control" name="account_name" id="account_name">
                                         </div>
                                         <div class="form-group" id="account_number_group" style="display: none;">
                                             <label class="label" for="account_number">Account Number:</label>
-                                            <input type="text" name="account_number" id="account_number">
+                                            <input type="text" class="form-control" name="account_number" id="account_number">
                                         </div>
                                     </div>
 
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="institutions">Institutions:</label>
-                                            <input type="text" name="institutions" id="institutions">
+                                            <input type="text" class="form-control" name="institutions" id="institutions">
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="career_history">Career History:</label>
-                                            <input type="text" name="career_history" id="career_history">
+                                            <input type="text" class="form-control" name="career_history" id="career_history">
                                         </div>
 
                                         <div class="form-group">
                                             <label class="label" for="address_uk">Address In UK:</label>
-                                            <input type="text" name="address_uk" id="address_uk">
+                                            <input type="text" class="form-control" name="address_uk" id="address_uk">
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group">
                                             <label class="label" for="address">Address If Company Not In UK:</label>
-                                            <input type="text" name="address" id="address">
+                                            <input type="text" class="form-control" name="address" id="address">
                                         </div>
                                         <div class="form-group">
                                             <label class="label">Compliance Check:</label>
