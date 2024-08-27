@@ -178,7 +178,9 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-            searching: false "paging": false
+            searching: false,
+            "paging": false,
+            order: [[0, 'desc']]
 
         });
     });

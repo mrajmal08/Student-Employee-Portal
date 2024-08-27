@@ -158,7 +158,8 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-            searching: false
+            searching: false,
+            order: [[0, 'desc']]
         });
     });
 </script>

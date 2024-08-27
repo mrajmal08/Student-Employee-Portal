@@ -89,8 +89,8 @@
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-xl">
                                             <div class="modal-content">
-                                                <form method="POST" action="">
-                                                    @csrf
+                                                <!-- <form method="POST" action=""> -->
+                                                    <!-- @csrf -->
                                                     <div class="modal-header">
                                                         <h1 class="modal-title fs-5" id="exampleModalLabel">View Recruitment Agent</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -180,7 +180,7 @@
                                                     <div class="modal-footer d-flex justify-content-center w-100">
                                                         <button type="submit" class="btn filter-btn" data-bs-dismiss="modal">Submit</button>
                                                     </div>
-                                                </form>
+                                                <!-- </form> -->
 
                                             </div>
                                         </div>
@@ -241,7 +241,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="label" for="passport">Course Applied For:<span class="star-color">*</span></label>
-                                            <select name="course_id[]" id="course-select" class="js-select2 form-control" multiple="multiple">
+                                            <select name="course_id[]" id="course-select" class="form-control">
+                                            <option disabled selected>--Select One--</option>
                                                 @foreach ($courses as $item)
                                                 <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
                                                 @endforeach
@@ -249,7 +250,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="label">Intake:<span class="star-color">*</span></label>
-                                            <select name="intake" id="intake_select">
+                                            <select name="intake" id="intake_select" class="form-control">
                                                 <option disabled selected>--Select One--</option>
                                                 <option value="January">January</option>
                                                 <option value="February">February</option>

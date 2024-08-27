@@ -307,8 +307,12 @@
 <script>
     $(document).ready(function() {
         $('#example').DataTable({
-            searching: false
+            searching: false,
+            order: [[0, 'desc']],
         });
+
+        $('#example tbody tr:first').css('font-weight', 'bold');
+
     });
 </script>
 
