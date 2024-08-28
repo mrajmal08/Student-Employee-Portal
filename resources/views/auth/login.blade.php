@@ -50,14 +50,30 @@
 
         .text-links a {
             margin: 0 10px;
-            color: inherit;
+            color: #595b5a;
             text-decoration: none;
         }
 
         .text-links a:hover {
-            color: #007bff;
+            color: #05a853;
         }
 
+        .input {
+            border: 0;
+            border-radius: 0;
+            background: none;
+            padding-left: 3px;
+            padding-right: 3px;
+            border-bottom: 1px solid #acacac;
+        }
+
+        .text-color {
+            color: #595b5a;
+        }
+
+        .text-color:hover {
+            color: #05a853;
+        }
     </style>
 </head>
 
@@ -80,8 +96,8 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="mb-4">
-                            <label for="email" class="form-label">Email</label>
-                            <input class="form-control  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" type="email" id="email" placeholder="Email">
+                            <label for="email" class="form-label d-none">Email</label>
+                            <input class="form-control input  @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" type="email" id="email" placeholder="Email">
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -89,8 +105,8 @@
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="password" class="form-label">Password</label>
-                            <input class="form-control @error('password') is-invalid @enderror" type="password" name="password" autocomplete="new-password"
+                            <label for="password" class="form-label d-none">Password</label>
+                            <input class="form-control input @error('password') is-invalid @enderror" type="password" name="password" autocomplete="new-password"
                                 placeholder="Password">
                             @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -104,7 +120,7 @@
                         <div class="text-left col-6">
                             <!-- <a href="#" class="text-decoration-none">Forgot Password?</a>  {{ route('password.request') }} -->
                             @if (Route::has('password.request'))
-                            <a class=" btn-link" href="#" style="color: #595b5a;">
+                            <a class="text-color" href="#">
                                 {{ __('Forgot Password?') }}
                             </a>
                             @endif
