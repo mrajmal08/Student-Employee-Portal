@@ -82,8 +82,8 @@
         <div class="row">
             <div class="col-md-9 left-side">
                 <div class="text-center">
-                    <img src="https://staging.ovadadme.net/assets/images/logo.webp" alt="Logo" class="mb-4" width="150">
-                    <h1>Welcome to Ovada DME</h1>
+                    <img src="{{ asset('assets/img/logo.svg') }}" alt="Logo" class="mb-4" width="150">
+                    <h1>Welcome to Maven Mind</h1>
                 </div>
             </div>
 

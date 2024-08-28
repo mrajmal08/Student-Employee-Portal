@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class RecruitmentAgent extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = "recruitment_agents";
+    protected $table = "recruitement_agents";
     protected $guarded = [];
 }
