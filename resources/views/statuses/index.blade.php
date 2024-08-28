@@ -13,7 +13,7 @@
                     <breadcrumb>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item">
-                                <a role="button">User</a>
+                                <a role="button">Status</a>
                             </li>
                             <li class="breadcrumb-item">
                                 <a role="button">list</a>
@@ -25,30 +25,22 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('user.create') }}" class="btn filter-btn float-end mb-2 me-2">
+                        <a href="{{ route('status.create') }}" class="btn filter-btn float-end mb-2 me-2">
                             <span class="icon-plus">
                                 +
                             </span>
-                            Add User </a>
+                            Add Status </a>
                     </div>
                 </div>
                 <div class="container-fluid">
                     <div class="panel">
-                        <form method="GET" action="{{ route('user.index') }}">
-                            <strong class="sub-title">Search User</strong>
+                        <form method="GET" action="{{ route('status.index') }}">
+                            <strong class="sub-title">Search Status</strong>
                             <div class="collapse-div mb-3">
                                 <div class="row extra-padding">
                                     <div class="col-md-3 col-sm-6 filter-item">
                                         <label class="label">Name</label>
                                         <input type="text" name="name" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Email</label>
-                                        <input type="text" name="email" class="form-control" placeholder="">
-                                    </div>
-                                    <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Phone Number</label>
-                                        <input type="text" name="phone_no" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="toggle-button" onclick="toggleFilters()">
@@ -73,9 +65,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Role</th>
+                                <th>Description</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -84,19 +74,17 @@
                             <tr>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->phone_no }}</td>
-                                <td>{{ $item->role_id }}</td>
+                                <td>{{ $item->description }}</td>
 
                                 <td class="align-items-center">
                                     @if($item->role_id != 1)
-                                    <a href="{{ route('user.edit', [$item->id]) }}" class="me-2">
+                                    <a href="{{ route('status.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
                                     </a>
-                                    <form method="GET" action="{{ route('user.delete', $item->id) }}" class="d-inline">
+                                    <form method="GET" action="{{ route('status.delete', $item->id) }}" class="d-inline">
                                         @csrf
                                         <input name="_method" type="hidden" value="DELETE">
-                                        <a href="{{ route('user.delete', $item->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                        <a href="{{ route('status.delete', $item->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
                                             <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
                                         </a>
                                     </form>
@@ -126,7 +114,7 @@
 
         swal({
 
-                title: `Are you sure you want to delete this User?`,
+                title: `Are you sure you want to delete this Status?`,
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,

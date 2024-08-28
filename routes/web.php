@@ -13,13 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
-
 Auth::routes();
 
 //Student routes
+Route::get('/', [App\Http\Controllers\HomeController::class, 'home']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/students', [App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
 Route::get('/student/create', [App\Http\Controllers\StudentController::class, 'create'])->name('students.create');
@@ -78,3 +75,11 @@ Route::post('/user/insert', [App\Http\Controllers\UserController::class, 'insert
 Route::get('/user/edit/{id}', [App\Http\Controllers\UserController::class, 'edit'])->name('user.edit');
 Route::post('/user/update/{id}', [App\Http\Controllers\UserController::class, 'update'])->name('user.update');
 Route::get('/user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete'])->name('user.delete');
+
+//Status routes
+Route::get('/status', [App\Http\Controllers\StatusController::class, 'index'])->name('status.index');
+Route::get('/status/create', [App\Http\Controllers\StatusController::class, 'create'])->name('status.create');
+Route::post('/status/insert', [App\Http\Controllers\StatusController::class, 'insert'])->name('status.insert');
+Route::get('/status/edit/{id}', [App\Http\Controllers\StatusController::class, 'edit'])->name('status.edit');
+Route::post('/status/update/{id}', [App\Http\Controllers\StatusController::class, 'update'])->name('status.update');
+Route::get('/status/delete/{id}', [App\Http\Controllers\StatusController::class, 'delete'])->name('status.delete');

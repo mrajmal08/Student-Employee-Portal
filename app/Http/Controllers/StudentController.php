@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\Dependant;
 use App\Models\Student;
 use App\Models\Course;
+use App\Models\Status;
 use Carbon\Carbon;
 use Validator;
 use Redirect;
@@ -52,8 +53,9 @@ class StudentController extends Controller
         $dependants = Dependant::orderBy('id', 'DESC')->get();
         $courses = Course::orderBy('id', 'DESC')->get();
         $recruitmentAgent = RecruitmentAgent::orderBy('id', 'DESC')->get();
+        $status = Status::orderBy('id', 'ASC')->get();
 
-        return view('students.create', compact('dependants', 'courses', 'recruitmentAgent'));
+        return view('students.create', compact('dependants', 'courses', 'recruitmentAgent', 'status'));
     }
 
     public function view($id)
@@ -73,6 +75,7 @@ class StudentController extends Controller
             'gender' => 'required|in:1,2',
             'address' => 'required',
             'course_id' => 'required',
+            'status_id' => 'required',
             'passport_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
             'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
             'financial_statement_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
@@ -115,6 +118,7 @@ class StudentController extends Controller
             $data['referral'] = $request->referral;
             $data['stakeholder'] = $request->stakeholder;
             $data['screened_by'] = $request->screened_by;
+            $data['status_id'] = $request->status_id;
 
 
             $timestamp = Carbon::now()->timestamp;
@@ -171,8 +175,9 @@ class StudentController extends Controller
         $selectedCourses = $student->courses->pluck('id')->toArray();
         $selectedDependants = $student->dependants->pluck('id')->toArray();
         $recruitmentAgent = RecruitmentAgent::orderBy('id', 'DESC')->get();
+        $status = Status::orderBy('id', 'ASC')->get();
 
-        return view('students.edit', compact('student', 'courses', 'dependants', 'selectedCourses', 'selectedDependants', 'recruitmentAgent'));
+        return view('students.edit', compact('student', 'courses', 'dependants', 'selectedCourses', 'selectedDependants', 'recruitmentAgent', 'status'));
     }
 
     public function update(Request $request, $id, FlasherInterface $flasher)
@@ -192,6 +197,7 @@ class StudentController extends Controller
             'gender' => 'required|in:1,2',
             'address' => 'required',
             'course_id' => 'required',
+            'status_id' => 'required',
             'passport_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
             'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
             'financial_statement_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
@@ -292,6 +298,9 @@ class StudentController extends Controller
         }
         if ($request->screened_by) {
             $validatedData['screened_by'] = $request->screened_by;
+        }
+        if ($request->status_id) {
+            $validatedData['status_id'] = $request->status_id;
         }
 
         $student->update($validatedData);

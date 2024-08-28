@@ -60,6 +60,10 @@
                                 <th>Travel History:</th>
                                 <td>{{ $student->travel_history }}</td>
                             </tr>
+                            <tr>
+                                <th scope="row">Status:</th>
+                                <td>{{ \App\Models\Status::where('id', $student->status_id)->value('name') }}</td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

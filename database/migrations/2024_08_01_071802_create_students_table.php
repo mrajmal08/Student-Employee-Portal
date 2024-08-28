@@ -30,6 +30,7 @@ class CreateStudentsTable extends Migration
 			$table->text('notes')->nullable();
             $table->bigInteger('dependant_no')->nullable();
             $table->bigInteger('agent_id')->nullable();
+            $table->bigInteger('status_id')->nullable();
             $table->string('stakeholder')->nullable();
 			$table->string('previous_cas')->nullable();
 			$table->string('academic_document')->nullable();

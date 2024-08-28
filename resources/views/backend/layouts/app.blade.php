@@ -97,6 +97,9 @@
                             <li>
                                 <a href="{{ route('dependants.index') }}">Dependants</a>
                             </li>
+                            <li>
+                                <a href="{{ route('status.index') }}">Status</a>
+                            </li>
                         </ul>
                     </li>
                     <li>
