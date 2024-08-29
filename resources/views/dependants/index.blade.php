@@ -299,7 +299,6 @@
                                             <ul>
                                                 @foreach(explode(',', $item->marriage_certificate) as $document)
                                                 @if(trim($document))
-
                                                 <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
                                                 @else
                                                 <li>No Files.</li>

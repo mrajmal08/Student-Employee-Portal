@@ -154,7 +154,10 @@
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
-                                <td>{{ $item->brp_correction_note }}</td>
+                                <td>
+                                    {!! Str::words($item->brp_correction_note, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#brp_correction_note-' . $item->id . '">read more...</a>') !!}
+
+                                </td>
                                 <td class="ealign-items-center">
                                     <a href="{{ route('postcas.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
@@ -180,7 +183,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->vignette_doc) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -287,6 +294,24 @@
                                                 @endif
                                                 @endforeach
                                             </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="brp_correction_note-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="officerNoteModalLabel-{{ $item->id }}">Note On BRP Correction</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $item->brp_correction_note }}
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

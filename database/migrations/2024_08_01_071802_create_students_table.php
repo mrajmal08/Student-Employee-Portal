@@ -42,6 +42,8 @@ class CreateStudentsTable extends Migration
 			$table->string('miscellaneous_doc')->nullable();
 			$table->string('tb_certificate_doc')->nullable();
 			$table->string('previous_cas_doc')->nullable();
+			$table->string('referral')->nullable();
+			$table->string('screened_by')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
         });

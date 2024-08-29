@@ -94,13 +94,19 @@
                                 </td>
                                 <td>{{ $item->date_of_interview }}</td>
                                 <td>{{ $item->name_of_interviewer }}</td>
-                                <td>{{ $item->note }}</td>
+                                <td>
+                                    {!! Str::words($item->note, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#note-' . $item->id . '">read more...</a>') !!}
+                                </td>
                                 <td>{{ $item->date_of_referral }}</td>
                                 <td>{{ $item->student_notified }}</td>
                                 <td>{{ $item->date_of_interview2 }}</td>
                                 <td>{{ $item->name_of_interviewer2 }}</td>
-                                <td>{{ $item->note2 }}</td>
-                                <td>{{ $item->outcome }}</td>
+                                <td>
+                                    {!! Str::words($item->note2, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#note2-' . $item->id . '">read more...</a>') !!}
+                                </td>
+                                <td>
+                                    {!! Str::words($item->outcome, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#outcome-' . $item->id . '">read more...</a>') !!}
+                                </td>
                                 <td class="ealign-items-center">
                                     <a href="{{ route('precas.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
@@ -140,7 +146,58 @@
                                 </div>
                             </div>
 
+                            <!-- Modal -->
+                            <div class="modal fade" id="note-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="officerNoteModalLabel-{{ $item->id }}">Note</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $item->note }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Modal -->
+                            <div class="modal fade" id="note2-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="officerNoteModalLabel-{{ $item->id }}">Note</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $item->note2 }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
+                            <!-- Modal -->
+                            <div class="modal fade" id="outcome-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="officerNoteModalLabel-{{ $item->id }}">Outcome</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $item->outcome }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>

@@ -23,8 +23,8 @@ class CreatePreCasApplicationsTable extends Migration
             $table->string('student_notified')->nullable();
 			$table->date('date_of_interview2')->nullable();
 			$table->string('name_of_interviewer2')->nullable();
-			$table->string('note2')->nullable();
-			$table->string('outcome')->nullable();
+			$table->text('note2')->nullable();
+			$table->text('outcome')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
 
