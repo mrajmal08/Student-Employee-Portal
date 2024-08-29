@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PostCasApplication;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Validator;
@@ -69,7 +70,7 @@ class PostCasApplicationController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         }
-
+        DB::beginTransaction();
         try {
             $data['cas_no'] = $request->cas_no;
             $data['cas_date'] = $request->cas_date;
@@ -110,6 +111,7 @@ class PostCasApplicationController extends Controller
             $flasher->option('position', 'top-center')->addSuccess('Post Cas Application added Successfully');
             return redirect()->route('postcas.index')->with('message', 'Post Cas Application added Successfully');
         } catch (\Exception $e) {
+            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('postcas.index')->with('message', 'Something went wrong');
         }

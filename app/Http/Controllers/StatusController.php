@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Status;
 use Validator;
@@ -60,7 +61,8 @@ class StatusController extends Controller
             }
             return Redirect::back()->withErrors($validator)->withInput();
         }
-
+        
+        DB::beginTransaction();
         try {
             Status::create([
                 'name' => $request->name,
@@ -70,6 +72,7 @@ class StatusController extends Controller
             $flasher->option('position', 'top-center')->addSuccess('Status added Successfully');
             return redirect()->route('status.index')->with('message', 'Status added Successfully');
         } catch (\Exception $e) {
+            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('status.index')->with('message', 'Something went wrong');
         }

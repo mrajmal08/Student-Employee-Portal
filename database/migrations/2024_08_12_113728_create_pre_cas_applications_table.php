@@ -16,7 +16,7 @@ class CreatePreCasApplicationsTable extends Migration
         Schema::create('pre_cas_applications', function (Blueprint $table) {
             $table->id();
             $table->string('interview_questions')->nullable();
-            $table->date('date_of_interview')->unique();
+            $table->date('date_of_interview')->nullable();
             $table->string('name_of_interviewer')->nullable();
 			$table->text('note')->nullable();
             $table->date('date_of_referral')->nullable();

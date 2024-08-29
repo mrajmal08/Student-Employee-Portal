@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Hash;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Validator;
@@ -76,9 +77,9 @@ class UserController extends Controller
             }
         }
 
+        DB::beginTransaction();
         try {
             $hashedPassword = Hash::make($request->password);
-
             // Create a new user
             $user = User::create([
                 'name' => $request->name,
@@ -91,6 +92,7 @@ class UserController extends Controller
             $flasher->option('position', 'top-center')->addSuccess('User added Successfully');
             return redirect()->route('user.index')->with('message', 'User added Successfully');
         } catch (\Exception $e) {
+            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('user.index')->with('message', 'Something went wrong');
         }

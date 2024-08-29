@@ -37,7 +37,8 @@
                                     <div class="form-row mt-3">
                                         <div class="form-group col-md-4">
                                             <label class="label" for="passport">Course Applied For:<span class="star-color">*</span></label>
-                                            <select name="course_id[]" id="course-select" class="js-select2 form-control" multiple="multiple">
+                                            <select name="course_id[]" id="course-select" class="js-select2 form-control">
+                                            <option selected disabled>--select one--</option>
                                                 @foreach ($courses as $item)
                                                 <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
                                                 @endforeach

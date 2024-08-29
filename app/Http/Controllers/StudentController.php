@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\DB;
 use App\Models\RecruitmentAgent;
 use App\Models\StudentDependant;
 use App\Models\StudentCourse;
@@ -97,7 +98,7 @@ class StudentController extends Controller
             }
         }
 
-
+        DB::beginTransaction();
         try {
             $data['name'] = $request->name;
             $data['email'] = $request->email;
@@ -162,6 +163,7 @@ class StudentController extends Controller
             $flasher->option('position', 'top-center')->addSuccess('Student added Successfully');
             return redirect()->route('students.index')->with('message', 'Student added Successfully');
         } catch (\Exception $e) {
+            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('students.index')->with('message', 'Something went wrong');
         }

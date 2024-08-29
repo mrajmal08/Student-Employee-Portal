@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="datatable my-4 table-responsive">
-                    <table id="example" class="table table-bordered">
+                    <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
                         <thead class="text-center">
                             <tr>
                                 <th>ID</th>

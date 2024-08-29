@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Dependant;
 use Carbon\Carbon;
@@ -74,8 +75,9 @@ class DependantController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         }
-        try {
 
+        DB::beginTransaction();
+        try {
             $data['name'] = $request->name;
             $data['nationality'] = $request->nationality;
             $data['date_of_birth'] = $request->date_of_birth;
@@ -104,9 +106,9 @@ class DependantController extends Controller
             Dependant::create($data);
 
             $flasher->option('position', 'top-center')->addSuccess('Dependant added Successfully');
-
             return redirect()->route('dependants.index')->with('message', 'Dependant added Successfully');
         } catch (\Exception $e) {
+            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('dependants.index')->with('message', 'Something went wrong');
         }
