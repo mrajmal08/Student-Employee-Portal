@@ -23,7 +23,7 @@ class CreateRecruitementAgentsTable extends Migration
             $table->string('account_name')->nullable();
             $table->string('account_number')->nullable();
             $table->string('institutions')->nullable();
-            $table->string('career_history')->nullable();
+            $table->text('career_history')->nullable();
             $table->string('address_uk')->nullable();
             $table->text('address')->nullable();
             $table->string('compliance_check')->nullable();

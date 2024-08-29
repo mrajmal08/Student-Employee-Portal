@@ -166,7 +166,7 @@
         $('#example').DataTable({
             searching: false,
             "scrollX": true,
-            // order: [[0, 'desc']]
+            order: [[0, 'desc']]
         });
     });
 </script>
