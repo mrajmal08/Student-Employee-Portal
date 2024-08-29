@@ -54,19 +54,101 @@
                             </tr>
                             <tr>
                                 <th scope="row">Work Experience:</th>
-                                <td>{{ $student->work_experience }}</td>
+                                <td>
+                                    {!! Str::words($student->work_experience, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#work_experience">read more...</a>') !!}
+                                </td>
                                 <th>Academic History:</th>
-                                <td>{{ $student->academic_history }}</td>
+                                <td>
+                                    {!! Str::words($student->academic_history, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#academic_history">read more...</a>') !!}
+                                </td>
                                 <th>Travel History:</th>
-                                <td>{{ $student->travel_history }}</td>
+                                <td>
+                                    {!! Str::words($student->travel_history, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#travel_history">read more...</a>') !!}
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">Status:</th>
                                 <td>{{ \App\Models\Status::where('id', $student->status_id)->value('name') }}</td>
+                                <th scope="row">Extra Notes:</th>
+                                <td>
+                                    {!! Str::words($student->notes, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#notes">read more...</a>') !!}
+
+                                </td>
                             </tr>
+
                         </tbody>
                     </table>
                 </div>
+
+
+
+                <div class="modal fade" id="notes" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="officerNoteModalLabel">Extra Notes</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ $student->notes }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="travel_history" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="officerNoteModalLabel">Travel History</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ $student->travel_history }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="work_experience" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="officerNoteModalLabel">Work Experience</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ $student->work_experience }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="academic_history" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="officerNoteModalLabel">Academic History</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{ $student->academic_history }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="container-fluid">
                     <div class="panel">
                         <form method="GET" action="{{ route('students.index') }}">
