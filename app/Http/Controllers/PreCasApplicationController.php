@@ -58,7 +58,7 @@ class PreCasApplicationController extends Controller
     public function insert(Request $request, FlasherInterface $flasher)
     {
         $validator = Validator::make($request->all(), [
-            'interview_questions.*' => 'required|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'interview_questions.*' => 'required|file|mimes:pdf,jpg,jpeg,png,webp',
         ]);
 
         if ($validator->fails()) {
@@ -71,6 +71,7 @@ class PreCasApplicationController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         }
+
         try {
             $data['date_of_interview'] = $request->date_of_interview;
             $data['name_of_interviewer'] = $request->name_of_interviewer;
@@ -140,7 +141,7 @@ class PreCasApplicationController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'interview_questions.*' => 'required|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'interview_questions.*' => 'required|file|mimes:pdf,jpg,jpeg,png,webp',
 
         ]);
 

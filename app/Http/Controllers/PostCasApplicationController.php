@@ -53,11 +53,11 @@ class PostCasApplicationController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'cas_no' => 'required',
-            'vignette_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'vignette_stamp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'e_ticket.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'sms_screen_shot.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'vignette_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'vignette_stamp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'e_ticket.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'sms_screen_shot.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
         ]);
 
         if ($validator->fails()) {
@@ -131,11 +131,11 @@ class PostCasApplicationController extends Controller
 
         $validator = Validator::make($request->all(), [
             'cas_no' => 'required',
-            'vignette_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'vignette_stamp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'e_ticket.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'sms_screen_shot.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'vignette_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'vignette_stamp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'e_ticket.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'sms_screen_shot.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'brp_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
 
         ]);
 

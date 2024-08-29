@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <style>
         .left-side {
-            background-image: url('/assets/img/bg-blur.png');
+            background-image: url('/assets/img/image.png');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -38,7 +38,7 @@
             flex-direction: column;
             justify-content: center;
             padding: 2rem;
-            height: 60vh;
+            height: 100vh;
             background-color: white;
         }
 
@@ -46,6 +46,8 @@
             max-width: 400px;
             width: 100%;
             margin: auto;
+            position: relative;
+            top: -20%;
         }
 
         .social-icons a {

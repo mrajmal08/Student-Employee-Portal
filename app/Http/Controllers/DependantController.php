@@ -55,12 +55,12 @@ class DependantController extends Controller
             'name' => 'required|max:255',
             'nationality' => 'required',
             'date_of_birth' => 'required',
-            'financial_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'qualification_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'pay_slip.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'employer_letter.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'marriage_certificate.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'birth_certificate.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'financial_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'qualification_doc.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'pay_slip.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'employer_letter.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'marriage_certificate.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
+            'birth_certificate.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png,webp',
 
 
         ]);
@@ -132,12 +132,12 @@ class DependantController extends Controller
             'name' => 'required|max:255',
             'nationality' => 'required',
             'date_of_birth' => 'required',
-            'financial_doc.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'qualification_doc.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'pay_slip.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'employer_letter.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'marriage_certificate.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
-            'birth_certificate.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp|max:4096',
+            'financial_doc.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp',
+            'qualification_doc.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp',
+            'pay_slip.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp',
+            'employer_letter.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp',
+            'marriage_certificate.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp',
+            'birth_certificate.*' => 'nullable|mimes:pdf,jpg,jpeg,png,webp',
 
 
         ]);
