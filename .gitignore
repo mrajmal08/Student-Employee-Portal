@@ -1,6 +1,9 @@
 /node_modules
 /public/hot
-/public/assets
+/public/assets/DependantDoc
+/public/assets/PostCasApplicationDoc
+/public/assets/PreCasApplicationDoc
+/public/assets/studentFiles
 /public/storage
 /storage/*.key
 /vendor
