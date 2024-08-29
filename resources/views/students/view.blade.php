@@ -133,7 +133,11 @@
                 <div class="modal-body">
                     <ul>
                         @foreach(explode(',', $student->$docType) as $document)
+                        @if(trim($document))
                         <li>{{ $document }} <a href="{{ asset('assets/studentFiles/' . $document) }}" target="_blank">view</a></li>
+                        @else
+                        <li>No Files.</li>
+                        @endif
                         @endforeach
                     </ul>
                 </div>

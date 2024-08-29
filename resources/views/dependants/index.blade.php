@@ -95,7 +95,10 @@
                                 <td>{{ $item->nationality }}</td>
                                 <td>{{ $item->date_of_birth }}</td>
                                 <td>{{ $item->travel_outside }}</td>
-                                <td>{{ $item->travel_history }}</td>
+                                <td>
+                                    {!! Str::words($item->travel_history, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#travelNoteModal-' . $item->id . '">read more...</a>') !!}
+                                </td>
+
                                 <td>
                                     <a data-bs-toggle="modal" data-bs-target="#financial_doc{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
@@ -143,6 +146,26 @@
                                 </td>
                             </tr>
 
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="travelNoteModal-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="officerNoteModalLabel-{{ $item->id }}">Officer Note</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            {{ $item->travel_history }}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <!-- Modal -->
                             <div class="modal fade" id="officerNoteModal-{{ $item->id }}" tabindex="-1" aria-labelledby="officerNoteModalLabel-{{ $item->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -172,7 +195,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->financial_doc) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -193,7 +220,12 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->qualification_doc) as $document)
+                                                @if(trim($document))
+
                                                 <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -214,7 +246,12 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->pay_slip) as $document)
+                                                @if(trim($document))
+
                                                 <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -235,7 +272,12 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->employer_letter) as $document)
+                                                @if(trim($document))
+
                                                 <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -256,7 +298,12 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->marriage_certificate) as $document)
+                                                @if(trim($document))
+
                                                 <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -277,7 +324,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->birth_certificate) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -362,7 +413,9 @@
         $('#example').DataTable({
             searching: false,
             "scrollX": true,
-            order: [[0, 'desc']]
+            order: [
+                [0, 'desc']
+            ]
         });
     });
 </script>

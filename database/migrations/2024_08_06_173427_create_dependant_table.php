@@ -26,7 +26,7 @@ class CreateDependantTable extends Migration
             $table->text('employer_letter')->nullable();
             $table->text('marriage_certificate')->nullable();
             $table->text('birth_certificate')->nullable();
-            $table->string('officer_note')->nullable();
+            $table->text('officer_note')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
         });

@@ -202,7 +202,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->vignette_stamp_doc) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -224,7 +228,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->e_ticket) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -246,7 +254,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->sms_screen_shot) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -268,7 +280,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->brp_doc) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/PostCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -354,7 +370,9 @@
         $('#example').DataTable({
             searching: false,
             "scrollX": true,
-            order: [[0, 'desc']]
+            order: [
+                [0, 'desc']
+            ]
         });
     });
 </script>

@@ -125,7 +125,11 @@
                                         <div class="modal-body">
                                             <ul>
                                                 @foreach(explode(',', $item->interview_questions) as $document)
+                                                @if(trim($document))
                                                 <li>{{ $document }} <a href="{{ asset('assets/PreCasApplicationDoc/' . $document) }}" target="_blank">view</a></li>
+                                                @else
+                                                <li>No Files.</li>
+                                                @endif
                                                 @endforeach
                                             </ul>
                                         </div>
@@ -212,7 +216,9 @@
         $('#example').DataTable({
             searching: false,
             "scrollX": true,
-            order: [[0, 'desc']]
+            order: [
+                [0, 'desc']
+            ]
 
         });
     });
