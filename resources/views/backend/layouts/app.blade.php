@@ -17,7 +17,7 @@
 
     <header id="header">
         <div class="container-fluid">
-            <div class="row align-items-center">
+            <div class="row align-items-center head-size">
                 <!-- Logo Section -->
                 <div class="col">
                     <a href="{{ route('home') }}" class="d-flex align-items-center">
@@ -27,93 +27,97 @@
 
                 <!-- Profile and Logout Section -->
                 <div class="col text-end">
-                    <div class="d-inline-block me-4 user-name">
+                <div class="d-inline-block me-4 user-name">
                         <img src="{{ asset('assets/img/user.png') }}" class="profile-img me-2" alt="Profile Picture">
                         <span class="profile-name">{{ auth()->user() ? auth()->user()->name : 'Guest' }}</span>
                     </div>
-                    <a class="d-inline-block logout-icon dropdown-item me-2" href="{{ route('logout') }}"
+                    <span class="bi bi-envelope-fill user-name me-3"></span>
+                    <span class="bi bi-bell-fill user-name me-5"></span>
+
+                    <a class="d-inline-block logout-icon dropdown-item me-3" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <i class="bi bi-power"></i>
+                        <i class="bi bi-power me-3"></i>
                     </a>
 
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
+
                 </div>
             </div>
         </div>
     </header>
 
     <section class="navigation">
-        <div class="nav-container">
-            <nav>
-                <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
-                <ul class="nav-list">
-                    <li>
-                        <a href="#!">Pre Application</a>
-                        <ul class="navbar-dropdown">
-                            <li>
-                                <a href="{{ route('students.index') }}">Student List</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('students.create') }}">Add New Student</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#!">Pre CAS Application</a>
-                        <ul class="navbar-dropdown">
-                            <li>
-                                <a href="{{ route('precas.index') }}">Application List</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#!">Post CAS Application</a>
-                        <ul class="navbar-dropdown">
-                            <li>
-                                <a href="{{ route('postcas.index') }}">Application List</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#!">Recruitment Agent</a>
-                        <ul class="navbar-dropdown">
-                            <li>
-                                <a href="{{ route('recruitments.index') }}">Agent List</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#!">Master</a>
-                        <ul class="navbar-dropdown">
-                            <li>
-                                <a href="{{ route('user.index') }}">Users</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('courses.index') }}">Courses</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('dependants.index') }}">Dependants</a>
-                            </li>
-                            <li>
-                                <a href="{{ route('status.index') }}">Status</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#!">Reports</a>
-                        <ul class="navbar-dropdown">
-                            <li>
-                                <a href="#!">Student Report</a>
-                            </li>
-                    </li>
-                </ul>
+    <div class="nav-container">
+        <nav>
+            <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+            <ul class="nav-list">
+                <li class="{{ request()->routeIs('students.index') || request()->routeIs('students.create') ? 'active' : '' }}">
+                    <a href="#!">Pre Application</a>
+                    <ul class="navbar-dropdown">
+                        <li>
+                            <a href="{{ route('students.index') }}" class="{{ request()->routeIs('students.index') ? 'active' : '' }}">Student List</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('students.create') }}" class="{{ request()->routeIs('students.create') ? 'active' : '' }}">Add New Student</a>
+                        </li>
+                    </ul>
                 </li>
-                </ul>
-            </nav>
-        </div>
-    </section>
+                <li class="{{ request()->routeIs('precas.index') ? 'active' : '' }}">
+                    <a href="#!">Pre CAS Application</a>
+                    <ul class="navbar-dropdown">
+                        <li>
+                            <a href="{{ route('precas.index') }}" class="{{ request()->routeIs('precas.index') ? 'active' : '' }}">Application List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="{{ request()->routeIs('postcas.index') ? 'active' : '' }}">
+                    <a href="#!">Post CAS Application</a>
+                    <ul class="navbar-dropdown">
+                        <li>
+                            <a href="{{ route('postcas.index') }}" class="{{ request()->routeIs('postcas.index') ? 'active' : '' }}">Application List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="{{ request()->routeIs('recruitments.index') ? 'active' : '' }}">
+                    <a href="#!">Recruitment Agent</a>
+                    <ul class="navbar-dropdown">
+                        <li>
+                            <a href="{{ route('recruitments.index') }}" class="{{ request()->routeIs('recruitments.index') ? 'active' : '' }}">Agent List</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="{{ request()->routeIs('user.index') || request()->routeIs('courses.index') || request()->routeIs('dependants.index') || request()->routeIs('status.index') ? 'active' : '' }}">
+                    <a href="#!">Master</a>
+                    <ul class="navbar-dropdown">
+                        <li>
+                            <a href="{{ route('user.index') }}" class="{{ request()->routeIs('user.index') ? 'active' : '' }}">Users</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('courses.index') }}" class="{{ request()->routeIs('courses.index') ? 'active' : '' }}">Courses</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dependants.index') }}" class="{{ request()->routeIs('dependants.index') ? 'active' : '' }}">Dependants</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('status.index') }}" class="{{ request()->routeIs('status.index') ? 'active' : '' }}">Status</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#!">Reports</a>
+                    <ul class="navbar-dropdown">
+                        <li>
+                            <a href="#!">Student Report</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</section>
+
 
     @yield('content')
 
