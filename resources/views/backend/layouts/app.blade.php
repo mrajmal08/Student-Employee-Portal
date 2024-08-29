@@ -13,38 +13,36 @@
 </head>
 
 <body>
+
     <header id="header">
         <div class="container-fluid">
-            <div class="header-flex">
-                <div class="header-hold">
-                    <a href="{{ route('home') }}" class="logo">
-                        <img src="{{ asset('assets/img/img.png') }}">
+            <div class="row align-items-center">
+                <!-- Logo Section -->
+                <div class="col">
+                    <a href="{{ route('home') }}" class="d-flex align-items-center">
+                        <img src="{{ asset('assets/img/logo.svg') }}" alt="Logo" class="dash-logo">
                     </a>
                 </div>
 
-                <div class="profile">
-                    <img src="{{ asset('assets/img/user.png') }}" class="profile-img" alt="Profile Picture">
-                    <span class="profile-name">{{ auth()->user() ? auth()->user()->name : 'Guest' }}</span>
-                </div>
+                <!-- Profile and Logout Section -->
+                <div class="col text-end">
+                    <div class="d-inline-block me-4 user-name">
+                        <img src="{{ asset('assets/img/user.png') }}" class="profile-img me-2" alt="Profile Picture">
+                        <span class="profile-name">{{ auth()->user() ? auth()->user()->name : 'Guest' }}</span>
+                    </div>
+                    <a class="d-inline-block logout-icon dropdown-item me-2" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="bi bi-power"></i>
+                    </a>
 
-                <div class="nav-icon">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                    <i class="bi bi-power  ms-5 my-5"></i>
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-
-
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </div>
             </div>
-
-
         </div>
     </header>
+
     <section class="navigation">
         <div class="nav-container">
             <nav>
@@ -108,9 +106,9 @@
                             <li>
                                 <a href="#!">Student Report</a>
                             </li>
-                            </li>
-                        </ul>
                     </li>
+                </ul>
+                </li>
                 </ul>
             </nav>
         </div>
@@ -137,5 +135,3 @@
 </body>
 
 </html>
-
-

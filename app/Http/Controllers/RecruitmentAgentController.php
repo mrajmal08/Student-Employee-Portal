@@ -70,7 +70,6 @@ class RecruitmentAgentController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         }
-        DB::beginTransaction();
         try {
             $data['name'] = $request->name;
             $data['directors'] = $request->directors;
@@ -93,7 +92,6 @@ class RecruitmentAgentController extends Controller
             }
             return redirect()->route('recruitments.index')->with('message', 'Recruitment added Successfully');
         } catch (\Exception $e) {
-            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('recruitments.index')->with('message', 'Something went wrong');
         }

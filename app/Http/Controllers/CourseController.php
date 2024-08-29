@@ -57,7 +57,7 @@ class CourseController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         }
-        DB::beginTransaction();
+
         try {
             $data['name'] = $request->name;
 
@@ -66,7 +66,6 @@ class CourseController extends Controller
 
             return redirect()->route('courses.index')->with('message', 'Course added Successfully');
         } catch (\Exception $e) {
-            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('courses.index')->with('message', 'Something went wrong');
         }

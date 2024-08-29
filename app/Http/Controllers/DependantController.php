@@ -76,7 +76,6 @@ class DependantController extends Controller
             }
         }
 
-        DB::beginTransaction();
         try {
             $data['name'] = $request->name;
             $data['nationality'] = $request->nationality;
@@ -108,7 +107,7 @@ class DependantController extends Controller
             $flasher->option('position', 'top-center')->addSuccess('Dependant added Successfully');
             return redirect()->route('dependants.index')->with('message', 'Dependant added Successfully');
         } catch (\Exception $e) {
-            DB::rollback();
+
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('dependants.index')->with('message', 'Something went wrong');
         }

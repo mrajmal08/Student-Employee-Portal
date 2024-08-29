@@ -71,7 +71,6 @@ class PreCasApplicationController extends Controller
                 return Redirect::back()->withErrors($validator)->withInput();
             }
         }
-        DB::beginTransaction();
         try {
             $data['date_of_interview'] = $request->date_of_interview;
             $data['name_of_interviewer'] = $request->name_of_interviewer;
@@ -118,7 +117,6 @@ class PreCasApplicationController extends Controller
             $flasher->option('position', 'top-center')->addSuccess('Pre Cas Application added Successfully');
             return redirect()->route('precas.index')->with('message', 'Pre Cas Application added Successfully');
         } catch (\Exception $e) {
-            DB::rollback();
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('precas.index')->with('message', 'Something went wrong');
         }

@@ -122,7 +122,7 @@ nav ul li ul li a {
     #navbar-toggle {
         position: absolute;
         left: 18px;
-        top: 54px;
+        top: 78px;
         cursor: pointer;
         padding: 10px 35px 16px 0px;
     }
@@ -158,6 +158,7 @@ nav ul li ul li a {
     #navbar-toggle.active span:after {
         transform: rotate(-45deg);
     }
+
 }
 
 .nav-icon {
@@ -571,6 +572,10 @@ label {
     .main-container {
         padding: 0px;
     }
+    .dash-logo{
+        max-width: 26%;
+        height: auto;
+    }
 }
 
 /* Breakpoint for mobile phones */
@@ -584,6 +589,10 @@ label {
     }
     .main-container {
         padding: 0px;
+    }
+    .dash-logo{
+        max-width: 26%;
+        height: auto;
     }
 }
 
@@ -911,9 +920,31 @@ table.table-bordered.dataTable thead tr th {
     .btn-cancel {
         margin-left: 0;
     }
+    .dash-logo{
+        max-width: 26%;
+        height: auto;
+    }
 }
 
  .btn-cancel:hover{
      background: #0396be;
      color: #ffffff;
   }
+.dash-logo{
+    max-width: 6%;
+    height: auto;
+}
+.user-name{
+    position: relative;
+    top: 16px;
+}
+.logout-icon{
+    position: relative;
+    top: -16px;
+}
+@media (min-width: 430px) and (max-width: 430px) and (min-height: 932px) and (max-height: 932px) {
+    .dash-logo {
+        max-width: 28%;
+        height: auto;
+    }
+}

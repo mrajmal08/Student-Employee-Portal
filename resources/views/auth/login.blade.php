@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <style>
         .left-side {
-            background-image: url('https://staging.ovadadme.net/back-ground-loader.bf630a3be88203ff.webp');
+            background-image: url('/assets/img/bg-blur.png');
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -18,6 +18,20 @@
             align-items: center;
             justify-content: center;
         }
+
+        .left-side::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/img/bg.png');
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px); /* Adjust the blur radius as needed */
+    z-index: -1; /* Make sure the pseudo-element is behind the content */
+}
 
         .right-side {
             display: flex;
