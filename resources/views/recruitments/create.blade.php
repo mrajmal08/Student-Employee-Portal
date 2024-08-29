@@ -122,7 +122,7 @@
                                     </div>
                                     <div class="form-buttons my-4">
                                         <button type="submit" class="btn filter-btn">Submit</button>
-                                        <a href="{{ route('recruitments.index') }}" type="submit" class="btn btn-cancel">Create</a>
+                                        <a href="{{ route('recruitments.index') }}" type="submit" class="btn btn-cancel">Cancel</a>
                                     </div>
                                 </form>
                             </div>

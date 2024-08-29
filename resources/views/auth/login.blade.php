@@ -19,20 +19,6 @@
             justify-content: center;
         }
 
-        .left-side::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('/assets/img/bg.png');
-    background-size: cover;
-    background-position: center;
-    filter: blur(10px); /* Adjust the blur radius as needed */
-    z-index: -1; /* Make sure the pseudo-element is behind the content */
-}
-
         .right-side {
             display: flex;
             flex-direction: column;
@@ -90,6 +76,10 @@
         .text-color:hover {
             color: #05a853;
         }
+        .logo-center{
+            position: relative;
+            top: -4%;
+        }
     </style>
 </head>
 
@@ -97,9 +87,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-9 left-side">
-                <div class="text-center">
-                    <img src="{{ asset('assets/img/logo.svg') }}" alt="Logo" class="mb-4" width="150">
-                    <h1>Welcome to Maven Mind</h1>
+                <div class="text-center logo-center">
+                    <img src="{{ asset('assets/img/logo.svg') }}" alt="Logo" class="" width="260">
+
+                    <div class="my-5">
+                        <h1>Welcome to Maven Mind</h1>
+
+                    </div>
                 </div>
             </div>
 
