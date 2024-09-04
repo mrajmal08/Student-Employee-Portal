@@ -8,6 +8,7 @@
     <link rel="icon" href="{{ asset('assets/img/logo.svg') }}" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}">
     @stack('css')
@@ -27,7 +28,7 @@
 
                 <!-- Profile and Logout Section -->
                 <div class="col text-end">
-                <div class="d-inline-block me-4 user-name">
+                    <div class="d-inline-block me-4 user-name">
                         <img src="{{ asset('assets/img/user.png') }}" class="profile-img me-2" alt="Profile Picture">
                         <span class="profile-name">{{ auth()->user() ? auth()->user()->name : 'Guest' }}</span>
                     </div>
@@ -49,74 +50,93 @@
     </header>
 
     <section class="navigation">
-    <div class="nav-container">
-        <nav>
-            <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
-            <ul class="nav-list">
-                <li class="{{ request()->routeIs('students.index') || request()->routeIs('students.create') ? 'active' : '' }}">
-                    <a href="#!">Pre Application</a>
-                    <ul class="navbar-dropdown">
-                        <li>
-                            <a href="{{ route('students.index') }}" class="{{ request()->routeIs('students.index') ? 'active' : '' }}">Student List</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('students.create') }}" class="{{ request()->routeIs('students.create') ? 'active' : '' }}">Add New Student</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="{{ request()->routeIs('precas.index') ? 'active' : '' }}">
-                    <a href="#!">Pre CAS Application</a>
-                    <ul class="navbar-dropdown">
-                        <li>
-                            <a href="{{ route('precas.index') }}" class="{{ request()->routeIs('precas.index') ? 'active' : '' }}">Application List</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="{{ request()->routeIs('postcas.index') ? 'active' : '' }}">
-                    <a href="#!">Post CAS Application</a>
-                    <ul class="navbar-dropdown">
-                        <li>
-                            <a href="{{ route('postcas.index') }}" class="{{ request()->routeIs('postcas.index') ? 'active' : '' }}">Application List</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="{{ request()->routeIs('recruitments.index') ? 'active' : '' }}">
-                    <a href="#!">Recruitment Agent</a>
-                    <ul class="navbar-dropdown">
-                        <li>
-                            <a href="{{ route('recruitments.index') }}" class="{{ request()->routeIs('recruitments.index') ? 'active' : '' }}">Agent List</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="{{ request()->routeIs('user.index') || request()->routeIs('courses.index') || request()->routeIs('dependants.index') || request()->routeIs('status.index') ? 'active' : '' }}">
-                    <a href="#!">Master</a>
-                    <ul class="navbar-dropdown">
-                        <li>
-                            <a href="{{ route('user.index') }}" class="{{ request()->routeIs('user.index') ? 'active' : '' }}">Users</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('courses.index') }}" class="{{ request()->routeIs('courses.index') ? 'active' : '' }}">Courses</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('dependants.index') }}" class="{{ request()->routeIs('dependants.index') ? 'active' : '' }}">Dependants</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('status.index') }}" class="{{ request()->routeIs('status.index') ? 'active' : '' }}">Status</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#!">Reports</a>
-                    <ul class="navbar-dropdown">
-                        <li>
-                            <a href="#!">Student Report</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</section>
+        <div class="nav-container">
+            <nav>
+                <div class="nav-mobile"><a id="navbar-toggle" href="#!"><span></span></a></div>
+                <ul class="nav-list">
+                    <li class="{{ request()->routeIs('students.index') || request()->routeIs('students.create') ? 'active' : '' }}">
+                        <a href="#!" class="" style="align-items: center;">
+                            <i class="bi bi-person-fill"></i>
+                            <span style="margin-left: 5px;">Pre Application</span>
+                        </a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="{{ route('students.index') }}" class="{{ request()->routeIs('students.index') ? 'active' : '' }}">Student List</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('students.create') }}" class="{{ request()->routeIs('students.create') ? 'active' : '' }}">Add New Student</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ request()->routeIs('precas.index') ? 'active' : '' }}">
+                        <a href="#!" class="" style="align-items: center;">
+                        <i class="bi bi-journal-richtext"></i>
+                            <span style="margin-left: 5px;">Pre CAS Application</span>
+                        </a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="{{ route('precas.index') }}" class="{{ request()->routeIs('precas.index') ? 'active' : '' }}">Application List</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ request()->routeIs('postcas.index') ? 'active' : '' }}">
+                        <a href="#!" class="" style="align-items: center;">
+                            <i class="bi bi-journal-richtext"></i>
+
+                            <span style="margin-left: 5px;">Post CAS Application</span>
+                        </a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="{{ route('postcas.index') }}" class="{{ request()->routeIs('postcas.index') ? 'active' : '' }}">Application List</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ request()->routeIs('recruitments.index') ? 'active' : '' }}">
+                        <a href="#!" class="" style="align-items: center;">
+                            <i class="bi bi-person-fill"></i>
+                            <span style="margin-left: 5px;">Recruitment Agent</span>
+                        </a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="{{ route('recruitments.index') }}" class="{{ request()->routeIs('recruitments.index') ? 'active' : '' }}">Agent List</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="{{ request()->routeIs('user.index') || request()->routeIs('courses.index') || request()->routeIs('dependants.index') || request()->routeIs('status.index') ? 'active' : '' }}">
+                        <a href="#!" class="" style="align-items: center;">
+                            <i class="bi bi-list-ul"></i>
+                            <span style="margin-left: 5px;">Master</span>
+                        </a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="{{ route('user.index') }}" class="{{ request()->routeIs('user.index') ? 'active' : '' }}">Users</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('courses.index') }}" class="{{ request()->routeIs('courses.index') ? 'active' : '' }}">Courses</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('dependants.index') }}" class="{{ request()->routeIs('dependants.index') ? 'active' : '' }}">Dependants</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('status.index') }}" class="{{ request()->routeIs('status.index') ? 'active' : '' }}">Status</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#!" class="" style="align-items: center;">
+                            <i class="bi bi-list-ul"></i>
+                            <span style="margin-left: 5px;">Reports</span>
+                        </a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="#!">Student Report</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </section>
 
 
     @yield('content')
