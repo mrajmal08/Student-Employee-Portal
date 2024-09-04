@@ -81,7 +81,7 @@
 
                                     <div class="form-row">
                                         <div class="form-group">
-                                            <label class="label" for="institutions">Institutions:</label>
+                                            <label class="label" for="institutions">Institutions You Have Worked With So Far:</label>
                                             <input type="text" class="form-control" name="institutions" id="institutions">
                                         </div>
                                         <div class="form-group">
@@ -114,7 +114,7 @@
 
                                     <div class="my-2">
                                         <h4 class="address">
-                                            Career History
+                                            How Many Students Recruited To Date:
                                         </h4>
                                     </div>
                                     <div class="form-row">

@@ -67,8 +67,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th scope="row">Status:</th>
-                                <td>{{ \App\Models\Status::where('id', $student->status_id)->value('name') }}</td>
                                 <th scope="row">Extra Notes:</th>
                                 <td>
                                     {!! Str::words($student->notes, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#notes">read more...</a>') !!}

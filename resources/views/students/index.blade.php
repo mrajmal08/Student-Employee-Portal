@@ -88,6 +88,7 @@
                                 <th>Nationality</th>
                                 <th>Passport Number</th>
                                 <th>Dependants</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -105,6 +106,7 @@
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
                                 </td>
+                                <td>{{ \App\Models\Status::where('id', $item->status_id)->value('name') }}</td>
                                 <td class="ealign-items-center">
                                     <a href="{{ route('students.view', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-eye-fill"></i>

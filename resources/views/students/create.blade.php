@@ -449,7 +449,7 @@
 
                                     <div class="container-fluid mt-3">
                                         <div class="panel">
-                                            <strong class="sub-title">Screener: </strong>
+                                            <strong class="sub-title">Verifier:</strong>
                                             <div class="collapse-div mb-3">
                                                 <div class="row extra-padding">
                                                     <div class="form-row mt-3">

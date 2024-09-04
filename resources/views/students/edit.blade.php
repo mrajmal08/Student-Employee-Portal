@@ -110,23 +110,23 @@
                                                     <div class="form-row mt-3">
                                                         <div class="form-group">
                                                             <label class="label" for="name">Name Of Agent:<span class="star-color">*</span></label>
-                                                            <input type="text" class="form-control" id="name" name="name" value="{{ $recAgent->name }}">
+                                                            <input type="text" class="form-control" id="name" name="name" value="">
                                                             <input type="hidden" class="form-control" id="student_form" value="stundet form" name="student_form">
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="directors">List The Name Of All Your Directors:<span class="star-color">*</span></label>
-                                                            <input type="text" class="form-control" name="directors" id="directors" value="{{ $recAgent->directors }}">
+                                                            <input type="text" class="form-control" name="directors" id="directors" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="company_register_number">Company Register Number:<span class="star-color">*</span></label>
-                                                            <input type="text" class="form-control" name="company_register_number" id="company_register_number" value="{{ $recAgent->company_register_number }}">
+                                                            <input type="text" class="form-control" name="company_register_number" id="company_register_number" value="">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-row">
                                                         <div class="form-group col-md-4">
                                                             <label class="label" for="date_of_registration">Date Of Registration:<span class="star-color">*</span></label>
-                                                            <input type="date" class="form-control" name="date_of_registration" id="date_of_registration" value="{{ $recAgent->date_of_registration }}">
+                                                            <input type="date" class="form-control" name="date_of_registration" id="date_of_registration" value="">
                                                         </div>
 
                                                     </div>
@@ -136,42 +136,42 @@
                                                             <select id="payment_method" class="form-control" name="payment_method">
                                                                 <option default selected>--Select One--</option>
                                                                 <option value="" disabled>--Select One--</option>
-                                                                <option value="Cash" {{ $recAgent->payment_method == 'Cash' ? 'selected' : '' }}>Cash</option>
-                                                                <option value="Bank Account" {{ $recAgent->payment_method == 'Bank Account' ? 'selected' : '' }}>Bank Account</option>
-                                                                <option value="Paypal" {{ $recAgent->payment_method == 'Paypal' ? 'selected' : '' }}>Paypal</option>
+                                                                <option value="Cash" >Cash</option>
+                                                                <option value="Bank Account" >Bank Account</option>
+                                                                <option value="Paypal" >Paypal</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group" id="account_name_group" style="display: none;">
                                                             <label class="label" for="account_name">Account Name:</label>
-                                                            <input type="text" class="form-control" name="account_name" id="account_name" value="{{ $recAgent->account_name }}">
+                                                            <input type="text" class="form-control" name="account_name" id="account_name" value="">
                                                         </div>
                                                         <div class="form-group" id="account_number_group" style="display: none;">
                                                             <label class="label" for="account_number">Account Number:</label>
-                                                            <input type="text" class="form-control" name="account_number" id="account_number" value="{{ $recAgent->account_number }}">
+                                                            <input type="text" class="form-control" name="account_number" id="account_number" value="">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-row">
                                                         <div class="form-group">
                                                             <label class="label" for="institutions">Institutions:</label>
-                                                            <input type="text" class="form-control" name="institutions" id="institutions" value="{{ $recAgent->institutions }}">
+                                                            <input type="text" class="form-control" name="institutions" id="institutions" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="address_uk">Address In UK:</label>
-                                                            <input type="text" class="form-control" name="address_uk" id="address_uk" value="{{ $recAgent->address_uk }}">
+                                                            <input type="text" class="form-control" name="address_uk" id="address_uk" value="">
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="address">Address If Company Not In UK:</label>
-                                                            <input type="text" class="form-control" name="address" id="address" value="{{ $recAgent->address }}">
+                                                            <input type="text" class="form-control" name="address" id="address" value="">
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="form-group col-md-4">
                                                             <label class="label">Compliance Check:</label>
                                                             <div class="radio-btn">
-                                                                <input type="radio" id="yes" name="compliance_check" value="Yes" {{ $recAgent->compliance_check == "Yes" ? 'checked' : '' }}>
+                                                                <input type="radio" id="yes" name="compliance_check" value="Yes" >
                                                                 <label class="label" for="yes">Yes</label>
-                                                                <input type="radio" id="no" name="compliance_check" value="No" {{ $recAgent->compliance_check == "No" ? 'checked' : '' }}>
+                                                                <input type="radio" id="no" name="compliance_check" value="No" >
                                                                 <label class="label" for="no">No</label>
                                                             </div>
                                                         </div>
@@ -183,7 +183,7 @@
                                                         </h4>
                                                     </div>
                                                     <div class="form-row">
-                                                        <textarea class="form-control" name="career_history" id="career_history" rows="3">{{ $recAgent->career_history }}</textarea>
+                                                        <textarea class="form-control" name="career_history" id="career_history" rows="3"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer d-flex justify-content-center w-100">
