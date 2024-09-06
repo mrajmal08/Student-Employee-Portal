@@ -11,6 +11,7 @@ class Student extends Model
     use HasFactory, SoftDeletes;
     protected $table = "students";
     protected $guarded = [];
+    public $timestamps = true;
 
     public function courses()
     {

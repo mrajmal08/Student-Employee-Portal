@@ -22,137 +22,100 @@
                         </ul>
                     </breadcrumb>
                 </div>
-                <div class="my-3 ms-3 ">
-                    <h4 class="student-detail">{{ $student->name }} ( {{ \Carbon\Carbon::parse($student->date_of_birth)->age  }} years | {{ $student->date_of_birth }} | {{ $student->gender == 1 ? 'Male' : 'Female' }} )</h4>
-                </div>
+
                 <div class="container-fluid datatable">
-                    <table class="table table-borderless table-striped">
-                        <tbody>
-                            <tr>
-                                <th scope="row">Email:</th>
-                                <td>{{ $student->email }}</td>
-                                <th>Nationality:</th>
-                                <td>{{ $student->nationality }}</td>
-                                <th>Preferred Contact Number:</th>
-                                <td>{{ $student->phone_no }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Passport:</th>
-                                <td>{{ $student->passport }}</td>
-                                <th>Course:</th>
-                                <td>{{ $student->courses->pluck('name')->implode(', ') }}</td>
-                                <th>Previous CAS:</th>
-                                <td>{{ $student->previous_cas }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Dependant:</th>
-                                <td>{{ $student->dependants->pluck('name')->implode(', ') }}</td>
-                                <th>Intake:</th>
-                                <td>{{ $student->intake }}</td>
-                                <th>Address:</th>
-                                <td>{{ $student->address }}</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Work Experience:</th>
-                                <td>
-                                    {!! Str::words($student->work_experience, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#work_experience">read more...</a>') !!}
-                                </td>
-                                <th>Academic History:</th>
-                                <td>
-                                    {!! Str::words($student->academic_history, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#academic_history">read more...</a>') !!}
-                                </td>
-                                <th>Travel History:</th>
-                                <td>
-                                    {!! Str::words($student->travel_history, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#travel_history">read more...</a>') !!}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">Extra Notes:</th>
-                                <td>
-                                    {!! Str::words($student->notes, 2, ' <a href="#" class="text-success" data-bs-toggle="modal" data-bs-target="#notes">read more...</a>') !!}
-
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-
-                <div class="modal fade" id="notes" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="officerNoteModalLabel">Extra Notes</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                {{ $student->notes }}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div class="row">
+                        <!-- Image column -->
+                        <div class="col-md-2">
+                            <div class="image-holder">
+                                <img src="{{ asset('assets/img/student.png') }}" class="img-fluid student_img">
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="modal fade" id="travel_history" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="officerNoteModalLabel">Travel History</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <!-- Table content column -->
+                        <div class="col-md-10">
+                            <div class="my-3 ms-3 ">
+                                <h4 class="student-detail">{{ $student->name }} ( {{ \Carbon\Carbon::parse($student->date_of_birth)->age  }} years | {{ $student->date_of_birth }} | {{ $student->gender == 1 ? 'Male' : 'Female' }} )</h4>
                             </div>
-                            <div class="modal-body">
-                                {{ $student->travel_history }}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
+                            <table id="example" class="table table-striped w-100 custom-datatable">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Email:</th>
+                                        <td>{{ $student->email }}</td>
+                                        <th>Nationality:</th>
+                                        <td>{{ $student->nationality }}</td>
+                                        <th>Preferred Contact Number:</th>
+                                        <td>{{ $student->phone_no }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Passport:</th>
+                                        <td>{{ $student->passport }}</td>
+                                        <th>Address:</th>
+                                        <td>{{ $student->address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Passport:</th>
+                                        <td>{{ $student->passport }}</td>
+                                        <th>Address:</th>
+                                        <td>{{ $student->address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Passport:</th>
+                                        <td>{{ $student->passport }}</td>
+                                        <th>Address:</th>
+                                        <td>{{ $student->address }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
 
-                <div class="modal fade" id="work_experience" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="officerNoteModalLabel">Work Experience</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                {{ $student->work_experience }}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <a href="{{ route('students.create') }}" class="btn filter-btn  mb-4 mt-4 ms-3">
+                            <span class="icon-plus">
+                                +
+                            </span>
+                            Add New Case </a>
                     </div>
                 </div>
-
-                <div class="modal fade" id="academic_history" tabindex="-1" aria-labelledby="officerNoteModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="officerNoteModalLabel">Academic History</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                {{ $student->academic_history }}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="container-fluid">
-                    <div class="panel">
+                    <div class="panel student_view">
                         <form method="GET" action="{{ route('students.index') }}">
                             <strong class="sub-title">Search Student</strong>
                             <div class="datatable my-4 table-responsive">
+
                                 <table id="example" class="table table-bordered">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>Passport Documents</th>
+                                            <th>BRP Documents</th>
+                                            <th>Financial Statement Documents</th>
+                                            <th>Qualification Documents</th>
+                                            <th>English Language Certificates</th>
+                                            <th>Miscellaneous Documents</th>
+                                            <th>TB Certificate</th>
+                                            <th>Previous CAS Documents</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text-center">
+                                        <tr>
+                                            <td>2333</td>
+                                            <td>2333</td>
+                                            <td>2333</td>
+                                            <td>2333</td>
+                                            <td>2333</td>
+                                            <td>2333</td>
+                                            <td>2333</td>
+                                            <td>2333</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+                                <!-- <table id="example" class="table table-bordered">
                                     <thead class="text-center">
                                         <tr>
                                             <th>Passport Documents</th>
@@ -183,7 +146,7 @@
                                             @endforeach
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> -->
                             </div>
                         </form>
                     </div>
@@ -193,7 +156,7 @@
     </div>
 
     <!-- Modal -->
-    @foreach ([
+    <!-- @foreach ([
     'passport_doc' => 'Passport Documents',
     'brp_doc' => 'BRP Documents',
     'financial_statement_doc' => 'Financial Statement Documents',
@@ -227,7 +190,7 @@
             </div>
         </div>
     </div>
-    @endforeach
+    @endforeach -->
 
     <!-- <hr class="line-bottom"> -->
     <div class="footer">

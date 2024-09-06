@@ -83,3 +83,11 @@ Route::post('/status/insert', [App\Http\Controllers\StatusController::class, 'in
 Route::get('/status/edit/{id}', [App\Http\Controllers\StatusController::class, 'edit'])->name('status.edit');
 Route::post('/status/update/{id}', [App\Http\Controllers\StatusController::class, 'update'])->name('status.update');
 Route::get('/status/delete/{id}', [App\Http\Controllers\StatusController::class, 'delete'])->name('status.delete');
+
+//Tasks routes
+Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('task.index');
+Route::get('/task/create', [App\Http\Controllers\TaskController::class, 'create'])->name('task.create');
+Route::post('/task/insert', [App\Http\Controllers\TaskController::class, 'insert'])->name('task.insert');
+Route::get('/task/edit/{id}', [App\Http\Controllers\TaskController::class, 'edit'])->name('task.edit');
+Route::post('/task/update/{id}', [App\Http\Controllers\TaskController::class, 'update'])->name('task.update');
+Route::get('/task/delete/{id}', [App\Http\Controllers\TaskController::class, 'delete'])->name('task.delete');

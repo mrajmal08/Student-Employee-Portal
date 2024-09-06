@@ -1,0 +1,9 @@
+.task_status{
+    text-align: center;
+}
+.task_status .btn{
+    width: 16% !important;
+}
+.border{
+    text-align: center;
+}

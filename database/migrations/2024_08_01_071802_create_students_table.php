@@ -46,6 +46,8 @@ class CreateStudentsTable extends Migration
 			$table->string('screened_by')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
+            $table->bigInteger('created_by')->nullable();
+            $table->bigInteger('updated_by')->nullable();
         });
     }
 

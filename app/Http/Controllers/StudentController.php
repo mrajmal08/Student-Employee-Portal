@@ -30,13 +30,21 @@ class StudentController extends Controller
 
     public function index(Request $request)
     {
-        $studentsQuery = Student::with('dependants')->orderBy('id', 'DESC');
+        $studentsQuery = Student::with('dependants')
+            ->join('users as created_user', 'students.created_by', '=', 'created_user.id')
+            ->join('users as updated_user', 'students.updated_by', '=', 'updated_user.id')
+            ->select('students.*')
+            ->orderBy('students.id', 'DESC');
+
+        if($request->id){
+            $studentsQuery->where('id', $request->id);
+        }
 
         $filters = [
             'name' => 'name',
             'email' => 'email',
             'phone_no' => 'phone_no',
-            'nationality' => 'nationality'
+            'phone_no' => 'phone_no',
         ];
 
         foreach ($filters as $requestKey => $column) {
@@ -44,6 +52,24 @@ class StudentController extends Controller
                 $studentsQuery->where($column, 'like', '%' . $request->$requestKey . '%');
             }
         }
+
+        if ($request->created_at) {
+            $studentsQuery->whereDate('students.created_at', '=', $request->created_at);
+        }
+
+        if ($request->updated_at) {
+            $studentsQuery->whereDate('students.updated_at', '=', $request->updated_at);
+        }
+
+        if ($request->created_by) {
+            $studentsQuery->where('created_user.name', 'like', '%' . $request->created_by . '%');
+        }
+
+        // Filter by updated_by name
+        if ($request->updated_by) {
+            $studentsQuery->where('updated_user.name', 'like', '%' . $request->updated_by . '%');
+        }
+
         $students = $studentsQuery->get();
 
         return view('students.index', compact('students'));
@@ -119,6 +145,8 @@ class StudentController extends Controller
             $data['stakeholder'] = $request->stakeholder;
             $data['screened_by'] = $request->screened_by;
             $data['status_id'] = $request->status_id;
+            $data['created_by'] = auth()->user()->id;
+            $data['updated_by'] = auth()->user()->id;
 
 
             $timestamp = Carbon::now()->timestamp;
@@ -302,6 +330,7 @@ class StudentController extends Controller
         if ($request->status_id) {
             $validatedData['status_id'] = $request->status_id;
         }
+        $validatedData['updated_by'] = auth()->user()->id;
 
         $student->update($validatedData);
 

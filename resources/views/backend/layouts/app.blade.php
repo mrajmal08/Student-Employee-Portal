@@ -102,6 +102,20 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="{{ request()->routeIs('recruitments.index') ? 'active' : '' }}">
+                        <a href="#!" class="" style="align-items: center;">
+                            <i class="bi bi-menu-button-wide-fill"></i>
+                            <span style="margin-left: 5px;">Tasks</span>
+                        </a>
+                        <ul class="navbar-dropdown">
+                            <li>
+                                <a href="{{ route('task.index') }}" class="{{ request()->routeIs('task.index') ? 'active' : '' }}">My Tasks</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('task.index') }}" class="{{ request()->routeIs('task.index') ? 'active' : '' }}">Create Tasks</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="{{ request()->routeIs('user.index') || request()->routeIs('courses.index') || request()->routeIs('dependants.index') || request()->routeIs('status.index') ? 'active' : '' }}">
                         <a href="#!" class="" style="align-items: center;">
                             <i class="bi bi-list-ul"></i>

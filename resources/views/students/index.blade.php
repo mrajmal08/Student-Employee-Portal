@@ -39,6 +39,10 @@
                             <div class="collapse-div mb-3">
                                 <div class="row extra-padding">
                                     <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">Student ID</label>
+                                        <input type="text" name="id" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
                                         <label class="label">Student Name</label>
                                         <input type="text" name="name" class="form-control" placeholder="">
                                     </div>
@@ -50,10 +54,10 @@
                                         <label class="label">Preferred Contact Details</label>
                                         <input type="text" name="phone_no" class="form-control" placeholder="">
                                     </div>
-                                    <div class="col-md-3 col-sm-6 filter-item">
+                                    <!-- <div class="col-md-3 col-sm-6 filter-item">
                                         <label class="label">Nationality</label>
                                         <input type="text" name="nationality" class="form-control" placeholder="">
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="toggle-button" onclick="toggleFilters()">
                                     <span class="plus-icon">
@@ -64,8 +68,20 @@
                             <div id="collapsible-filters" class="hidden">
                                 <div class="row">
                                     <div class="col-md-3 col-sm-6 filter-item">
-                                        <label class="label">Passport Number</label>
-                                        <input type="text" name="passport" class="form-control" placeholder="">
+                                        <label class="label">Created By</label>
+                                        <input type="text" name="created_by" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">Updated By</label>
+                                        <input type="text" name="updated_by" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">Created At</label>
+                                        <input type="date" name="created_at" class="form-control" placeholder="">
+                                    </div>
+                                    <div class="col-md-3 col-sm-6 filter-item">
+                                        <label class="label">Updated At</label>
+                                        <input type="date" name="updated_at" class="form-control" placeholder="">
                                     </div>
                                 </div>
                                 <div class="search-filter-btn-group text-center mt-3">
@@ -85,10 +101,12 @@
                                 <th>Student Name</th>
                                 <th>Student Email Address</th>
                                 <th>Preferred Contact Details</th>
-                                <th>Nationality</th>
-                                <th>Passport Number</th>
-                                <th>Dependants</th>
+                                <!-- <th>Nationality</th> -->
+                                <!-- <th>Passport Number</th> -->
+                                <!-- <th>Dependants</th> -->
                                 <th>Status</th>
+                                <th>Created By</th>
+                                <th>Updated By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -96,21 +114,23 @@
                             @foreach ($students as $item)
                             <tr>
                                 <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
+                                <td><a href="{{ route('students.view', [$item->id]) }}">{{ $item->name }}</a></td>
                                 <td>{{ $item->email }}</td>
                                 <td>{{ $item->phone_no }}</td>
-                                <td>{{ $item->nationality }}</td>
-                                <td>{{ $item->passport }}</td>
-                                <td>
+                                <!-- <td>{{ $item->nationality }}</td> -->
+                                <!-- <td>{{ $item->passport }}</td> -->
+                                <!-- <td>
                                     <a data-bs-toggle="modal" data-bs-target="#dependants{{ $item->id }}">
                                         <i class="bi bi-eye-fill" style="color: #03a853;"></i>
                                     </a>
-                                </td>
+                                </td> -->
                                 <td>{{ \App\Models\Status::where('id', $item->status_id)->value('name') }}</td>
+                                <td>{{ \app\Models\User::where('id', $item->created_by)->value('name') }} <br>{{ $item->created_at->format('Y-m-d') }}</td>
+                                <td>{{ \app\Models\User::where('id', $item->updated_by)->value('name') }}<br>{{ $item->updated_at->format('Y-m-d') }}</td>
                                 <td class="ealign-items-center">
-                                    <a href="{{ route('students.view', [$item->id]) }}" class="me-2">
+                                    <!-- <a href="{{ route('students.view', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-eye-fill"></i>
-                                    </a>
+                                    </a> -->
                                     <a href="{{ route('students.edit', [$item->id]) }}" class="me-2">
                                         <i class="bi bi-pen"></i>
                                     </a>
@@ -125,7 +145,7 @@
                             </tr>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="dependants{{ $item->id }}" tabindex="-1" aria-labelledby="dependantsLabel{{ $item->id }}" aria-hidden="true">
+                            <!-- <div class="modal fade" id="dependants{{ $item->id }}" tabindex="-1" aria-labelledby="dependantsLabel{{ $item->id }}" aria-hidden="true">
                                 <div class="modal-dialog modal-xl">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -211,7 +231,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             @endforeach
                         </tbody>
