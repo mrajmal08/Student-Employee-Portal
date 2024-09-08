@@ -64,7 +64,7 @@
                                 <a href="{{ route('students.index') }}" class="{{ request()->routeIs('students.index') ? 'active' : '' }}">Student List</a>
                             </li>
                             <li>
-                                <a href="{{ route('students.create') }}" class="{{ request()->routeIs('students.create') ? 'active' : '' }}">Add New Student</a>
+                                <a href="{{ route('students.add') }}" class="{{ request()->routeIs('students.add') ? 'active' : '' }}">Add New Student</a>
                             </li>
                         </ul>
                     </li>

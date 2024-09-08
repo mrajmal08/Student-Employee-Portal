@@ -20,6 +20,8 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'home']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/students', [App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
 Route::get('/student/create', [App\Http\Controllers\StudentController::class, 'create'])->name('students.create');
+Route::get('/student/add', [App\Http\Controllers\StudentController::class, 'add'])->name('students.add');
+Route::post('/student/add_student', [App\Http\Controllers\StudentController::class, 'add_student'])->name('students.add_student');
 Route::post('/student/insert', [App\Http\Controllers\StudentController::class, 'insert'])->name('students.insert');
 Route::get('/student/view/{id}', [App\Http\Controllers\StudentController::class, 'view'])->name('students.view');
 Route::get('/student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit'])->name('students.edit');

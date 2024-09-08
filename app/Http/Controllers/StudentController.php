@@ -36,7 +36,7 @@ class StudentController extends Controller
             ->select('students.*')
             ->orderBy('students.id', 'DESC');
 
-        if($request->id){
+        if ($request->id) {
             $studentsQuery->where('id', $request->id);
         }
 
@@ -89,6 +89,59 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
         return view('students.view', compact('student'));
+    }
+
+    public function add()
+    {
+
+        $status = Status::orderBy('id', 'ASC')->get();
+
+        return view('students.add', compact('status'));
+    }
+
+    public function add_student(Request $request, FlasherInterface $flasher)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|unique:students,email',
+            'nationality' => 'required|max:255',
+            'phone_no' => 'required',
+            'address' => 'required',
+            'gender' => 'required|in:1,2',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach ($errors as $error) {
+                $flasher->options([
+                    'timeout' => 3000,
+                    'position' => 'top-center',
+                ])->option('position', 'top-center')->addError('Validation Error', $error);
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+        }
+
+        try {
+            $data['name'] = $request->name;
+            $data['email'] = $request->email;
+            $data['phone_no'] = $request->phone_no;
+            $data['date_of_birth'] = $request->date_of_birth;
+            $data['gender'] = $request->gender;
+            $data['passport'] = $request->passport;
+            $data['nationality'] = $request->nationality;
+            $data['address'] = $request->address;
+            $data['status_id'] = $request->status_id;
+            $data['created_by'] = auth()->user()->id;
+            $data['updated_by'] = auth()->user()->id;
+            Student::create($data);
+
+            $flasher->option('position', 'top-center')->addSuccess('Student added Successfully');
+            return redirect()->route('students.index')->with('message', 'Student added Successfully');
+        } catch (\Exception $e) {
+            $flasher->option('position', 'top-center')->addError('Something went wrong');
+            return redirect()->route('students.index')->with('message', 'Something went wrong');
+        }
     }
 
     public function insert(Request $request, FlasherInterface $flasher)
