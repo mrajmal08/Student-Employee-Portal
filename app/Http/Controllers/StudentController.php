@@ -134,6 +134,7 @@ class StudentController extends Controller
             $data['gender'] = $request->gender;
             $data['passport'] = $request->passport;
             $data['nationality'] = $request->nationality;
+            $data['status_id'] = $request->status_id;
             $data['address'] = $request->address;
             $data['address2'] = $request->address2;
             $data['city'] = $request->city;
@@ -206,6 +207,9 @@ class StudentController extends Controller
         }
         if ($request->gender) {
             $validatedData['gender'] = $request->gender;
+        }
+        if ($request->status_id) {
+            $validatedData['status_id'] = $request->status_id;
         }
         if ($request->address) {
             $validatedData['address'] = $request->address;
