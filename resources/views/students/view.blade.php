@@ -25,97 +25,224 @@
 
                 <div class="container-fluid datatable">
                     <div class="row">
-                        <!-- Image column -->
                         <div class="col-md-2">
                             <div class="image-holder">
                                 <img src="{{ asset('assets/img/student.png') }}" class="img-fluid student_img">
                             </div>
                         </div>
-                        <!-- Table content column -->
                         <div class="col-md-10">
-                            <div class="my-3 ms-3 ">
-                                <h4 class="student-detail">{{ $student->name }} ( {{ \Carbon\Carbon::parse($student->date_of_birth)->age  }} years | {{ $student->date_of_birth }} | {{ $student->gender == 1 ? 'Male' : 'Female' }} )</h4>
+                            <div class="my-3">
+                                <h3 class="student-detail">{{ $student->name }} ( {{ \Carbon\Carbon::parse($student->date_of_birth)->age  }} years | {{ $student->date_of_birth }} | {{ $student->gender == 1 ? 'Male' : 'Female' }} )</h3>
                             </div>
-                            <table id="example" class="table table-striped w-100 custom-datatable">
+                            <table id="" class="table table-striped w-100 custom-datatable">
                                 <tbody>
                                     <tr>
-                                        <th scope="row">Email:</th>
-                                        <td>{{ $student->email }}</td>
-                                        <th>Nationality:</th>
-                                        <td>{{ $student->nationality }}</td>
-                                        <th>Preferred Contact Number:</th>
+                                        <th>Address Line 1:</th>
+                                        <td>{{ $student->address }}</td>
+                                        <th>Address Line 2:</th>
+                                        <td>{{ $student->address2 }}</td>
+                                        <th>City:</th>
+                                        <td>{{ $student->city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">County:</th>
+                                        <td>{{ $student->county }}</td>
+                                        <th>Post Code:</th>
+                                        <td>{{ $student->post_code }}</td>
+                                        <th>Preferred Contact No:</th>
                                         <td>{{ $student->phone_no }}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Passport:</th>
                                         <td>{{ $student->passport }}</td>
-                                        <th>Address:</th>
-                                        <td>{{ $student->address }}</td>
+                                        <th>Nationality:</th>
+                                        <td>{{ $student->nationality }}</td>
+                                        <th>DOB:</th>
+                                        <td>{{ $student->date_of_birth }}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">Passport:</th>
-                                        <td>{{ $student->passport }}</td>
-                                        <th>Address:</th>
-                                        <td>{{ $student->address }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Passport:</th>
-                                        <td>{{ $student->passport }}</td>
-                                        <th>Address:</th>
-                                        <td>{{ $student->address }}</td>
+                                        <th scope="row">Email:</th>
+                                        <td>{{ $student->email }}</td>
                                     </tr>
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                 </div>
 
-
-
                 <div class="row">
                     <div class="col-12">
-                        <a href="{{ route('students.create') }}" class="btn filter-btn  mb-4 mt-4 ms-3">
+                        <a href="" class="btn filter-btn  mb-4 mt-4 ms-3">
                             <span class="icon-plus">
                                 +
                             </span>
                             Add New Case </a>
                     </div>
                 </div>
+
                 <div class="container-fluid">
                     <div class="panel student_view">
-                        <form method="GET" action="{{ route('students.index') }}">
-                            <strong class="sub-title">Search Student</strong>
-                            <div class="datatable my-4 table-responsive">
+                        <strong class="sub-title">Search Student</strong>
+                        <div class="datatable my-4 table-responsive">
 
-                                <table id="example" class="table table-bordered">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th>Passport Documents</th>
-                                            <th>BRP Documents</th>
-                                            <th>Financial Statement Documents</th>
-                                            <th>Qualification Documents</th>
-                                            <th>English Language Certificates</th>
-                                            <th>Miscellaneous Documents</th>
-                                            <th>TB Certificate</th>
-                                            <th>Previous CAS Documents</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text-center">
-                                        <tr>
-                                            <td>2333</td>
-                                            <td>2333</td>
-                                            <td>2333</td>
-                                            <td>2333</td>
-                                            <td>2333</td>
-                                            <td>2333</td>
-                                            <td>2333</td>
-                                            <td>2333</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <table id="example" class="table table-bordered">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>Student Id</th>
+                                        <th>Student Name</th>
+                                        <th>Course Applied For</th>
+                                        <th>Intake</th>
+                                        <th>Dependants</th>
+                                        <th>Traveling Alone</th>
+                                        <th>Recruitment Agent</th>
+                                        <th>Method Of Contact</th>
+                                        <th>Verifier</th>
+                                        <th>Created By</th>
+                                        <th>Updated By</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    <tr>
+                                        <td><a href="{{ route('students.create', [$student->id]) }}">{{ $student->id }}</a></td>
+                                        <td>{{ $student->name }}</td>
+                                        <td>{{ \App\Models\Course::where('id', $student->course_id)->value('name') }}</td>
+                                        <td>{{ $student->intake }}</td>
+                                        <td><a data-bs-toggle="modal" data-bs-target="#dependants{{ $student->id }}">
+                                                <i class="bi bi-eye-fill" style="color: #03a853;"></i>
+                                            </a></td>
+                                        <td>{{ $student->traveling_alone }}</td>
+                                        <td>{{ \App\Models\RecruitmentAgent::where('id', $student->agent_id)->value('name') }}</td>
+                                        <td>{{ $student->preferred_method }}</td>
+                                        <td>{{ $student->screened_by }}</td>
+                                        <td>{{ \app\Models\User::where('id', $student->created_by)->value('name') }} <br>{{ $student->created_at->format('Y-m-d') }}</td>
+                                        <td>{{ \app\Models\User::where('id', $student->created_by)->value('name') }} <br>{{ $student->created_at->format('Y-m-d') }}</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
 
 
-                                <!-- <table id="example" class="table table-bordered">
+                            <!-- Modal -->
+                            <div class="modal fade" id="dependants{{ $student->id }}" tabindex="-1" aria-labelledby="dependantsLabel{{ $student->id }}" aria-hidden="true">
+                                <div class="modal-dialog modal-xl">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="dependantsLabel{{ $student->id }}">Dependants of {{ $student->name }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            @if($student->dependants->isEmpty())
+                                            <p>No dependants found.</p>
+                                            @else
+                                            <div class="row">
+                                                <?php $count = 1; ?>
+                                                @foreach ($student->dependants as $dependant)
+
+                                                <div class="dependant-heading mb-2">Dependant {{ $count }}</div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Name:</strong> <strong class="label">{{ $dependant->name }}</strong><br>
+                                                        <strong>Nationality:</strong> <strong class="label"> {{ $dependant->nationality }}</strong><br>
+                                                        <strong>Date of Birth:</strong> <strong class="label"> {{ $dependant->date_of_birth }}</strong><br>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Travel Outside:</strong> <strong class="label">{{ $dependant->travel_outside }}</strong><br>
+                                                        <strong>Travel History:</strong> <strong class="label">{{ $dependant->travel_history }}</strong><br>
+                                                        <strong>Financial Docs:</strong>
+
+                                                        @foreach(explode(',', $dependant->financial_doc) as $document)
+                                                        @if(trim($document))
+
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @else
+                                                        <a style="color: red; font-size:small; pointer-events: none;">No Files.</a>
+                                                        @endif
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Qualification Doc:</strong>
+                                                        @foreach(explode(',', $dependant->qualification_doc) as $document)
+                                                        @if(trim($document))
+
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @else
+                                                        <a style="color: red; font-size:small; pointer-events: none;">No Files.</a>
+                                                        @endif
+                                                        @endforeach
+                                                        <br>
+                                                        <strong>Pay Slip:</strong>
+                                                        @foreach(explode(',', $dependant->pay_slip) as $document)
+                                                        @if(trim($document))
+
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @else
+                                                        <a style="color: red; font-size:small; pointer-events: none;">No Files.</a>
+                                                        @endif
+                                                        @endforeach<br>
+                                                        <strong>Employer Letter:</strong>
+                                                        @foreach(explode(',', $dependant->employer_letter) as $document)
+                                                        @if(trim($document))
+
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @else
+                                                        <a style="color: red; font-size:small; pointer-events: none;">No Files.</a>
+                                                        @endif
+                                                        @endforeach
+                                                        <br>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="list-group-item">
+                                                        <strong>Marriage Certificate:</strong>
+                                                        @foreach(explode(',', $dependant->marriage_certificate) as $document)
+                                                        @if(trim($document))
+
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @else
+                                                        <a style="color: red; font-size:small; pointer-events: none;">No Files.</a>
+                                                        @endif
+                                                        @endforeach<br>
+                                                        <strong>Birth Certificate:</strong>
+                                                        @foreach(explode(',', $dependant->birth_certificate) as $document)
+                                                        @if(trim($document))
+
+                                                        <a href="{{ asset('assets/DependantDoc/' . $document) }}" target="_blank"><i class="bi bi-eye-fill" style="color: #03a853;"></i></a>
+                                                        @else
+                                                        <a style="color: red; font-size:small; pointer-events: none;">No Files.</a>
+                                                        @endif
+                                                        @endforeach<br>
+
+                                                        <strong>Officer Note:</strong>
+                                                        <span class="short-text">
+                                                            {!! Str::words($dependant->officer_note, 2) !!}
+                                                        </span>
+                                                        <span class="full-text" style="display: none;">
+                                                            {{ $dependant->officer_note }}
+                                                        </span>
+                                                        <a href="#" class="text-success read-more-toggle" data-target="#officerNote-{{ $dependant->id }}">read more...</a>
+                                                        <br>
+                                                    </div>
+                                                </div>
+                                                <?php $count++; ?>
+                                                @endforeach
+                                            </div>
+                                            @endif
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- <table id="example" class="table table-bordered">
                                     <thead class="text-center">
                                         <tr>
                                             <th>Passport Documents</th>
@@ -147,8 +274,8 @@
                                         </tr>
                                     </tbody>
                                 </table> -->
-                            </div>
-                        </form>
+                        </div>
+                        <!-- </form> -->
                     </div>
                 </div>
             </div>
@@ -232,6 +359,32 @@
             });
     });
 </script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.read-more-toggle').forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                var target = document.querySelector(link.getAttribute('data-target'));
+                var shortText = link.previousElementSibling.previousElementSibling;
+                var fullText = link.previousElementSibling;
+
+                if (fullText.style.display === 'none') {
+                    fullText.style.display = 'inline';
+                    shortText.style.display = 'none';
+                    link.textContent = 'read less';
+                } else {
+                    fullText.style.display = 'none';
+                    shortText.style.display = 'inline';
+                    link.textContent = 'read more...';
+                }
+            });
+        });
+    });
+</script>
+
+
 <script>
     (function($) {
         $(function() {
@@ -264,6 +417,18 @@
             });
         });
     })(jQuery);
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            searching: false,
+            order: [
+                [0, 'desc']
+            ],
+            "bLengthChange": false,
+        });
+    });
 </script>
 
 @push('js')

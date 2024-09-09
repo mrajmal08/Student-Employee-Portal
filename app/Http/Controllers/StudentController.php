@@ -75,19 +75,21 @@ class StudentController extends Controller
         return view('students.index', compact('students'));
     }
 
-    public function create()
+    public function create($id)
     {
         $dependants = Dependant::orderBy('id', 'DESC')->get();
         $courses = Course::orderBy('id', 'DESC')->get();
         $recruitmentAgent = RecruitmentAgent::orderBy('id', 'DESC')->get();
         $status = Status::orderBy('id', 'ASC')->get();
+        $student = Student::with('dependants')->findOrFail($id);
 
-        return view('students.create', compact('dependants', 'courses', 'recruitmentAgent', 'status'));
+        return view('students.create', compact('dependants', 'courses', 'recruitmentAgent', 'status', 'student'));
     }
 
     public function view($id)
     {
-        $student = Student::findOrFail($id);
+        $student = Student::with('dependants')->findOrFail($id);
+
         return view('students.view', compact('student'));
     }
 
@@ -109,6 +111,8 @@ class StudentController extends Controller
             'phone_no' => 'required',
             'address' => 'required',
             'gender' => 'required|in:1,2',
+            'city' => 'required',
+            'post_code' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -131,7 +135,11 @@ class StudentController extends Controller
             $data['passport'] = $request->passport;
             $data['nationality'] = $request->nationality;
             $data['address'] = $request->address;
-            $data['status_id'] = $request->status_id;
+            $data['address2'] = $request->address2;
+            $data['city'] = $request->city;
+            $data['address'] = $request->address;
+            $data['county'] = $request->county;
+            $data['post_code'] = $request->post_code;
             $data['created_by'] = auth()->user()->id;
             $data['updated_by'] = auth()->user()->id;
             Student::create($data);
@@ -142,6 +150,85 @@ class StudentController extends Controller
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('students.index')->with('message', 'Something went wrong');
         }
+    }
+
+
+    public function update_student(Request $request, $id, FlasherInterface $flasher)
+    {
+        $student = Student::find($id);
+        if (!$student) {
+            $flasher->option('position', 'top-center')->addError('Id not found');
+            return redirect()->route('students.index')->with('error', 'Id not found');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email',
+            'nationality' => 'required|max:255',
+            'phone_no' => 'required',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|in:1,2',
+            'address' => 'required',
+            'city' => 'required',
+            'post_code' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach ($errors as $error) {
+                $flasher->options([
+                    'timeout' => 3000,
+                    'position' => 'top-center',
+                ])->option('position', 'top-center')->addError('Validation Error', $error);
+                return Redirect::back()->withErrors($validator)->withInput();
+            }
+        }
+
+
+
+        $validatedData = [];
+
+
+        if ($request->name) {
+            $validatedData['name'] = $request->name;
+        }
+        if ($request->email) {
+            $validatedData['email'] = $request->email;
+        }
+        if ($request->nationality) {
+            $validatedData['nationality'] = $request->nationality;
+        }
+        if ($request->phone_no) {
+            $validatedData['phone_no'] = $request->phone_no;
+        }
+        if ($request->date_of_birth) {
+            $validatedData['date_of_birth'] = $request->date_of_birth;
+        }
+        if ($request->gender) {
+            $validatedData['gender'] = $request->gender;
+        }
+        if ($request->address) {
+            $validatedData['address'] = $request->address;
+        }
+        if ($request->address2) {
+            $validatedData['address2'] = $request->address2;
+        }
+        if ($request->city) {
+            $validatedData['city'] = $request->city;
+        }
+        if ($request->county) {
+            $validatedData['county'] = $request->county;
+        }
+        if ($request->post_code) {
+            $validatedData['post_code'] = $request->post_code;
+        }
+
+        $validatedData['updated_by'] = auth()->user()->id;
+
+        $student->update($validatedData);
+
+        $flasher->option('position', 'top-center')->addSuccess('Student updated Successfully');
+        return redirect()->route('students.index')->with('message', 'Student updated Successfully');
     }
 
     public function insert(Request $request, FlasherInterface $flasher)

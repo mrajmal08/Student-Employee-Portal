@@ -32,7 +32,104 @@
                                 <div class="my-3">
                                     <span class="star-color">*</span><span class="label"> <i>Indicates required field</i></span>
                                 </div>
-                                <form method="POST" action="{{ route('students.update', [$student->id]) }}" enctype="multipart/form-data">
+
+                                <form method="POST" action="{{ route('students.update_student', [$student->id]) }}">
+                                    @csrf
+
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="name">Student Name<span class="star-color">*</span></label>
+                                            <input type="text" id="name" class="form-control" name="name" value="{{ $student->name }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
+                                            <input type="email" name="email" class="form-control" id="email" value="{{ $student->email }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
+                                            <input type="text" name="nationality" class="form-control" id="nationality" value="{{ $student->nationality }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
+                                            <input type="text" name="phone_no" class="form-control" id="phone_no" value="{{ $student->phone_no }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="phone_no">Date Of Birth:</label>
+                                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" value="{{ $student->date_of_birth }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                        <label class="label">Gender:<span class="star-color">*</span></label>
+                                            <div class="radio-btn">
+                                                <input type="radio" id="male" name="gender" value="1" {{ $student->gender == 1 ? 'checked' : '' }}>
+                                                <label class="label" for="male">Male</label>
+                                                <input type="radio" id="female" name="gender" value="2" {{ $student->gender == 2 ? 'checked' : '' }}>
+                                                <label class="label" for="female">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+
+                                        <div class="form-group">
+                                            <label class="label" for="passport">Passport Number:</label>
+                                            <input type="text" class="form-control" name="passport" id="text" value="{{ $student->passport }}">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="label">Status:<span class="star-color">*</span></label>
+                                            <select name="status_id" id="status_id" class="form-control">
+                                                <option disabled {{ empty($student->status_id) ? 'selected' : '' }}>--Select One--</option>
+                                                @foreach ($status as $item)
+                                                <option value="{{ $item->id }}" {{ $student->status_id == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
+                                            <input type="text" id="address" class="form-control" name="address" value="{{ $student->address }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="address2">Address Line 2:</label>
+                                            <input type="text" name="address2" class="form-control" id="address2" value="{{ $student->address2 }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label" for="middleName">City:<span class="star-color">*</span></label>
+                                            <input type="text" name="city" class="form-control" id="city" value="{{ $student->city }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="county">County:</label>
+                                            <input type="text" id="county" class="form-control" name="county" value="{{ $student->county }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="post_code">Post Code:<span class="star-color">*</span></label>
+                                            <input type="text" name="post_code" class="form-control" id="post_code" value="{{ $student->post_code }}">
+                                        </div>
+
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-buttons my-4">
+                                        <button type="submit" class="btn filter-btn">Submit</button>
+                                        <a href="{{ route('students.index') }}" type="submit" class="btn btn-cancel">Cancel</a>
+                                    </div>
+                                </form>
+                                <!-- <form method="POST" action="{{ route('students.update', [$student->id]) }}" enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="form-row mt-3">
@@ -97,8 +194,7 @@
                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-xl">
                                             <div class="modal-content">
-                                                <!-- <form method="POST" action="">
-                                                    @csrf -->
+
                                                 <div class="modal-header">
                                                     <h1 class="modal-title fs-5" id="exampleModalLabel">View Recruitment Agent</h1>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -189,7 +285,6 @@
                                                 <div class="modal-footer d-flex justify-content-center w-100">
                                                     <button type="submit" class="btn filter-btn" data-bs-dismiss="modal">Submit</button>
                                                 </div>
-                                                <!-- </form> -->
 
                                             </div>
                                         </div>
@@ -343,9 +438,9 @@
                                         <div class="form-group col-md-4">
                                             <label class="label">Traveling Alone:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
-                                                <input type="radio" id="traveling-yes" name="traveling" value="travelingYes">
+                                                <input type="radio" id="traveling-yes" name="traveling_alone" value="Yes">
                                                 <label for="traveling-yes">Yes</label>
-                                                <input type="radio" id="traveling-no" name="traveling" value="travelingNo">
+                                                <input type="radio" id="traveling-no" name="traveling_alone" value="No">
                                                 <label for="traveling-no">No</label>
                                             </div>
                                         </div>
@@ -373,7 +468,6 @@
                                     </div>
 
 
-                                    <!-- Upload documents -->
                                     <div class="container-fluid mt-3">
                                         <div class="panel">
                                             <strong class="sub-title">Documents to be submitted as part of the visa application: </strong>
@@ -497,7 +591,7 @@
                                         <button type="submit" class="btn filter-btn">Submit</button>
                                         <a href="{{ route('students.index') }}" type="submit" class="btn btn-cancel">Cancel</a>
                                     </div>
-                                </form>
+                                </form> -->
                             </div>
                         </div>
                     </div>
@@ -505,7 +599,6 @@
             </div>
         </div>
     </div>
-    <!-- <hr class="line-bottom"> -->
     <div class="footer">
     </div>
 

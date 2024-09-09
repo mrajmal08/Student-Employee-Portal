@@ -46,16 +46,12 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="label" for="middleName">Home Address:<span class="star-color">*</span></label>
-                                            <input type="text" name="address" class="form-control" id="address">
+                                            <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
+                                            <input type="text" name="nationality" class="form-control" id="nationality">
                                         </div>
                                     </div>
 
                                     <div class="form-row">
-                                        <div class="form-group">
-                                            <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
-                                            <input type="text" name="nationality" class="form-control" id="nationality">
-                                        </div>
                                         <div class="form-group">
                                             <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
                                             <input type="text" name="phone_no" class="form-control" id="phone_no">
@@ -64,9 +60,7 @@
                                             <label class="label" for="phone_no">Date Of Birth:</label>
                                             <input type="date" name="date_of_birth" class="form-control" id="date_of_birth">
                                         </div>
-                                    </div>
 
-                                    <div class="form-row">
                                         <div class="form-group">
                                             <label class="label">Gender:<span class="star-color">*</span></label>
                                             <div class="radio-btn">
@@ -76,6 +70,10 @@
                                                 <label class="label" for="female">Female</label>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    <div class="form-row">
+
                                         <div class="form-group">
                                             <label class="label" for="passport">Passport Number:</label>
                                             <input type="text" class="form-control" name="passport" id="text">
@@ -88,6 +86,39 @@
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
+                                            <input type="text" id="address" class="form-control" name="address">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="address2">Address Line 2:</label>
+                                            <input type="text" name="address2" class="form-control" id="address2">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label" for="middleName">City:<span class="star-color">*</span></label>
+                                            <input type="text" name="city" class="form-control" id="city">
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="county">County:</label>
+                                            <input type="text" id="county" class="form-control" name="county">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="post_code">Post Code:<span class="star-color">*</span></label>
+                                            <input type="text" name="post_code" class="form-control" id="post_code">
+                                        </div>
+
+                                        <div class="form-group">
+
                                         </div>
                                     </div>
                                     <div class="form-buttons my-4">

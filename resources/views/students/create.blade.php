@@ -16,10 +16,16 @@
                                 <a role="button">Students</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <span>Add</span>
+                                <a>Edit</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <span>{{ $student->id }}</span>
                             </li>
                         </ul>
                     </breadcrumb>
+                    <div class="float-right">
+                    Student Name: <a href="{{ route('students.view', [$student->id]) }}" style="color: #2fa953;">{{ $student->name }}</a>
+                    </div>
                 </div>
 
                 <div class="media user-info-case title-bar mt-3 d-flex"><img alt="patient-profile" src="https://nasir.ovadadme.org/assets/images/avatar.jpg" class="user-img">
@@ -27,31 +33,27 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h5 class="mt-4">
-                                    <span class="font-500">Tobias Eaton </span>
+                                    <span class="font-500">{{ $student->name }}</span>
                                     <small>
                                         <span>(</span>
-                                        46 Years Old <span class="line-space">|</span>
-                                        <span> DOB: 02/18/1978</span>
+                                        {{ \Carbon\Carbon::parse($student->date_of_birth)->age  }} years Old <span class="line-space">|</span>
+                                        <span> DOB: {{ $student->date_of_birth }}</span>
                                         <span class="line-space">|</span>
-                                        Male <span>)</span>
-                                    </small><span class="font-style"> DOA:</span>
-                                    <span class="font-style-description"> 07/17/2024 </span>
-                                    <span class="font-style"> Case Type:</span>
-                                    <span class="font-style-description description ps-1">No Fault</span>
-                                    <span class="font-style"> Provider:</span>
-                                    <span class="font-style-description description ps-1">QA ED Test Office SAG</span>
+                                        {{ $student->gender == 1 ? 'Male' : 'Female'  }} <span>)</span>
+                                    </small><span class="font-style"> Nationality:</span>
+                                    <span class="font-style-description"> {{ $student->nationality }} </span>
+                                    <span class="font-style">Passport No:</span>
+                                    <span class="font-style-description description ps-1">{{ $student->passport }}</span>
                                 </h5>
                             </div>
                             <div class="col-md-12 mt-2">
                                 <ul>
-                                    <li><i class="fa fa-phone ms-1" style="font-size: 14px;"></i><span> 115-982-1319</span></li>
+                                    <li><i class="fa fa-phone ms-1" style="font-size: 14px;"></i><span> {{ $student->phone_no }}</span></li>
                                     <li><i class="fa fa-map-marker ms-1" style="font-size: 14px;"></i>
-                                        <span class="font-style-description">Trail Ridge Rd,Minus aut nesciunt,Grand Lake,CO,92204</span>
+                                        <span class="font-style-description">{{ $student->address }}, {{ $student->address2 }}, {{ $student->city }}, {{ $student->county }}, {{ $student->post_code }}</span>
                                     </li>
-                                    <li><i class="icon-envelope" style="font-size: 15px; top: 2px; position: relative;"></i><span> abdullah.riaz@ovada.com </span></li>
-                                    <li><i class="fa fa-legal ms-1" style="font-size: 14px;"></i><span class="font-style-description description"> </span></li>
-                                    <li><i class="fa fa-pencil-square ms-1" style="font-size: 14px;"></i><span class="font-style-description description"> 232313</span></li>
-                                    <li><i class="fa fa-umbrella ms-1" style="font-size: 14px;"></i><span class="font-style-description description"> Life Insurance</span></li>
+                                    <li><i class="bi bi-envelope-fill" style="font-size: 15px; top: 2px; position: relative;"></i><span> {{ $student->email }} </span></li>
+                                    <li><i class="fa fa-pencil-square ms-1" style="font-size: 14px;"></i><span class="font-style-description description"> {{ $student->previous_cas }}</span></li>
                                 </ul>
                             </div>
                         </div>
@@ -168,68 +170,102 @@
                                             <div class="my-3">
                                                 <span class="star-color"></span><span class="label"><br> <i></i></span>
                                             </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="form-row mt-3">
-                                                    <div class="form-group">
-                                                        <label class="label" for="name">Student Name<span class="star-color">*</span></label>
-                                                        <input type="text" id="name" class="form-control" name="name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
-                                                        <input type="email" name="email" class="form-control" id="email">
-                                                    </div>
+                                            <form method="POST" action="{{ route('students.update_student', [$student->id]) }}">
+                                    @csrf
 
-                                                    <div class="form-group">
-                                                        <label class="label" for="middleName">Home Address:<span class="star-color">*</span></label>
-                                                        <input type="text" name="address" class="form-control" id="address">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
-                                                        <input type="text" name="nationality" class="form-control" id="nationality">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
-                                                        <input type="text" name="phone_no" class="form-control" id="phone_no">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="phone_no">Date Of Birth:<span class="star-color">*</span></label>
-                                                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label class="label">Gender:<span class="star-color">*</span></label>
-                                                        <div class="radio-btn">
-                                                            <input type="radio" id="male" name="gender" value="1">
-                                                            <label class="label" for="male">Male</label>
-                                                            <input type="radio" id="female" name="gender" value="2">
-                                                            <label class="label" for="female">Female</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="passport">Passport Number:</label>
-                                                        <input type="text" class="form-control" name="passport" id="text">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="label">Status:<span class="star-color">*</span></label>
-                                                        <select name="status_id" id="status_id" class="form-control">
-                                                            <option disabled selected>--Select One--</option>
-                                                            @foreach ($status as $item)
-                                                            <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-buttons my-4">
-                                                    <button type="submit" class="btn filter-btn">Submit</button>
-                                                </div>
-                                            </form>
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="name">Student Name<span class="star-color">*</span></label>
+                                            <input type="text" id="name" class="form-control" name="name" value="{{ $student->name }}">
                                         </div>
+                                        <div class="form-group">
+                                            <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
+                                            <input type="email" name="email" class="form-control" id="email" value="{{ $student->email }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
+                                            <input type="text" name="nationality" class="form-control" id="nationality" value="{{ $student->nationality }}">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
+                                            <input type="text" name="phone_no" class="form-control" id="phone_no" value="{{ $student->phone_no }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="phone_no">Date Of Birth:</label>
+                                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" value="{{ $student->date_of_birth }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                        <label class="label">Gender:<span class="star-color">*</span></label>
+                                            <div class="radio-btn">
+                                                <input type="radio" id="male" name="gender" value="1" {{ $student->gender == 1 ? 'checked' : '' }}>
+                                                <label class="label" for="male">Male</label>
+                                                <input type="radio" id="female" name="gender" value="2" {{ $student->gender == 2 ? 'checked' : '' }}>
+                                                <label class="label" for="female">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+
+                                        <div class="form-group">
+                                            <label class="label" for="passport">Passport Number:</label>
+                                            <input type="text" class="form-control" name="passport" id="text" value="{{ $student->passport }}">
+                                        </div>
+                                        <div class="form-group">
+                                        <label class="label">Status:<span class="star-color">*</span></label>
+                                            <select name="status_id" id="status_id" class="form-control">
+                                                <option disabled {{ empty($student->status_id) ? 'selected' : '' }}>--Select One--</option>
+                                                @foreach ($status as $item)
+                                                <option value="{{ $item->id }}" {{ $student->status_id == $item->id ? 'selected' : '' }}>
+                                                    {{ $item->name }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
+                                            <input type="text" id="address" class="form-control" name="address" value="{{ $student->address }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="address2">Address Line 2:</label>
+                                            <input type="text" name="address2" class="form-control" id="address2" value="{{ $student->address2 }}">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="label" for="middleName">City:<span class="star-color">*</span></label>
+                                            <input type="text" name="city" class="form-control" id="city" value="{{ $student->city }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-row mt-3">
+                                        <div class="form-group">
+                                            <label class="label" for="county">County:</label>
+                                            <input type="text" id="county" class="form-control" name="county" value="{{ $student->county }}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="label" for="post_code">Post Code:<span class="star-color">*</span></label>
+                                            <input type="text" name="post_code" class="form-control" id="post_code" value="{{ $student->post_code }}">
+                                        </div>
+
+                                        <div class="form-group">
+
+                                        </div>
+                                    </div>
+                                    <div class="form-buttons my-4">
+                                        <button type="submit" class="btn filter-btn">Submit</button>
+                                        <a href="{{ route('students.index') }}" type="submit" class="btn btn-cancel">Cancel</a>
+                                    </div>
+                                </form>                                        </div>
                                     </div>
                                 </div>
                             </div>

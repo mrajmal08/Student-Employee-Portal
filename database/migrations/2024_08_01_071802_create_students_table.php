@@ -22,6 +22,10 @@ class CreateStudentsTable extends Migration
             $table->date('date_of_birth')->nullable();
 			$table->tinyInteger('gender')->comment('1=male,2=female');
             $table->string('address')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('city')->nullable();
+            $table->string('county')->nullable();
+            $table->string('post_code')->nullable();
 			$table->string('passport')->nullable();
 			$table->text('academic_history')->nullable();
 			$table->text('travel_history')->nullable();
@@ -30,6 +34,9 @@ class CreateStudentsTable extends Migration
 			$table->text('notes')->nullable();
             $table->bigInteger('dependant_no')->nullable();
             $table->bigInteger('agent_id')->nullable();
+            $table->bigInteger('course_id')->nullable();
+            $table->string('preferred_method')->nullable();
+            $table->string('traveling_alone')->nullable();
             $table->bigInteger('status_id')->nullable();
             $table->string('stakeholder')->nullable();
 			$table->string('previous_cas')->nullable();
