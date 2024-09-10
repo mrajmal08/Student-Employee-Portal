@@ -24,7 +24,7 @@
                         </ul>
                     </breadcrumb>
                     <div class="float-right">
-                    Student Name: <a href="{{ route('students.view', [$student->id]) }}" style="color: #2fa953;">{{ $student->name }}</a>
+                        Student Name: <a href="{{ route('students.view', [$student->id]) }}" style="color: #2fa953;">{{ $student->name }}</a>
                     </div>
                 </div>
 
@@ -59,40 +59,40 @@
                         </div>
                     </div>
                 </div>
-<hr>
+                <hr>
 
                 <div class="">
                     <ul class="nav nav-pills mb-3 " id="pills-tab" role="tablist">
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Case</button>
+                            <button class="nav-link active" id="pills-case-tab" data-bs-toggle="pill" data-bs-target="#pills-case" type="button" role="tab" aria-controls="pills-case" aria-selected="true">Case</button>
                         </li>
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Student Info</button>
+                            <button class="nav-link" id="pills-studentInfo-tab" data-bs-toggle="pill" data-bs-target="#pills-studentInfo" type="button" role="tab" aria-controls="pills-studentInfo" aria-selected="false">Student Info</button>
                         </li>
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Dependants</button>
+                            <button class="nav-link" id="pills-dependant-tab" data-bs-toggle="pill" data-bs-target="#pills-dependant" type="button" role="tab" aria-controls="pills-dependant" aria-selected="false">Dependants</button>
                         </li>
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link" id="pills-previous-tab" data-bs-toggle="pill" data-bs-target="#pills-previous" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Previous Info</button>
+                            <button class="nav-link" id="pills-previous-tab" data-bs-toggle="pill" data-bs-target="#pills-previous" type="button" role="tab" aria-controls="pills-previous" aria-selected="false">Previous Info</button>
                         </li>
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link" id="pills-referrer-tab" data-bs-toggle="pill" data-bs-target="#pills-referrer" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Referrer</button>
+                            <button class="nav-link" id="pills-referrer-tab" data-bs-toggle="pill" data-bs-target="#pills-referrer" type="button" role="tab" aria-controls="pills-referrer" aria-selected="false">Referrer</button>
                         </li>
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link" id="pills-docs-tab" data-bs-toggle="pill" data-bs-target="#pills-docs" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Docs</button>
+                            <button class="nav-link" id="pills-docs-tab" data-bs-toggle="pill" data-bs-target="#pills-docs" type="button" role="tab" aria-controls="pills-docs" aria-selected="false">Docs</button>
                         </li>
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link" id="pills-verifier-tab" data-bs-toggle="pill" data-bs-target="#pills-verifier" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Verifier</button>
+                            <button class="nav-link" id="pills-verifier-tab" data-bs-toggle="pill" data-bs-target="#pills-verifier" type="button" role="tab" aria-controls="pills-verifier" aria-selected="false">Verifier</button>
                         </li>
                         <li class="nav-item pr-3" role="presentation">
-                            <button class="nav-link" id="pills-view-tab" data-bs-toggle="pill" data-bs-target="#pills-view" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">View All</button>
+                            <button class="nav-link" id="pills-view-tab" data-bs-toggle="pill" data-bs-target="#pills-view" type="button" role="tab" aria-controls="pills-view" aria-selected="false">View All</button>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
 
 
                         <!-- Case Information -->
-                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+                        <div class="tab-pane fade show active" id="pills-case" role="tabpanel" aria-labelledby="pills-case-tab" tabindex="0">
 
                             <div class="user pt-4">
                                 <div class="">
@@ -105,36 +105,38 @@
                                             <div class="my-3">
                                                 <span class="star-color"></span><span class="label"><br> <i></i></span>
                                             </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('students.update' , [$student->id]) }}" enctype="multipart/form-data">
                                                 @csrf
 
                                                 <div class="form-row">
 
                                                     <div class="form-group">
                                                         <label class="label" for="passport">Course Applied For:<span class="star-color">*</span></label>
-                                                        <select name="course_id[]" id="course-select" class="form-control">
-                                                            <option disabled selected>--Select One--</option>
+                                                        <select name="course_id" id="course-select" class="form-control">
+                                                            <option disabled {{ empty($student->course_id) ? 'selected' : '' }}>--Select One--</option>
                                                             @foreach ($courses as $item)
-                                                            <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
+                                                            <option value="{{ $item->id }}" {{ $student->course_id == $item->id ? 'selected' : '' }}>
+                                                                {{ $item->name }}
+                                                            </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="label">Intake:<span class="star-color">*</span></label>
                                                         <select name="intake" id="intake_select" class="form-control">
-                                                            <option disabled selected>--Select One--</option>
-                                                            <option value="January">January</option>
-                                                            <option value="February">February</option>
-                                                            <option value="March">March</option>
-                                                            <option value="April">April</option>
-                                                            <option value="May">May</option>
-                                                            <option value="June">June</option>
-                                                            <option value="July">July</option>
-                                                            <option value="August">August</option>
-                                                            <option value="September">September</option>
-                                                            <option value="October">October</option>
-                                                            <option value="November">November</option>
-                                                            <option value="December">December</option>
+                                                            <option disabled>--Select One--</option>
+                                                            <option value="January" {{ $student->intake === 'January' ? 'selected' : '' }}>January</option>
+                                                            <option value="February" {{ $student->intake === 'February' ? 'selected' : '' }}>February</option>
+                                                            <option value="March" {{ $student->intake === 'March' ? 'selected' : '' }}>March</option>
+                                                            <option value="April" {{ $student->intake === 'April' ? 'selected' : '' }}>April</option>
+                                                            <option value="May" {{ $student->intake === 'May' ? 'selected' : '' }}>May</option>
+                                                            <option value="June" {{ $student->intake === 'June' ? 'selected' : '' }}>June</option>
+                                                            <option value="July" {{ $student->intake === 'July' ? 'selected' : '' }}>July</option>
+                                                            <option value="August" {{ $student->intake === 'August' ? 'selected' : '' }}>August</option>
+                                                            <option value="September" {{ $student->intake === 'September' ? 'selected' : '' }}>September</option>
+                                                            <option value="October" {{ $student->intake === 'October' ? 'selected' : '' }}>October</option>
+                                                            <option value="November" {{ $student->intake === 'November' ? 'selected' : '' }}>November</option>
+                                                            <option value="December" {{ $student->intake === 'December' ? 'selected' : '' }}>December</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -142,22 +144,21 @@
                                                 <div class="form-row justify-content-center">
                                                     <div class="form-group col-md-6">
                                                         <label class="label" for="cas">Previous CAS:</label>
-                                                        <input type="text" class="form-control" name="previous_cas" id="text">
+                                                        <input type="text" class="form-control" name="previous_cas" id="text" value="{{ $student->previous_cas }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-buttons my-4">
-                                                    <button type="submit" class="btn filter-btn">Next</button>
+                                                    <button type="submit" class="btn filter-btn">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <!-- Student Information -->
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+                        <div class="tab-pane fade" id="pills-studentInfo" role="tabpanel" aria-labelledby="pills-studentInfo-tab" tabindex="0">
 
                             <div class="user pt-4">
                                 <div class="">
@@ -171,110 +172,111 @@
                                                 <span class="star-color"></span><span class="label"><br> <i></i></span>
                                             </div>
                                             <form method="POST" action="{{ route('students.update_student', [$student->id]) }}">
-                                    @csrf
+                                                @csrf
 
-                                    <div class="form-row mt-3">
-                                        <div class="form-group">
-                                            <label class="label" for="name">Student Name<span class="star-color">*</span></label>
-                                            <input type="text" id="name" class="form-control" name="name" value="{{ $student->name }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
-                                            <input type="email" name="email" class="form-control" id="email" value="{{ $student->email }}">
-                                        </div>
+                                                <div class="form-row mt-3">
+                                                    <div class="form-group">
+                                                        <label class="label" for="name">Student Name<span class="star-color">*</span></label>
+                                                        <input type="text" id="student_name" class="form-control" name="name" value="{{ $student->name }}">
+                                                        <input type="hidden" id="tab" class="form-control" name="tab" value="tab">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
+                                                        <input type="email" name="email" class="form-control" id="email" value="{{ $student->email }}">
+                                                    </div>
 
-                                        <div class="form-group">
-                                            <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
-                                            <input type="text" name="nationality" class="form-control" id="nationality" value="{{ $student->nationality }}">
-                                        </div>
-                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
+                                                        <input type="text" name="nationality" class="form-control" id="nationality" value="{{ $student->nationality }}">
+                                                    </div>
+                                                </div>
 
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
-                                            <input type="text" name="phone_no" class="form-control" id="phone_no" value="{{ $student->phone_no }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label" for="phone_no">Date Of Birth:</label>
-                                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" value="{{ $student->date_of_birth }}">
-                                        </div>
+                                                <div class="form-row">
+                                                    <div class="form-group">
+                                                        <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
+                                                        <input type="text" name="phone_no" class="form-control" id="phone_no" value="{{ $student->phone_no }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="phone_no">Date Of Birth:</label>
+                                                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" value="{{ $student->date_of_birth }}">
+                                                    </div>
 
-                                        <div class="form-group">
-                                        <label class="label">Gender:<span class="star-color">*</span></label>
-                                            <div class="radio-btn">
-                                                <input type="radio" id="male" name="gender" value="1" {{ $student->gender == 1 ? 'checked' : '' }}>
-                                                <label class="label" for="male">Male</label>
-                                                <input type="radio" id="female" name="gender" value="2" {{ $student->gender == 2 ? 'checked' : '' }}>
-                                                <label class="label" for="female">Female</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label">Gender:<span class="star-color">*</span></label>
+                                                        <div class="radio-btn">
+                                                            <input type="radio" id="male" name="gender" value="1" {{ $student->gender == 1 ? 'checked' : '' }}>
+                                                            <label class="label" for="male">Male</label>
+                                                            <input type="radio" id="female" name="gender" value="2" {{ $student->gender == 2 ? 'checked' : '' }}>
+                                                            <label class="label" for="female">Female</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                    <div class="form-row">
+                                                <div class="form-row">
 
-                                        <div class="form-group">
-                                            <label class="label" for="passport">Passport Number:</label>
-                                            <input type="text" class="form-control" name="passport" id="text" value="{{ $student->passport }}">
-                                        </div>
-                                        <div class="form-group">
-                                        <label class="label">Status:<span class="star-color">*</span></label>
-                                            <select name="status_id" id="status_id" class="form-control">
-                                                <option disabled {{ empty($student->status_id) ? 'selected' : '' }}>--Select One--</option>
-                                                @foreach ($status as $item)
-                                                <option value="{{ $item->id }}" {{ $student->status_id == $item->id ? 'selected' : '' }}>
-                                                    {{ $item->name }}
-                                                </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
+                                                    <div class="form-group">
+                                                        <label class="label" for="passport">Passport Number:</label>
+                                                        <input type="text" class="form-control" name="passport" id="text" value="{{ $student->passport }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label">Status:<span class="star-color">*</span></label>
+                                                        <select name="status_id" id="status_id" class="form-control">
+                                                            <option disabled {{ empty($student->status_id) ? 'selected' : '' }}>--Select One--</option>
+                                                            @foreach ($status as $item)
+                                                            <option value="{{ $item->id }}" {{ $student->status_id == $item->id ? 'selected' : '' }}>
+                                                                {{ $item->name }}
+                                                            </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
 
-                                        </div>
-                                    </div>
+                                                    </div>
+                                                </div>
 
-                                    <div class="form-row mt-3">
-                                        <div class="form-group">
-                                            <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
-                                            <input type="text" id="address" class="form-control" name="address" value="{{ $student->address }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label" for="address2">Address Line 2:</label>
-                                            <input type="text" name="address2" class="form-control" id="address2" value="{{ $student->address2 }}">
-                                        </div>
+                                                <div class="form-row mt-3">
+                                                    <div class="form-group">
+                                                        <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
+                                                        <input type="text" id="address" class="form-control" name="address" value="{{ $student->address }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="address2">Address Line 2:</label>
+                                                        <input type="text" name="address2" class="form-control" id="address2" value="{{ $student->address2 }}">
+                                                    </div>
 
-                                        <div class="form-group">
-                                            <label class="label" for="middleName">City:<span class="star-color">*</span></label>
-                                            <input type="text" name="city" class="form-control" id="city" value="{{ $student->city }}">
-                                        </div>
-                                    </div>
-                                    <div class="form-row mt-3">
-                                        <div class="form-group">
-                                            <label class="label" for="county">County:</label>
-                                            <input type="text" id="county" class="form-control" name="county" value="{{ $student->county }}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="label" for="post_code">Post Code:<span class="star-color">*</span></label>
-                                            <input type="text" name="post_code" class="form-control" id="post_code" value="{{ $student->post_code }}">
-                                        </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="middleName">City:<span class="star-color">*</span></label>
+                                                        <input type="text" name="city" class="form-control" id="city" value="{{ $student->city }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row mt-3">
+                                                    <div class="form-group">
+                                                        <label class="label" for="county">County:</label>
+                                                        <input type="text" id="county" class="form-control" name="county" value="{{ $student->county }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="label" for="post_code">Post Code:<span class="star-color">*</span></label>
+                                                        <input type="text" name="post_code" class="form-control" id="post_code" value="{{ $student->post_code }}">
+                                                    </div>
 
-                                        <div class="form-group">
+                                                    <div class="form-group">
 
+                                                    </div>
+                                                </div>
+                                                <div class="form-buttons my-4">
+                                                    <button type="submit" class="btn filter-btn">Submit</button>
+                                                    <a href="{{ route('students.index') }}" type="submit" class="btn btn-cancel">Cancel</a>
+                                                </div>
+                                            </form>
                                         </div>
-                                    </div>
-                                    <div class="form-buttons my-4">
-                                        <button type="submit" class="btn filter-btn">Submit</button>
-                                        <a href="{{ route('students.index') }}" type="submit" class="btn btn-cancel">Cancel</a>
-                                    </div>
-                                </form>                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                         </div>
 
-
                         <!-- Dependant Information -->
-                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+                        <div class="tab-pane fade" id="pills-dependant" role="tabpanel" aria-labelledby="pills-dependant-tab" tabindex="0">
 
                             <div class="user pt-4">
                                 <div class="">
@@ -287,16 +289,16 @@
                                             <div class="my-3">
                                                 <span class="star-color"></span><span class="label"><br> <i></i></span>
                                             </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('students.update' , [$student->id]) }}" enctype="multipart/form-data">
                                                 @csrf
 
                                                 <div class="form-row hide-row">
                                                     <div class="form-group col-md-4">
                                                         <label class="label">Traveling Alone:<span class="star-color">*</span></label>
                                                         <div class="radio-btn">
-                                                            <input type="radio" id="traveling-yes" name="traveling" value="travelingYes">
+                                                            <input type="radio" id="traveling-yes" name="traveling_alone" value="Yes" {{ $student->traveling_alone == "Yes" ? 'checked' : '' }}>
                                                             <label for="traveling-yes">Yes</label>
-                                                            <input type="radio" id="traveling-no" name="traveling" value="travelingNo">
+                                                            <input type="radio" id="traveling-no" name="traveling_alone" value="No" {{ $student->traveling_alone == "No" ? 'checked' : '' }}>
                                                             <label for="traveling-no">No</label>
                                                         </div>
                                                     </div>
@@ -305,7 +307,7 @@
                                                 <div class="form-row hide-row">
                                                     <div class="form-group col-md-4">
                                                         <label class="label">How Many Dependents:</span></label>
-                                                        <input type="number" class="form-control" name="dependant_no" id="dependants-number">
+                                                        <input type="number" class="form-control" name="dependant_no" id="dependants-number" value="{{ $student->dependant_no }}">
                                                     </div>
                                                 </div>
 
@@ -314,7 +316,10 @@
                                                         <label class="label" for="passport">Dependents:<span class="star-color">*</span></label>
                                                         <select name="dependant_id[]" class="js-select2" class="form-control" multiple="multiple" id="dependants-select">
                                                             @foreach ($dependants as $item)
-                                                            <option value="{{ $item->id }}" data-badge>{{ $item->name }}</option>
+                                                            <option value="{{ $item->id }}"
+                                                                {{ in_array($item->id, $selectedDependants) ? 'selected' : '' }}>
+                                                                {{ $item->name }}
+                                                            </option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -344,7 +349,7 @@
                                             <div class="my-3">
                                                 <span class="star-color"></span><span class="label"><br> <i></i></span>
                                             </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('students.update' , [$student->id]) }}">
                                                 @csrf
 
                                                 <div class="my-2">
@@ -354,7 +359,7 @@
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <textarea class="form-control" name="academic_history" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                    <textarea class="form-control" name="academic_history" id="exampleFormControlTextarea1" rows="3">{{$student->academic_history}}</textarea>
                                                 </div>
                                                 <div class="my-2">
                                                     <h4 class="address">
@@ -362,7 +367,7 @@
                                                     </h4>
                                                 </div>
                                                 <div class="form-row">
-                                                    <textarea class="form-control" name="work_experience" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                    <textarea class="form-control" name="work_experience" id="exampleFormControlTextarea1" rows="3">{{$student->work_experience}}</textarea>
                                                 </div>
                                                 <div class="my-2">
                                                     <h4 class="address">
@@ -371,7 +376,7 @@
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <textarea class="form-control" name="travel_history" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                    <textarea class="form-control" name="travel_history" id="exampleFormControlTextarea1" rows="3">{{$student->travel_history}}</textarea>
                                                 </div>
 
                                                 <div class="my-2">
@@ -381,7 +386,7 @@
                                                 </div>
 
                                                 <div class="form-row">
-                                                    <textarea class="form-control" name="notes" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                                    <textarea class="form-control" name="notes" id="exampleFormControlTextarea1" rows="3">{{$student->notes}}</textarea>
                                                 </div>
 
                                                 <div class="form-buttons my-4">
@@ -409,7 +414,7 @@
                                             <div class="my-3">
                                                 <span class="star-color"></span><span class="label"><br> <i></i></span>
                                             </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('students.update' , [$student->id]) }}">
                                                 @csrf
 
                                                 <div class="form-row mt-3">
@@ -438,6 +443,13 @@
                                                         <label class="label">Recruitment Agent:</label>
                                                         <select name="agent_id" id="agent_id" class="form-control">
                                                             <option disabled selected>--Select One--</option>
+                                                            @if ($student->agent_id)
+                                                            <?php $recAgent = \App\Models\RecruitmentAgent::where('id', $student->agent_id)->first(); ?>
+                                                            <option value="{{ $student->agent_id }}" selected>
+                                                                {{ $recAgent->name }}
+                                                            </option>
+                                                            @endif
+
                                                             @foreach ($recruitmentAgent as $agent)
                                                             <option value="{{ $agent->id }}"
                                                                 data-name="{{ $agent->name }}"
@@ -565,13 +577,13 @@
                                                 <div class="form-row mt-3">
                                                     <div class="form-group col-md-4">
                                                         <label class="label" for="email">Referral</label>
-                                                        <input type="text" name="referral" class="form-control" id="referral">
+                                                        <input type="text" name="referral" class="form-control" id="referral" value="{{ $student->referral }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-row mt-3">
                                                     <div class="form-group col-md-4">
                                                         <label class="label" for="middleName">Other Stakeholder:</label>
-                                                        <input type="text" name="stakeholder" class="form-control" id="stakeholder">
+                                                        <input type="text" name="stakeholder" class="form-control" id="stakeholder" value="{{ $student->stakeholder }}">
                                                     </div>
                                                 </div>
                                                 <div class="form-buttons my-4">
@@ -718,7 +730,7 @@
                                             <div class="my-3">
                                                 <span class="star-color"></span><span class="label"><br> <i></i></span>
                                             </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('students.update', [$student->id]) }}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="container-fluid mt-3">
                                                     <div class="panel">
@@ -728,16 +740,16 @@
                                                                 <div class="form-row mt-3">
                                                                     <div class="form-group">
                                                                         <label class="label" for="get_student">Student:</span></label>
-                                                                        <input type="text" id="get_student" class="form-control" value="" disabled>
+                                                                        <input type="text" id="get_student" class="form-control" value="{{ $student->name }}" disabled>
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="label" for="email">Intake:</span></label>
-                                                                        <input type="text" class="form-control" id="get_intake" value="" disabled>
+                                                                        <input type="text" class="form-control" id="get_intake" value="{{ $student->intake }}" disabled>
                                                                     </div>
 
                                                                     <div class="form-group">
                                                                         <label class="label" for="middleName">Screened By:</span></label>
-                                                                        <input type="text" name="screened_by" class="form-control" id="screened_by">
+                                                                        <input type="text" name="screened_by" class="form-control" id="screened_by" value="{{ $student->screened_by }}">
                                                                     </div>
                                                                 </div>
 
@@ -761,76 +773,350 @@
 
                             <div class="user pt-4">
                                 <div class="">
-                                    <div class="user-header">
-                                        <h4 class="user-role py-3">View All</h4>
+                                    <div class="user-header text-center">
+                                        <h4 class="py-3">View All Info</h4>
                                         <a href="{{ route('students.index') }}" class="close-btn"></a>
                                     </div>
-                                    <div class="search-user">
-                                        <div class="container">
-                                            <div class="my-3">
-                                                <span class="star-color"></span><span class="label"><br> <i></i></span>
+
+
+                                    <div class="container">
+                                        <div class="user pt-4">
+                                            <div class="user-header">
+                                                <h4 class="py-3">Case Information</h4>
+                                                <a href="{{ route('students.index') }}" class="close-btn"></a>
                                             </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="form-row mt-3">
-                                                    <div class="form-group">
-                                                        <label class="label" for="name">Student Name<span class="star-color">*</span></label>
-                                                        <input type="text" id="name" class="form-control" name="name">
+                                            <div class="search-user">
+                                                <div class="container">
+                                                    <div class="my-3">
+                                                        <span class="star-color"></span><span class="label"><br> <i></i></span>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
-                                                        <input type="email" name="email" class="form-control" id="email">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label class="label" for="middleName">Home Address:<span class="star-color">*</span></label>
-                                                        <input type="text" name="address" class="form-control" id="address">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
-                                                        <input type="text" name="nationality" class="form-control" id="nationality">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
-                                                        <input type="text" name="phone_no" class="form-control" id="phone_no">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="phone_no">Date Of Birth:<span class="star-color">*</span></label>
-                                                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-row">
-                                                    <div class="form-group">
-                                                        <label class="label">Gender:<span class="star-color">*</span></label>
-                                                        <div class="radio-btn">
-                                                            <input type="radio" id="male" name="gender" value="1">
-                                                            <label class="label" for="male">Male</label>
-                                                            <input type="radio" id="female" name="gender" value="2">
-                                                            <label class="label" for="female">Female</label>
+                                                    <div class="form-row">
+                                                        <div class="form-group">
+                                                            <label class="label" for="passport">Course Applied For:<span class="star-color">*</span></label>
+                                                            <input type="text" class="form-control" name="course_id" value="{{ \App\Models\Course::where('id', $student->course_id)->value('name') }}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label">Intake:<span class="star-color">*</span></label>
+                                                            <input type="text" class="form-control" name="intake_select" value="{{ $student->intake }}" disabled>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label class="label" for="passport">Passport Number:</label>
-                                                        <input type="text" class="form-control" name="passport" id="text">
-                                                    </div>
-                                                    <div class="form-group">
+                                                    <div class="form-row justify-content-center">
+                                                        <div class="form-group col-md-6">
+                                                            <label class="label" for="cas">Previous CAS:</label>
+                                                            <input type="text" class="form-control" name="previous_cas" value="{{ $student->previous_cas }}" disabled>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-buttons my-4">
-                                                    <button type="submit" class="btn filter-btn">Submit</button>
-                                                </div>
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
+
+
+                                    <div class="container">
+                                        <div class="user pt-4">
+                                            <div class="user-header">
+                                                <h4 class="py-3">Student</h4>
+                                                <a href="{{ route('students.index') }}" class="close-btn"></a>
+                                            </div>
+
+                                            <div class="search-user">
+                                                <div class="container">
+                                                    <div class="my-3">
+                                                        <span class="star-color"></span><span class="label"><br> <i></i></span>
+                                                    </div>
+
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group">
+                                                            <label class="label" for="name">Student Name<span class="star-color">*</span></label>
+                                                            <input type="text" class="form-control" name="name" value="{{ $student->name }}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="email">Student Email Address<span class="star-color">*</span></label>
+                                                            <input type="email" name="email" class="form-control" value="{{ $student->email }}" disabled>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="label" for="nationality">Nationality:<span class="star-color">*</span></label>
+                                                            <input type="text" name="nationality" class="form-control" value="{{ $student->nationality }}" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <div class="form-group">
+                                                            <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
+                                                            <input type="text" name="phone_no" class="form-control"  value="{{ $student->phone_no }}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="phone_no">Date Of Birth:</label>
+                                                            <input type="date" name="date_of_birth" class="form-control" value="{{ $student->date_of_birth }}" disabled>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="label">Gender:<span class="star-color">*</span></label>
+                                                            <div class="radio-btn">
+                                                                <input type="radio"  name="gender" value="1" {{ $student->gender == 1 ? 'checked' : '' }} disabled>
+                                                                <label class="label" for="male">Male</label>
+                                                                <input type="radio"  name="gender" value="2" {{ $student->gender == 2 ? 'checked' : '' }} disabled>
+                                                                <label class="label" for="female">Female</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row">
+
+                                                        <div class="form-group">
+                                                            <label class="label" for="passport">Passport Number:</label>
+                                                            <input type="text" class="form-control" name="passport"  value="{{ $student->passport }}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label">Status:<span class="star-color">*</span></label>
+                                                            <input type="text" class="form-control" name="course_id" value="{{ \App\Models\Status::where('id', $student->status_id)->value('name') }}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group">
+                                                            <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
+                                                            <input type="text"  class="form-control" name="address" value="{{ $student->address }}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="address2">Address Line 2:</label>
+                                                            <input type="text" name="address2" class="form-control" value="{{ $student->address2 }}" disabled>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="label" for="middleName">City:<span class="star-color">*</span></label>
+                                                            <input type="text" name="city" class="form-control"  value="{{ $student->city }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group">
+                                                            <label class="label" for="county">County:</label>
+                                                            <input type="text"  class="form-control" name="county" value="{{ $student->county }}" disabled>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="label" for="post_code">Post Code:<span class="star-color">*</span></label>
+                                                            <input type="text" name="post_code" class="form-control"  value="{{ $student->post_code }}" disabled>
+                                                        </div>
+
+                                                        <div class="form-group">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+                                        <div class="user pt-4">
+                                            <div class="user-header">
+                                                <h4 class="py-3">Dependants</h4>
+                                                <a href="{{ route('students.index') }}" class="close-btn"></a>
+                                            </div>
+                                            <div class="search-user">
+                                                <div class="container">
+                                                    <div class="my-3">
+                                                        <span class="star-color"></span><span class="label"><br> <i></i></span>
+                                                    </div>
+                                                    <div class="form-row hide-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="label">Traveling Alone:<span class="star-color">*</span></label>
+                                                            <div class="radio-btn">
+                                                                <input type="radio"  name="traveling_alone" value="Yes" {{ $student->traveling_alone == "Yes" ? 'checked' : '' }} disabled>
+                                                                <label for="traveling-yes">Yes</label>
+                                                                <input type="radio"  name="traveling_alone" value="No" {{ $student->traveling_alone == "No" ? 'checked' : '' }} disabled>
+                                                                <label for="traveling-no">No</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row hide-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="label">How Many Dependents:</span></label>
+                                                            <input type="number" class="form-control" name="dependant_no"  value="{{ $student->dependant_no }}" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row hide-row">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="label" for="passport">Dependents:<span class="star-color">*</span></label>
+                                                            <select name="dependant_id[]" class="js-select2" class="form-control" multiple="multiple" disabled>
+                                                                @foreach ($dependants as $item)
+                                                                <option value="{{ $item->id }}"
+                                                                    {{ in_array($item->id, $selectedDependants) ? 'selected' : '' }}>
+                                                                    {{ $item->name }}
+                                                                </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+                                        <div class="user pt-4">
+                                            <div class="user-header">
+                                                <h4 class="py-3">Previous Information</h4>
+                                                <a href="{{ route('students.index') }}" class="close-btn"></a>
+                                            </div>
+                                            <div class="search-user">
+                                                <div class="container">
+                                                    <div class="my-3">
+                                                        <span class="star-color"></span><span class="label"><br> <i></i></span>
+                                                    </div>
+
+                                                    <div class="my-2">
+                                                        <h4 class="address">
+                                                            Academic History
+                                                        </h4>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <textarea class="form-control" name="academic_history"  rows="3" disabled>{{$student->academic_history}}</textarea>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <h4 class="address">
+                                                            Work Experience
+                                                        </h4>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <textarea class="form-control" name="work_experience" rows="3" disabled>{{$student->work_experience}}</textarea>
+                                                    </div>
+                                                    <div class="my-2">
+                                                        <h4 class="address">
+                                                            Travel History
+                                                        </h4>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <textarea class="form-control" name="travel_history" rows="3" disabled>{{$student->travel_history}}</textarea>
+                                                    </div>
+
+                                                    <div class="my-2">
+                                                        <h4 class="address">
+                                                            Extra Notes
+                                                        </h4>
+                                                    </div>
+
+                                                    <div class="form-row">
+                                                        <textarea class="form-control" name="notes" rows="3" disabled>{{$student->notes}}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="container">
+                                        <div class="user pt-4">
+                                            <div class="user-header">
+                                                <h4 class="py-3">Referrer Information</h4>
+                                                <a href="{{ route('students.index') }}" class="close-btn"></a>
+                                            </div>
+                                            <div class="search-user">
+                                                <div class="container">
+                                                    <div class="my-3">
+                                                        <span class="star-color"></span><span class="label"><br> <i></i></span>
+                                                    </div>
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group col-md-3"></div>
+                                                        <div class="form-group col-md-6">
+                                                            <div class="panel">
+                                                                <strong class="sub-title"></strong>
+                                                                <div class="collapse-div mb-3">
+                                                                    <div class="d-flex flex-column align-items-center">
+                                                                        <label class="mb-2">Please Choose Preferred Method Of Contact:<span class="star-color">*</span></label>
+                                                                        <div class="d-flex justify-content-center">
+                                                                            <input type="radio" name="preferred_method" value="direct" {{ $student->preferred_method == "direct" ? 'checked' : '' }} disabled>
+                                                                            <label for="preferred_method_yes" class="mr-3">Direct</label>
+                                                                            <input type="radio" name="preferred_method" value="indirect" {{ $student->preferred_method == "indirect" ? 'checked' : '' }} disabled>
+                                                                            <label for="preferred_method_no">Indirect</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group col-md-3"></div>
+                                                    </div>
+
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="label">Recruitment Agent:</label>
+                                                            <input type="text" name="agent_id" value="{{ \App\Models\RecruitmentAgent::where('id', $student->agent_id)->value('name') }}" disabled>
+
+                                                            </select>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="label" for="email">Referral</label>
+                                                            <input type="text" name="referral" class="form-control" value="{{ $student->referral }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mt-3">
+                                                        <div class="form-group col-md-4">
+                                                            <label class="label" for="middleName">Other Stakeholder:</label>
+                                                            <input type="text" name="stakeholder" class="form-control" value="{{ $student->stakeholder }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="container">
+                                        <div class="user pt-4">
+                                            <div class="user-header">
+                                                <h4 class="py-3">Verifier</h4>
+                                                <a href="{{ route('students.index') }}" class="close-btn"></a>
+                                            </div>
+                                            <div class="search-user">
+                                                <div class="container">
+                                                    <div class="my-3">
+                                                        <span class="star-color"></span><span class="label"><br> <i></i></span>
+                                                    </div>
+                                                    <div class="container-fluid mt-3">
+                                                        <div class="panel">
+                                                            <strong class="sub-title">Verifier:</strong>
+                                                            <div class="collapse-div mb-3">
+                                                                <div class="row extra-padding">
+                                                                    <div class="form-row mt-3">
+                                                                        <div class="form-group">
+                                                                            <label class="label" for="get_student">Student:</span></label>
+                                                                            <input type="text"  class="form-control" value="{{ $student->name }}" disabled>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="label" for="email">Intake:</span></label>
+                                                                            <input type="text" class="form-control"  value="{{ $student->intake }}" disabled>
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <label class="label" for="middleName">Screened By:</span></label>
+                                                                            <input type="text" name="screened_by" class="form-control" value="{{ $student->screened_by }}" disabled>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -846,7 +1132,7 @@
                 <form method="POST" action="{{ route('recruitments.insert') }}">
                     @csrf
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Recruitment Agent</h1>
+                        <h1 class="modal-title fs-5" >Add Recruitment Agent</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -1104,17 +1390,6 @@
 
 <script>
     $(document).ready(function() {
-        $('#name').on('input', function() {
-            $('#get_student').val($(this).val());
-        });
-    });
-    $('#intake_select').on('change', function() {
-        $('#get_intake').val($(this).val());
-    });
-</script>
-
-<script>
-    $(document).ready(function() {
         $('#course-select').on('change', function() {
             const selectedOptions = $(this).find(':selected');
             const selectedValues = selectedOptions.map(function() {
@@ -1145,8 +1420,8 @@
         }
 
         toggleFields(false);
-        $('input[name="traveling"]').change(function() {
-            if ($(this).val() === 'travelingYes') {
+        $('input[name="traveling_alone"]').change(function() {
+            if ($(this).val() === 'Yes') {
                 toggleFields(true);
             } else {
                 toggleFields(false);
