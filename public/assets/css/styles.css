@@ -1093,3 +1093,9 @@ table.table-bordered.dataTable thead tr th {
 hr{
     margin-top: 0px !important;
 }
+.header-title{
+    display: block !important;
+}
+.remove-border{
+    border: 0px !important;
+}

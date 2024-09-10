@@ -771,21 +771,20 @@
                         <!-- View All Information -->
                         <div class="tab-pane fade" id="pills-view" role="tabpanel" aria-labelledby="pills-view-tab" tabindex="0">
 
-                            <div class="user pt-4">
+                            <div class="user" style="border: 1px solid #ccc; border-radius: 5px">
                                 <div class="">
-                                    <div class="user-header text-center">
+                                    <div class="user-header header-title">
                                         <h4 class="py-3">View All Info</h4>
                                         <a href="{{ route('students.index') }}" class="close-btn"></a>
                                     </div>
 
-
                                     <div class="container">
                                         <div class="user pt-4">
-                                            <div class="user-header">
+                                            <div class="user-header header-title">
                                                 <h4 class="py-3">Case Information</h4>
                                                 <a href="{{ route('students.index') }}" class="close-btn"></a>
                                             </div>
-                                            <div class="search-user">
+                                            <div class="search-user remove-border">
                                                 <div class="container">
                                                     <div class="my-3">
                                                         <span class="star-color"></span><span class="label"><br> <i></i></span>
@@ -814,12 +813,12 @@
 
                                     <div class="container">
                                         <div class="user pt-4">
-                                            <div class="user-header">
+                                            <div class="user-header header-title">
                                                 <h4 class="py-3">Student</h4>
                                                 <a href="{{ route('students.index') }}" class="close-btn"></a>
                                             </div>
 
-                                            <div class="search-user">
+                                            <div class="search-user remove-border">
                                                 <div class="container">
                                                     <div class="my-3">
                                                         <span class="star-color"></span><span class="label"><br> <i></i></span>
@@ -913,11 +912,11 @@
 
                                     <div class="container">
                                         <div class="user pt-4">
-                                            <div class="user-header">
+                                            <div class="user-header header-title">
                                                 <h4 class="py-3">Dependants</h4>
                                                 <a href="{{ route('students.index') }}" class="close-btn"></a>
                                             </div>
-                                            <div class="search-user">
+                                            <div class="search-user remove-border">
                                                 <div class="container">
                                                     <div class="my-3">
                                                         <span class="star-color"></span><span class="label"><br> <i></i></span>
@@ -961,11 +960,11 @@
 
                                     <div class="container">
                                         <div class="user pt-4">
-                                            <div class="user-header">
+                                            <div class="user-header header-title">
                                                 <h4 class="py-3">Previous Information</h4>
                                                 <a href="{{ route('students.index') }}" class="close-btn"></a>
                                             </div>
-                                            <div class="search-user">
+                                            <div class="search-user remove-border">
                                                 <div class="container">
                                                     <div class="my-3">
                                                         <span class="star-color"></span><span class="label"><br> <i></i></span>
@@ -1014,11 +1013,11 @@
 
                                     <div class="container">
                                         <div class="user pt-4">
-                                            <div class="user-header">
+                                            <div class="user-header header-title">
                                                 <h4 class="py-3">Referrer Information</h4>
                                                 <a href="{{ route('students.index') }}" class="close-btn"></a>
                                             </div>
-                                            <div class="search-user">
+                                            <div class="search-user remove-border">
                                                 <div class="container">
                                                     <div class="my-3">
                                                         <span class="star-color"></span><span class="label"><br> <i></i></span>
@@ -1048,11 +1047,8 @@
                                                         <div class="form-group col-md-4">
                                                             <label class="label">Recruitment Agent:</label>
                                                             <input type="text" name="agent_id" value="{{ \App\Models\RecruitmentAgent::where('id', $student->agent_id)->value('name') }}" disabled>
-
                                                             </select>
                                                         </div>
-
-
                                                     </div>
 
                                                     <div class="form-row mt-3">
@@ -1075,16 +1071,16 @@
 
                                     <div class="container">
                                         <div class="user pt-4">
-                                            <div class="user-header">
+                                            <div class="user-header header-title">
                                                 <h4 class="py-3">Verifier</h4>
                                                 <a href="{{ route('students.index') }}" class="close-btn"></a>
                                             </div>
-                                            <div class="search-user">
+                                            <div class="search-user remove-border">
                                                 <div class="container">
                                                     <div class="my-3">
                                                         <span class="star-color"></span><span class="label"><br> <i></i></span>
                                                     </div>
-                                                    <div class="container-fluid mt-3">
+                                                    <div class="container-fluid mt-3 mb-3">
                                                         <div class="panel">
                                                             <strong class="sub-title">Verifier:</strong>
                                                             <div class="collapse-div mb-3">
