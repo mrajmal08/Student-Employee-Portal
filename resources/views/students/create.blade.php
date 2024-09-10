@@ -265,7 +265,6 @@
                                                 </div>
                                                 <div class="form-buttons my-4">
                                                     <button type="submit" class="btn filter-btn">Submit</button>
-                                                    <a href="{{ route('students.index') }}" type="submit" class="btn btn-cancel">Cancel</a>
                                                 </div>
                                             </form>
                                         </div>
@@ -601,171 +600,185 @@
                         <div class="tab-pane fade" id="pills-docs" role="tabpanel" aria-labelledby="pills-docs-tab" tabindex="0">
 
                             <div class="user pt-4">
-                                <div class="">
-                                    <div class="user-header">
-                                        <h4 class="user-role py-3">Documents</h4>
-                                        <a href="{{ route('students.index') }}" class="close-btn"></a>
-                                    </div>
-                                    <div class="search-user">
-                                        <div class="container">
-                                            <div class="my-3">
-                                                <span class="star-color"></span><span class="label"><br> <i></i></span>
-                                            </div>
-                                            <form method="POST" action="{{ route('students.insert') }}" enctype="multipart/form-data">
-                                                @csrf
+                                <div class="row">
+                                    <div class="col-md-6 text-right p-0">
 
-                                                <div class="container-fluid mt-3">
-                                                    <div class="panel">
-                                                        <strong class="sub-title">Documents to be submitted as part of the visa application: </strong>
-                                                        <div class="collapse-div mb-3">
-                                                            <div class="row extra-padding">
-
-                                                                <div class="col-md-12 mt-1">
-                                                                    <label for="file1" class="pe-1 file-docs label">Passport:</label>
-                                                                    <input type="file" id="file1" name="passport_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style form-control"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name1" multiple>
-                                                                    <label for="file1" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload Files
-                                                                    </label>
-                                                                    <span id="file-name1" class="ms-2 label file-names-display" style="word-break: break-all;">No Files Chosen.</span>
-                                                                </div>
-
-                                                                <div class="col-md-12 mt-3">
-                                                                    <label for="file2" class="pe-1 file-docs label">BRP:</label>
-                                                                    <input type="file" id="file2" name="brp_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style form-control"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name2" multiple>
-                                                                    <label for="file2" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload Files
-                                                                    </label>
-                                                                    <span id="file-name2" class="ms-2 label file-names-display" style="word-break: break-all;">No Files Chosen.</span>
-                                                                </div>
-
-
-                                                                <div class="col-md-12 mt-3">
-                                                                    <label for="file3" class="pe-1 file-docs label">Financial Statement(How Many):</label>
-                                                                    <input type="file" id="file3" name="financial_statement_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style form-control"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name3" multiple>
-                                                                    <label for="file3" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
-                                                                    </label>
-                                                                    <span id="file-name3" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
-                                                                </div>
-
-                                                                <div class="col-md-12 mt-3">
-                                                                    <label for="file4" class="pe-1 file-docs label">Qualifications:</label>
-                                                                    <input type="file" id="file4" name="qualification_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name4" multiple>
-                                                                    <label for="file4" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
-                                                                    </label>
-                                                                    <span id="file-name4" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
-                                                                </div>
-
-                                                                <div class="col-md-12 mt-3">
-                                                                    <label for="file5" class="pe-1 file-docs label">English Language Certificates:</label>
-                                                                    <input type="file" id="file5" name="lang_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name5" multiple>
-                                                                    <label for="file5" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
-                                                                    </label>
-                                                                    <span id="file-name5" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
-                                                                </div>
-
-                                                                <div class="col-md-12 mt-3">
-                                                                    <label for="file6" class="pe-1 file-docs label">Miscellaneous Docs:</label>
-                                                                    <input type="file" id="file6" name="miscellaneous_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name6" multiple>
-                                                                    <label for="file6" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
-                                                                    </label>
-                                                                    <span id="file-name6" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
-                                                                </div>
-
-                                                                <div class="col-md-12 mt-3">
-                                                                    <label for="file7" class="pe-1 file-docs label">TB Certificate:</label>
-                                                                    <input type="file" id="file7" name="tb_certificate_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name7" multiple>
-                                                                    <label for="file7" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
-                                                                    </label>
-                                                                    <span id="file-name7" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
-                                                                </div>
-
-                                                                <div class="col-md-12 mt-3">
-                                                                    <label for="file8" class="pe-1 file-docs label">Previous CAS(If Applicable):</label>
-                                                                    <input type="file" id="file8" name="previous_cas_doc[]" accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp" class="file file_style"
-                                                                        onchange="displayFileNames(this)" data-file-name="file-name8" multiple>
-                                                                    <label for="file8" class="custom-file-upload">
-                                                                        <i aria-hidden="true" class="fa fa-upload"></i> Upload a File
-                                                                    </label>
-                                                                    <span id="file-name8" class="ms-2 label file-names-display" style="word-break: break-all;">No File Chosen.</span>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-buttons my-4">
-                                                    <button type="submit" class="btn filter-btn">Submit</button>
-                                                </div>
-                                            </form>
+                                    <div class="doc-div">
+                                    <div class="doc-btn">
+                                            <span class="float-left mr-3 passport" >Passport</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                            <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                +
+                                            </button>
                                         </div>
+                                        <div class="collapse" id="collapseExample">
+                                            <div class="p-2">
+                                                <div class="datatable table-responsive">
+                                                    <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
+                                                        <thead class="text-center">
+                                                            <tr>
+                                                                <th>Doc Name</th>
+                                                                <th>Created At</th>
+                                                                <th>Created By</th>
+                                                                <th>Updated By</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-center">
+                                                            <tr>
+                                                                <td>Document</td>
+                                                                <td>12-2-2024</td>
+                                                                <td>Admin</td>
+                                                                <td>Admin</td>
+                                                                <td class="ealign-items-center">
+                                                                    <a href="" class="me-2">
+                                                                        <i class="bi bi-pen"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                        <div class="doc-div mt-3">
+                                        <div class="doc-btn">
+                                            <span class="float-left mr-3 passport" >BRP</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                            <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#brp" aria-expanded="false" aria-controls="brp">
+                                                +
+                                            </button>
+                                        </div>
+                                        <div class="collapse" id="brp">
+                                            <div class="p-2">
+                                                <div class="datatable table-responsive">
+                                                    <table id="examplebbb" class="table table-bordered">
+                                                        <thead class="text-center">
+                                                            <tr>
+                                                                <th>Doc Name</th>
+                                                                <th>Created At</th>
+                                                                <th>Created By</th>
+                                                                <th>Updated By</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-center">
+                                                            <tr>
+                                                                <td>Document</td>
+                                                                <td>12-2-2024</td>
+                                                                <td>Admin</td>
+                                                                <td>Admin</td>
+                                                                <td class="ealign-items-center">
+                                                                    <a href="" class="me-2">
+                                                                        <i class="bi bi-pen"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="doc-div mt-3">
+                                        <div class="doc-btn">
+                                            <span class="float-left mr-3 passport" >Financial Statement (How Many)</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                            <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#financial" aria-expanded="false" aria-controls="financial">
+                                                +
+                                            </button>
+                                        </div>
+                                        <div class="collapse" id="financial">
+                                            <div class="p-2">
+                                                <div class="datatable table-responsive">
+                                                    <table id="exampleaaa" class="table table-bordered">
+                                                        <thead class="text-center">
+                                                            <tr>
+                                                                <th>Doc Name</th>
+                                                                <th>Created At</th>
+                                                                <th>Created By</th>
+                                                                <th>Updated By</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="text-center">
+                                                            <tr>
+                                                                <td>Document</td>
+                                                                <td>12-2-2024</td>
+                                                                <td>Admin</td>
+                                                                <td>Admin</td>
+                                                                <td class="ealign-items-center">
+                                                                    <a href="" class="me-2">
+                                                                        <i class="bi bi-pen"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="col-md-6">
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <!-- Verifier Information -->
                         <div class="tab-pane fade" id="pills-verifier" role="tabpanel" aria-labelledby="pills-verifier-tab" tabindex="0">
 
                             <div class="user pt-4">
-                                <div class="">
-                                    <div class="user-header">
-                                        <h4 class="user-role py-3">Verifier</h4>
-                                        <a href="{{ route('students.index') }}" class="close-btn"></a>
-                                    </div>
-                                    <div class="search-user">
-                                        <div class="container">
-                                            <div class="my-3">
-                                                <span class="star-color"></span><span class="label"><br> <i></i></span>
-                                            </div>
-                                            <form method="POST" action="{{ route('students.update', [$student->id]) }}" enctype="multipart/form-data">
-                                                @csrf
-                                                <div class="container-fluid mt-3">
-                                                    <div class="panel">
-                                                        <strong class="sub-title">Verifier:</strong>
-                                                        <div class="collapse-div mb-3">
-                                                            <div class="row extra-padding">
-                                                                <div class="form-row mt-3">
-                                                                    <div class="form-group">
-                                                                        <label class="label" for="get_student">Student:</span></label>
-                                                                        <input type="text" id="get_student" class="form-control" value="{{ $student->name }}" disabled>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label class="label" for="email">Intake:</span></label>
-                                                                        <input type="text" class="form-control" id="get_intake" value="{{ $student->intake }}" disabled>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label class="label" for="middleName">Screened By:</span></label>
-                                                                        <input type="text" name="screened_by" class="form-control" id="screened_by" value="{{ $student->screened_by }}">
-                                                                    </div>
+                                <div class="user-header">
+                                    <h4 class="user-role py-3">Verifier</h4>
+                                    <a href="{{ route('students.index') }}" class="close-btn"></a>
+                                </div>
+                                <div class="search-user">
+                                    <div class="container">
+                                        <div class="my-3">
+                                            <span class="star-color"></span><span class="label"><br> <i></i></span>
+                                        </div>
+                                        <form method="POST" action="{{ route('students.update', [$student->id]) }}" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="container-fluid mt-3">
+                                                <div class="panel">
+                                                    <strong class="sub-title">Verifier:</strong>
+                                                    <div class="collapse-div mb-3">
+                                                        <div class="row extra-padding">
+                                                            <div class="form-row mt-3">
+                                                                <div class="form-group">
+                                                                    <label class="label" for="get_student">Student:</span></label>
+                                                                    <input type="text" id="get_student" class="form-control" value="{{ $student->name }}" disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="label" for="email">Intake:</span></label>
+                                                                    <input type="text" class="form-control" id="get_intake" value="{{ $student->intake }}" disabled>
                                                                 </div>
 
+                                                                <div class="form-group">
+                                                                    <label class="label" for="middleName">Screened By:</span></label>
+                                                                    <input type="text" name="screened_by" class="form-control" id="screened_by" value="{{ $student->screened_by }}">
+                                                                </div>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-buttons my-4">
-                                                    <button type="submit" class="btn filter-btn">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
+                                            </div>
+                                            <div class="form-buttons my-4">
+                                                <button type="submit" class="btn filter-btn">Submit</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <!-- View All Information -->
@@ -843,7 +856,7 @@
                                                     <div class="form-row">
                                                         <div class="form-group">
                                                             <label class="label" for="phone_no">Preferred Contact Number:<span class="star-color">*</span></label>
-                                                            <input type="text" name="phone_no" class="form-control"  value="{{ $student->phone_no }}" disabled>
+                                                            <input type="text" name="phone_no" class="form-control" value="{{ $student->phone_no }}" disabled>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="phone_no">Date Of Birth:</label>
@@ -853,9 +866,9 @@
                                                         <div class="form-group">
                                                             <label class="label">Gender:<span class="star-color">*</span></label>
                                                             <div class="radio-btn">
-                                                                <input type="radio"  name="gender" value="1" {{ $student->gender == 1 ? 'checked' : '' }} disabled>
+                                                                <input type="radio" name="gender" value="1" {{ $student->gender == 1 ? 'checked' : '' }} disabled>
                                                                 <label class="label" for="male">Male</label>
-                                                                <input type="radio"  name="gender" value="2" {{ $student->gender == 2 ? 'checked' : '' }} disabled>
+                                                                <input type="radio" name="gender" value="2" {{ $student->gender == 2 ? 'checked' : '' }} disabled>
                                                                 <label class="label" for="female">Female</label>
                                                             </div>
                                                         </div>
@@ -865,7 +878,7 @@
 
                                                         <div class="form-group">
                                                             <label class="label" for="passport">Passport Number:</label>
-                                                            <input type="text" class="form-control" name="passport"  value="{{ $student->passport }}" disabled>
+                                                            <input type="text" class="form-control" name="passport" value="{{ $student->passport }}" disabled>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label">Status:<span class="star-color">*</span></label>
@@ -879,7 +892,7 @@
                                                     <div class="form-row mt-3">
                                                         <div class="form-group">
                                                             <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
-                                                            <input type="text"  class="form-control" name="address" value="{{ $student->address }}" disabled>
+                                                            <input type="text" class="form-control" name="address" value="{{ $student->address }}" disabled>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="address2">Address Line 2:</label>
@@ -888,17 +901,17 @@
 
                                                         <div class="form-group">
                                                             <label class="label" for="middleName">City:<span class="star-color">*</span></label>
-                                                            <input type="text" name="city" class="form-control"  value="{{ $student->city }}" disabled>
+                                                            <input type="text" name="city" class="form-control" value="{{ $student->city }}" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="form-row mt-3">
                                                         <div class="form-group">
                                                             <label class="label" for="county">County:</label>
-                                                            <input type="text"  class="form-control" name="county" value="{{ $student->county }}" disabled>
+                                                            <input type="text" class="form-control" name="county" value="{{ $student->county }}" disabled>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="label" for="post_code">Post Code:<span class="star-color">*</span></label>
-                                                            <input type="text" name="post_code" class="form-control"  value="{{ $student->post_code }}" disabled>
+                                                            <input type="text" name="post_code" class="form-control" value="{{ $student->post_code }}" disabled>
                                                         </div>
 
                                                         <div class="form-group">
@@ -925,9 +938,9 @@
                                                         <div class="form-group col-md-4">
                                                             <label class="label">Traveling Alone:<span class="star-color">*</span></label>
                                                             <div class="radio-btn">
-                                                                <input type="radio"  name="traveling_alone" value="Yes" {{ $student->traveling_alone == "Yes" ? 'checked' : '' }} disabled>
+                                                                <input type="radio" name="traveling_alone" value="Yes" {{ $student->traveling_alone == "Yes" ? 'checked' : '' }} disabled>
                                                                 <label for="traveling-yes">Yes</label>
-                                                                <input type="radio"  name="traveling_alone" value="No" {{ $student->traveling_alone == "No" ? 'checked' : '' }} disabled>
+                                                                <input type="radio" name="traveling_alone" value="No" {{ $student->traveling_alone == "No" ? 'checked' : '' }} disabled>
                                                                 <label for="traveling-no">No</label>
                                                             </div>
                                                         </div>
@@ -936,7 +949,7 @@
                                                     <div class="form-row hide-row">
                                                         <div class="form-group col-md-4">
                                                             <label class="label">How Many Dependents:</span></label>
-                                                            <input type="number" class="form-control" name="dependant_no"  value="{{ $student->dependant_no }}" disabled>
+                                                            <input type="number" class="form-control" name="dependant_no" value="{{ $student->dependant_no }}" disabled>
                                                         </div>
                                                     </div>
 
@@ -977,7 +990,7 @@
                                                     </div>
 
                                                     <div class="form-row">
-                                                        <textarea class="form-control" name="academic_history"  rows="3" disabled>{{$student->academic_history}}</textarea>
+                                                        <textarea class="form-control" name="academic_history" rows="3" disabled>{{$student->academic_history}}</textarea>
                                                     </div>
                                                     <div class="my-2">
                                                         <h4 class="address">
@@ -1088,11 +1101,11 @@
                                                                     <div class="form-row mt-3">
                                                                         <div class="form-group">
                                                                             <label class="label" for="get_student">Student:</span></label>
-                                                                            <input type="text"  class="form-control" value="{{ $student->name }}" disabled>
+                                                                            <input type="text" class="form-control" value="{{ $student->name }}" disabled>
                                                                         </div>
                                                                         <div class="form-group">
                                                                             <label class="label" for="email">Intake:</span></label>
-                                                                            <input type="text" class="form-control"  value="{{ $student->intake }}" disabled>
+                                                                            <input type="text" class="form-control" value="{{ $student->intake }}" disabled>
                                                                         </div>
 
                                                                         <div class="form-group">
@@ -1128,7 +1141,7 @@
                 <form method="POST" action="{{ route('recruitments.insert') }}">
                     @csrf
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" >Add Recruitment Agent</h1>
+                        <h1 class="modal-title fs-5">Add Recruitment Agent</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -1426,9 +1439,20 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
+    });
+</script>
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 

@@ -1099,3 +1099,26 @@ hr{
 .remove-border{
     border: 0px !important;
 }
+.doc-btn{
+    background-color: #eceff1;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+.doc-div{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-collapse{
+    background: #40b5e9;
+    width: auto;
+}
+.btn-collapse:hover{
+    background: #2595c6;
+    width: auto;
+}
+.passport{
+    display: flex;
+    margin: 6px;
+}
