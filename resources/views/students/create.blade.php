@@ -633,7 +633,7 @@
                                                                     <td>Admin</td>
                                                                     <td>Admin</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
+                                                                        <a href="href=" javascript:void(0);"" class="me-2">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                             <i class="fa fa-download" style="color: #03a853;"></i>
                                                                         </a>
@@ -884,8 +884,6 @@
                                             </div>
                                         </div>
 
-
-
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
                                                 <span class="float-left mr-3 passport">Previous Cas Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
@@ -912,11 +910,14 @@
                                                                     <td>12-2-2024</td>
                                                                     <td>Admin</td>
                                                                     <td>Admin</td>
+
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
-                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
-                                                                    </td>
+    <a href="javascript:void(0);" class="me-2 menulink" data-pdf-url="{{ asset('assets/studentFiles/1069581723448234.pdf') }}">
+        <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+        <i class="fa fa-download" style="color: #03a853;"></i>
+    </a>
+</td>
+
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -924,24 +925,32 @@
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
 
-                                    <div  class="col-lg-6 col-md-12 pe-0 ">
-                                    <div  class="position-fixed2 border">
-                                        <div  class="input-group border-radius-bottom mb-0" style="background: #7d7979;">
-                                        <div  class="col-6"><h3  class="mb-0">Preview</h3>
+
+                                    <div class="col-lg-6 col-md-12 pe-0">
+                                        <div class="position-fixed2 border">
+                                            <div class="input-group border-radius-bottom mb-0" style="background: #7d7979;">
+                                                <div class="col-6">
+                                                    <h3 class="mb-0">Preview</h3>
+                                                </div>
+                                                <div class="col-6 text-end">
+                                                    <button type="button" aria-label="Close" class="close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div class="container-fluid mt-2">
+    <div class="preview-border text-center">
+        <iframe type="application/pdf" id="bgFrame" src="https://nasir.ovadadme.org/assets/images/preview.jpg" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+    </div>
+</div>
+
+
+                                        </div>
                                     </div>
-                                    <div  class="col-6">
-                                        <button  type="button" aria-label="Close" class="close">
-                                            <span  aria-hidden="true">×</span></button>
-                                        </div></div>
-                                        <div  class="preview-border text-center">
-                                            <img  src="https://nasir.ovadadme.org/assets/images/preview.jpg" alt="" class="img-fluid">
-                                   </div>
-                                </div>
-                            </div>
+
 
 
                                 </div>
@@ -1457,9 +1466,22 @@
             </div>
         </div>
     </div>
-
-
 </section>
+
+
+<script>
+    $(document).ready(function() {
+        $('.menulink').click(function() {
+            var pdfUrl = $(this).data('pdf-url');
+
+
+            console.log(pdfUrl);
+
+            $('#bgFrame').attr('src', pdfUrl);
+        });
+    });
+</script>
+
 
 <script>
     $(document).ready(function() {
@@ -1704,6 +1726,8 @@
 
 
 @push('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
