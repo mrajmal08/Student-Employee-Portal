@@ -1,7 +1,10 @@
 @extends('backend.layouts.app')
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
+
 <link href="{{ asset('assets/css/select.css') }}" rel="stylesheet" />
+<link href="{{ asset('assets/css/case.css') }}" rel="stylesheet" />
 @push('css')
 @endpush
 @section('content')
@@ -603,131 +606,344 @@
                                 <div class="row">
                                     <div class="col-md-6 text-right p-0">
 
-                                    <div class="doc-div">
-                                    <div class="doc-btn">
-                                            <span class="float-left mr-3 passport" >Passport</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
-                                            <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                                                +
-                                            </button>
-                                        </div>
-                                        <div class="collapse" id="collapseExample">
-                                            <div class="p-2">
-                                                <div class="datatable table-responsive">
-                                                    <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
-                                                        <thead class="text-center">
-                                                            <tr>
-                                                                <th>Doc Name</th>
-                                                                <th>Created At</th>
-                                                                <th>Created By</th>
-                                                                <th>Updated By</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-center">
-                                                            <tr>
-                                                                <td>Document</td>
-                                                                <td>12-2-2024</td>
-                                                                <td>Admin</td>
-                                                                <td>Admin</td>
-                                                                <td class="ealign-items-center">
-                                                                    <a href="" class="me-2">
-                                                                        <i class="bi bi-pen"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
+                                        <div class="doc-div">
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">Passport</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="collapseExample">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
 
 
                                         <div class="doc-div mt-3">
-                                        <div class="doc-btn">
-                                            <span class="float-left mr-3 passport" >BRP</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
-                                            <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#brp" aria-expanded="false" aria-controls="brp">
-                                                +
-                                            </button>
-                                        </div>
-                                        <div class="collapse" id="brp">
-                                            <div class="p-2">
-                                                <div class="datatable table-responsive">
-                                                    <table id="examplebbb" class="table table-bordered">
-                                                        <thead class="text-center">
-                                                            <tr>
-                                                                <th>Doc Name</th>
-                                                                <th>Created At</th>
-                                                                <th>Created By</th>
-                                                                <th>Updated By</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-center">
-                                                            <tr>
-                                                                <td>Document</td>
-                                                                <td>12-2-2024</td>
-                                                                <td>Admin</td>
-                                                                <td>Admin</td>
-                                                                <td class="ealign-items-center">
-                                                                    <a href="" class="me-2">
-                                                                        <i class="bi bi-pen"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
-
-                                                        </tbody>
-                                                    </table>
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">BRP</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#brp" aria-expanded="false" aria-controls="brp">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="brp">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example1" class="table table-bordered">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         </div>
 
                                         <div class="doc-div mt-3">
-                                        <div class="doc-btn">
-                                            <span class="float-left mr-3 passport" >Financial Statement (How Many)</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
-                                            <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#financial" aria-expanded="false" aria-controls="financial">
-                                                +
-                                            </button>
-                                        </div>
-                                        <div class="collapse" id="financial">
-                                            <div class="p-2">
-                                                <div class="datatable table-responsive">
-                                                    <table id="exampleaaa" class="table table-bordered">
-                                                        <thead class="text-center">
-                                                            <tr>
-                                                                <th>Doc Name</th>
-                                                                <th>Created At</th>
-                                                                <th>Created By</th>
-                                                                <th>Updated By</th>
-                                                                <th>Action</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody class="text-center">
-                                                            <tr>
-                                                                <td>Document</td>
-                                                                <td>12-2-2024</td>
-                                                                <td>Admin</td>
-                                                                <td>Admin</td>
-                                                                <td class="ealign-items-center">
-                                                                    <a href="" class="me-2">
-                                                                        <i class="bi bi-pen"></i>
-                                                                    </a>
-                                                                </td>
-                                                            </tr>
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">Financial Statement (How Many)</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#financial" aria-expanded="false" aria-controls="financial">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="financial">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example2" class="table table-bordered">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                    </td>
+                                                                </tr>
 
-                                                        </tbody>
-                                                    </table>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="doc-div mt-3">
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">Qualification Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#qualification" aria-expanded="false" aria-controls="qualification">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="qualification">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example3" class="table table-bordered">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="doc-div mt-3">
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">language Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#language" aria-expanded="false" aria-controls="language">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="language">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example4" class="table table-bordered">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="doc-div mt-3">
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">Miscellaneous Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#miscellaneous" aria-expanded="false" aria-controls="miscellaneous">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="miscellaneous">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example5" class="table table-bordered">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="doc-div mt-3">
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">TB Certificate Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#tb_certificate" aria-expanded="false" aria-controls="tb_certificate">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="tb_certificate">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example6" class="table table-bordered">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="doc-div mt-3">
+                                            <div class="doc-btn">
+                                                <span class="float-left mr-3 passport">Previous Cas Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#previous_cas" aria-expanded="false" aria-controls="previous_cas">
+                                                    +
+                                                </button>
+                                            </div>
+                                            <div class="collapse" id="previous_cas">
+                                                <div class="p-2">
+                                                    <div class="datatable table-responsive">
+                                                        <table id="example7" class="table table-bordered">
+                                                            <thead class="text-center">
+                                                                <tr>
+                                                                    <th>Doc Name</th>
+                                                                    <th>Created At</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Updated By</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    <td>Document</td>
+                                                                    <td>12-2-2024</td>
+                                                                    <td>Admin</td>
+                                                                    <td>Admin</td>
+                                                                    <td class="ealign-items-center">
+                                                                        <a href="" class="me-2">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
 
                                     </div>
-                                    <div class="col-md-6">
+
+                                    <div  class="col-lg-6 col-md-12 pe-0 ">
+                                    <div  class="position-fixed2 border">
+                                        <div  class="input-group border-radius-bottom mb-0" style="background: #7d7979;">
+                                        <div  class="col-6"><h3  class="mb-0">Preview</h3>
                                     </div>
+                                    <div  class="col-6">
+                                        <button  type="button" aria-label="Close" class="close">
+                                            <span  aria-hidden="true">×</span></button>
+                                        </div></div>
+                                        <div  class="preview-border text-center">
+                                            <img  src="https://nasir.ovadadme.org/assets/images/preview.jpg" alt="" class="img-fluid">
+                                   </div>
+                                </div>
+                            </div>
+
+
                                 </div>
                             </div>
                         </div>
@@ -1446,8 +1662,46 @@
             paging: true,
             lengthChange: false,
         });
+
+        $('#example1').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
+
+        $('#example2').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
+        $('#example3').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
+        $('#example4').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
+        $('#example5').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
+        $('#example6').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
+        $('#example7').DataTable({
+            searching: false,
+            paging: true,
+            lengthChange: false,
+        });
     });
 </script>
+
 
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>

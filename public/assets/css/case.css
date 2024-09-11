@@ -1,0 +1,51 @@
+.datatable div.dataTables_wrapper div.dataTables_info {
+    text-align: left !important;
+}
+div.dataTables_wrapper div.dataTables_paginate ul.pagination{
+    margin: 3px 0 !important
+}
+.position-fixed2 {
+    width: 100%;
+}
+#documentsMangers[_ngcontent-cnp-c472] .border-radius-bottom[_ngcontent-cnp-c472] {
+    border-radius: 3px 3px 0px 0px !important;
+}
+.position-fixed2 h3 {
+    text-align: left;
+    font-weight: 400;
+    display: block;
+    font-size: 16px;
+    padding: 5px 0px 6px;
+    color: #fff;
+}
+#documentsMangers[_ngcontent-cnp-c472] .input-group[_ngcontent-cnp-c472] button[_ngcontent-cnp-c472] {
+    min-width: 30px;
+    border-radius: 0px;
+    padding: 0px 5px 0px;
+    margin-bottom: 0 !important;
+}
+#documentsMangers[_ngcontent-cnp-c472] .close[_ngcontent-cnp-c472] {
+    color: #fff;
+    opacity: 1;
+    font-size: 20px;
+    font-weight: 100;
+    border: 0;
+    background: transparent;
+    position: absolute;
+    top: -3px;
+    right: 0.5rem;
+}
+.preview-border[_ngcontent-cnp-c472] {
+    border: 1px solid #ffffff;
+    padding: 10px;
+    background: #fff;
+    border-top: none;
+    height: calc(100vh - 270px);
+}
+.preview-border[_ngcontent-cnp-c472] img[_ngcontent-cnp-c472] {
+    height: calc(100vh - 290px);
+}
+.close{
+
+    color: #ffffff !important;
+}
