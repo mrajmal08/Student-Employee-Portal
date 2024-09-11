@@ -3,6 +3,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap5.min.css" />
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined">
+<link rel="stylesheet" href="{{ asset('assets/css/fileUpload.css') }}">
+
 <link href="{{ asset('assets/css/select.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/css/case.css') }}" rel="stylesheet" />
 @push('css')
@@ -603,8 +606,13 @@
                         <div class="tab-pane fade" id="pills-docs" role="tabpanel" aria-labelledby="pills-docs-tab" tabindex="0">
 
                             <div class="user pt-4">
+
+
+
+
                                 <div class="row">
                                     <div class="col-md-6 text-right p-0">
+
 
                                         <div class="doc-div">
                                             <div class="doc-btn">
@@ -768,7 +776,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">language Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">Language Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#language" aria-expanded="false" aria-controls="language">
                                                     +
                                                 </button>
@@ -912,11 +920,11 @@
                                                                     <td>Admin</td>
 
                                                                     <td class="ealign-items-center">
-    <a href="javascript:void(0);" class="me-2 menulink" data-pdf-url="{{ asset('assets/studentFiles/1069581723448234.pdf') }}">
-        <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-        <i class="fa fa-download" style="color: #03a853;"></i>
-    </a>
-</td>
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-pdf-url="{{ asset('assets/studentFiles/1069581723448234.pdf') }}">
+                                                                            <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
+                                                                    </td>
 
                                                                 </tr>
                                                             </tbody>
@@ -925,6 +933,11 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="form-buttons p-5">
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#addDocuments" class="btn btn-lg filter-btn">Upload</button>
+                                        </div>
+
                                     </div>
 
 
@@ -942,18 +955,17 @@
                                             </div>
 
                                             <div class="container-fluid mt-2">
-    <div class="preview-border text-center">
-        <iframe type="application/pdf" id="bgFrame" src="https://nasir.ovadadme.org/assets/images/preview.jpg" frameborder="0" style="width: 100%; height: 600px;"></iframe>
-    </div>
-</div>
-
-
+                                                <div class="preview-border text-center">
+                                                    <iframe type="application/pdf" id="bgFrame" src="https://nasir.ovadadme.org/assets/images/preview.jpg" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
-
-
                                 </div>
+
+
+
                             </div>
                         </div>
 
@@ -1466,6 +1478,55 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="addDocuments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form method="POST" action="{{ route('recruitments.insert') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Upload Documents</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="my-3">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group ">
+                                <label class="label" for="documents">Choose Document Type:<span class="star-color">*</span></label>
+                                <select id="document" class="form-control" name="documents">
+                                    <option default selected>--Select One--</option>
+                                    <option value="passport">Passport</option>
+                                    <option value="brp">BRP</option>
+                                    <option value="financial">Financial Statement</option>
+                                    <option value="qualification">Qualification Doc</option>
+                                    <option value="language">language Doc</option>
+                                    <option value="miscellaneous">Miscellaneous</option>
+                                    <option value="tb_certificate">TB Certificate</option>
+                                    <option value="previous_cas">Previous CAS</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group ">
+                                <label class="label" for="documents">Upload Documents:<span class="star-color">*</span></label>
+                                <!-- <input type="file" class="form-control" id="customFile" /> -->
+                                <div id="fileUpload"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center w-100">
+                        <button type="submit" class="btn filter-btn" data-bs-dismiss="modal">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
 </section>
 
 
@@ -1473,13 +1534,43 @@
     $(document).ready(function() {
         $('.menulink').click(function() {
             var pdfUrl = $(this).data('pdf-url');
-
-
-            console.log(pdfUrl);
-
             $('#bgFrame').attr('src', pdfUrl);
         });
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#fileUpload").fileUpload();
+    });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1VDDWMRSTH"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-1VDDWMRSTH');
+</script>
+<script>
+    try {
+        fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", {
+            method: 'HEAD',
+            mode: 'no-cors'
+        })).then(function(response) {
+            return true;
+        }).catch(function(e) {
+            var carbonScript = document.createElement("script");
+            carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+            carbonScript.id = "_carbonads_js";
+            document.getElementById("carbon-block").appendChild(carbonScript);
+        });
+    } catch (error) {
+        console.log(error);
+    }
 </script>
 
 
@@ -1733,6 +1824,8 @@
 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/fileUpload.js') }}"></script>
+
 
 @endpush
 @endsection

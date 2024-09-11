@@ -1103,6 +1103,7 @@ hr{
     background-color: #eceff1;
     border: 1px solid #ccc;
     border-radius: 5px;
+    margin: -1px;
 
 }
 .doc-div{
