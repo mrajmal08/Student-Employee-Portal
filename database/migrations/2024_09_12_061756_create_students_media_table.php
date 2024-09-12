@@ -16,6 +16,7 @@ class CreateStudentsMediaTable extends Migration
         Schema::create('students_media', function (Blueprint $table) {
             $table->id();
             $table->bigIncrements('student_id')->nullable();
+            $table->string('document_name')->nullable();
             $table->string('academic_document')->nullable();
 			$table->string('passport_doc')->nullable();
 			$table->string('brp_doc')->nullable();

@@ -605,15 +605,65 @@
                         <!-- Documents Information -->
                         <div class="tab-pane fade" id="pills-docs" role="tabpanel" aria-labelledby="pills-docs-tab" tabindex="0">
 
-                            <div class="user pt-4">
 
+
+                            <?php
+                            $passportDocCount = 0;
+                            $brpDocCount = 0;
+                            $financialStatementDocCount = 0;
+                            $qualificationDocCount = 0;
+                            $langDocCount = 0;
+                            $miscellaneousDocCount = 0;
+                            $tbCertificateDocCount = 0;
+                            $previousCasDocCount = 0;
+
+                            $student->media->each(function ($media) use (
+                                &$passportDocCount,
+                                &$brpDocCount,
+                                &$financialStatementDocCount,
+                                &$qualificationDocCount,
+                                &$langDocCount,
+                                &$miscellaneousDocCount,
+                                &$tbCertificateDocCount,
+                                &$previousCasDocCount
+                            ) {
+                                if (!empty($media->passport_doc)) {
+                                    $passportDocCount++;
+                                }
+                                if (!empty($media->brp_doc)) {
+                                    $brpDocCount++;
+                                }
+                                if (!empty($media->financial_statement_doc)) {
+                                    $financialStatementDocCount++;
+                                }
+                                if (!empty($media->qualification_doc)) {
+                                    $qualificationDocCount++;
+                                }
+                                if (!empty($media->lang_doc)) {
+                                    $langDocCount++;
+                                }
+                                if (!empty($media->miscellaneous_doc)) {
+                                    $miscellaneousDocCount++;
+                                }
+                                if (!empty($media->tb_certificate_doc)) {
+                                    $tbCertificateDocCount++;
+                                }
+                                if (!empty($media->previous_cas_doc)) {
+                                    $previousCasDocCount++;
+                                }
+                            });
+                            ?>
+
+
+
+                            <div class="user pt-4">
 
                                 <div class="row">
                                     <div class="col-md-6 text-right p-0">
 
                                         <div class="doc-div">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Passport</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">Passport</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $passportDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                                                     +
                                                 </button>
@@ -632,24 +682,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
-                                                            @foreach ($student->media as $media)
+                                                                @foreach ($student->media as $media)
                                                                 @if ($media->passport_doc)
-                                                                    <tr>
-                                                                        <td>{{ $media->student_id }}</td>
-                                                                        <td>{{ $media->created_at }}</td>
-                                                                        <td>{{ $media->created_by }}</td>
-                                                                        <td>{{ $media->updated_by }}</td>
-                                                                        <td class="ealign-items-center">
+                                                                <tr>
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->passport_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
-                                                                            <a>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->passport_doc) }}" download="{{ $media->passport_doc }}">
                                                                             <i class="fa fa-download" style="color: #03a853;"></i>
-                                                                            </a>
-                                                                        </td>
-                                                                    </tr>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
                                                                 @endif
-                                                            @endforeach
+                                                                @endforeach
 
                                                             </tbody>
                                                         </table>
@@ -661,7 +711,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">BRP</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">BRP</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $brpDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#brp" aria-expanded="false" aria-controls="brp">
                                                     +
                                                 </button>
@@ -680,20 +730,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
+                                                                @foreach ($student->media as $media)
+                                                                @if ($media->brp_doc)
                                                                 <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->brp_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
-                                                                        <a>
-                                                                        <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->brp_doc) }}" download="{{ $media->brp_doc }}">
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
                                                                         </a>
                                                                     </td>
                                                                 </tr>
+                                                                @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -703,7 +757,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Financial Statement (How Many)</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">Financial Statement (How Many)</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $financialStatementDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#financial" aria-expanded="false" aria-controls="financial">
                                                     +
                                                 </button>
@@ -722,17 +776,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
+                                                                @foreach ($student->media as $media)
+                                                                @if ($media->financial_statement_doc)
                                                                 <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->financial_statement_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                        </a>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->financial_statement_doc) }}" download="{{ $media->financial_statement_doc }}">
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
+                                                                @endif
+                                                                @endforeach
 
                                                             </tbody>
                                                         </table>
@@ -743,7 +804,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Qualification Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">Qualification Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $qualificationDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#qualification" aria-expanded="false" aria-controls="qualification">
                                                     +
                                                 </button>
@@ -762,17 +823,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
+                                                                @foreach ($student->media as $media)
+                                                                @if ($media->qualification_doc)
                                                                 <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->qualification_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                        </a>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->qualification_doc) }}" download="{{ $media->qualification_doc }}">
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
+                                                                @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -782,7 +850,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Language Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">Language Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $langDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#language" aria-expanded="false" aria-controls="language">
                                                     +
                                                 </button>
@@ -801,17 +869,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
+                                                                @foreach ($student->media as $media)
+                                                                @if ($media->lang_doc)
                                                                 <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->lang_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                        </a>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->lang_doc) }}" download="{{ $media->lang_doc }}">
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
+                                                                @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -821,7 +896,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Miscellaneous Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">Miscellaneous Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $miscellaneousDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#miscellaneous" aria-expanded="false" aria-controls="miscellaneous">
                                                     +
                                                 </button>
@@ -840,17 +915,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
+                                                                @foreach ($student->media as $media)
+                                                                @if ($media->miscellaneous_doc)
                                                                 <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->miscellaneous_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i> </a>
+                                                                        </a>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->miscellaneous_doc) }}" download="{{ $media->miscellaneous_doc }}">
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
                                                                     </td>
                                                                 </tr>
+                                                                @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -860,7 +942,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">TB Certificate Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">TB Certificate Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $tbCertificateDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#tb_certificate" aria-expanded="false" aria-controls="tb_certificate">
                                                     +
                                                 </button>
@@ -879,18 +961,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
+                                                                @foreach ($student->media as $media)
+                                                                @if ($media->tb_certificate_doc)
                                                                 <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="" class="me-2">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->tb_certificate_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                        </a>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->tb_certificate_doc) }}" download="{{ $media->tb_certificate_doc }}">
                                                                             <i class="fa fa-download" style="color: #03a853;"></i>
                                                                         </a>
                                                                     </td>
                                                                 </tr>
+                                                                @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -900,7 +988,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Previous Cas Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">123</span>
+                                                <span class="float-left mr-3 passport">Previous Cas Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $previousCasDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#previous_cas" aria-expanded="false" aria-controls="previous_cas">
                                                     +
                                                 </button>
@@ -919,20 +1007,24 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
+                                                                @foreach ($student->media as $media)
+                                                                @if ($media->previous_cas_doc)
                                                                 <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
-
+                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ $media->created_at }}</td>
+                                                                    <td>{{ $media->created_by }}</td>
+                                                                    <td>{{ $media->updated_by }}</td>
                                                                     <td class="ealign-items-center">
-                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-pdf-url="{{ asset('assets/studentFiles/1069581723448234.pdf') }}">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->previous_cas_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
+                                                                        </a>
+                                                                        <a href="{{ asset('assets/studentFiles/' . $media->previous_cas_doc) }}" download="{{ $media->previous_cas_doc }}">
                                                                             <i class="fa fa-download" style="color: #03a853;"></i>
                                                                         </a>
                                                                     </td>
-
                                                                 </tr>
+                                                                @endif
+                                                                @endforeach
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -1533,13 +1625,13 @@
 
 
 <script>
-  $(document).ready(function() {
-    $('.menulink').on('click', function() {
-        var fileUrl = $(this).data('file');
+    $(document).ready(function() {
+        $('.menulink').on('click', function() {
+            var fileUrl = $(this).data('file');
 
-        $('#bgFrame').attr('src', fileUrl);
+            $('#bgFrame').attr('src', fileUrl);
+        });
     });
-});
 </script>
 
 <script>

@@ -455,6 +455,7 @@ class StudentController extends Controller
 
                         StudentMedia::create([
                             'student_id' => $student->id,
+                            'document_name' => $request->documents_type,
                             $request->documents_type => $filename,
                             'created_by' => auth()->user()->id,
                             'updated_by' => auth()->user()->id
