@@ -8,6 +8,7 @@ use App\Models\RecruitmentAgent;
 use App\Models\StudentDependant;
 use App\Models\StudentCourse;
 use Illuminate\Http\Request;
+use App\Models\StudentMedia;
 use App\Models\Dependant;
 use App\Models\Student;
 use App\Models\Course;
@@ -79,7 +80,7 @@ class StudentController extends Controller
     {
         $dependants = Dependant::orderBy('id', 'DESC')->get();
         $courses = Course::orderBy('id', 'DESC')->get();
-        $student = Student::with('dependants')->findOrFail($id);
+        $student = Student::with(['dependants', 'media'])->findOrFail($id);
         $recruitmentAgent = RecruitmentAgent::orderBy('id', 'DESC')->get();
         $status = Status::orderBy('id', 'ASC')->get();
         $selectedDependants = $student->dependants->pluck('id')->toArray();
@@ -439,6 +440,29 @@ class StudentController extends Controller
                     ['student_id' => $studentId, 'dependant_id' => $dependantId]
                 );
             }
+
+
+            if ($request->has('files')) {
+                $timestamp = Carbon::now()->timestamp;
+
+                foreach ($request->documents as $key => $file) {
+
+                    if ($file instanceof \Illuminate\Http\UploadedFile) {
+
+                        $extension = $file->getClientOriginalExtension();
+                        $filename = rand(99999, 234567) . $timestamp . '.' . $extension;
+                        $file->move(public_path('assets/studentFiles'), $filename);
+
+                        StudentMedia::create([
+                            'student_id' => $student->id,
+                            $request->documents_type => $filename,
+                            'created_by' => auth()->user()->id,
+                            'updated_by' => auth()->user()->id
+                        ]);
+                    }
+                }
+            }
+
         }
 
         $flasher->option('position', 'top-center')->addSuccess('Student updated Successfully');

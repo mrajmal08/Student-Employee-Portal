@@ -608,11 +608,8 @@
                             <div class="user pt-4">
 
 
-
-
                                 <div class="row">
                                     <div class="col-md-6 text-right p-0">
-
 
                                         <div class="doc-div">
                                             <div class="doc-btn">
@@ -624,7 +621,7 @@
                                             <div class="collapse" id="collapseExample">
                                                 <div class="p-2">
                                                     <div class="datatable table-responsive">
-                                                        <table id="example" class="table table-bordered table-striped w-100 custom-datatable">
+                                                        <table id="example" class="table table-bordered w-100 custom-datatable">
                                                             <thead class="text-center">
                                                                 <tr>
                                                                     <th>Doc Name</th>
@@ -635,18 +632,25 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody class="text-center">
-                                                                <tr>
-                                                                    <td>Document</td>
-                                                                    <td>12-2-2024</td>
-                                                                    <td>Admin</td>
-                                                                    <td>Admin</td>
-                                                                    <td class="ealign-items-center">
-                                                                        <a href="href=" javascript:void(0);"" class="me-2">
+                                                            @foreach ($student->media as $media)
+                                                                @if ($media->passport_doc)
+                                                                    <tr>
+                                                                        <td>{{ $media->student_id }}</td>
+                                                                        <td>{{ $media->created_at }}</td>
+                                                                        <td>{{ $media->created_by }}</td>
+                                                                        <td>{{ $media->updated_by }}</td>
+                                                                        <td class="ealign-items-center">
+                                                                        <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->passport_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
                                                                         </a>
-                                                                    </td>
-                                                                </tr>
+                                                                            <a>
+                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            </a>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endif
+                                                            @endforeach
+
                                                             </tbody>
                                                         </table>
                                                     </div>
@@ -684,7 +688,9 @@
                                                                     <td class="ealign-items-center">
                                                                         <a href="" class="me-2">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                        </a>
+                                                                        <a>
+                                                                        <i class="fa fa-download" style="color: #03a853;"></i>
                                                                         </a>
                                                                     </td>
                                                                 </tr>
@@ -937,9 +943,7 @@
                                         <div class="form-buttons p-5">
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#addDocuments" class="btn btn-lg filter-btn">Upload</button>
                                         </div>
-
                                     </div>
-
 
                                     <div class="col-lg-6 col-md-12 pe-0">
                                         <div class="position-fixed2 border">
@@ -963,8 +967,6 @@
                                     </div>
 
                                 </div>
-
-
 
                             </div>
                         </div>
@@ -1484,7 +1486,7 @@
     <div class="modal fade" id="addDocuments" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <form method="POST" action="{{ route('recruitments.insert') }}">
+                <form method="POST" action="{{ route('students.update' , [$student->id]) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-header">
                         <h1 class="modal-title fs-5">Upload Documents</h1>
@@ -1496,23 +1498,23 @@
                         <div class="form-row">
                             <div class="form-group ">
                                 <label class="label" for="documents">Choose Document Type:<span class="star-color">*</span></label>
-                                <select id="document" class="form-control" name="documents">
+                                <select id="document" class="form-control" name="documents_type">
                                     <option default selected>--Select One--</option>
-                                    <option value="passport">Passport</option>
-                                    <option value="brp">BRP</option>
-                                    <option value="financial">Financial Statement</option>
-                                    <option value="qualification">Qualification Doc</option>
-                                    <option value="language">language Doc</option>
-                                    <option value="miscellaneous">Miscellaneous</option>
-                                    <option value="tb_certificate">TB Certificate</option>
-                                    <option value="previous_cas">Previous CAS</option>
+                                    <option value="passport_doc">Passport</option>
+                                    <option value="brp_doc">BRP</option>
+                                    <option value="financial_statement_doc">Financial Statement</option>
+                                    <option value="qualification_doc">Qualification Doc</option>
+                                    <option value="lang_doc">language Doc</option>
+                                    <option value="miscellaneous_doc">Miscellaneous</option>
+                                    <option value="tb_certificate_doc">TB Certificate</option>
+                                    <option value="previous_cas_doc">Previous CAS</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group ">
                                 <label class="label" for="documents">Upload Documents:<span class="star-color">*</span></label>
-                                <!-- <input type="file" class="form-control" id="customFile" /> -->
+                                <input type="hidden" class="form-control" name="files" value="files" />
                                 <div id="fileUpload"></div>
                             </div>
                         </div>
@@ -1531,12 +1533,13 @@
 
 
 <script>
-    $(document).ready(function() {
-        $('.menulink').click(function() {
-            var pdfUrl = $(this).data('pdf-url');
-            $('#bgFrame').attr('src', pdfUrl);
-        });
+  $(document).ready(function() {
+    $('.menulink').on('click', function() {
+        var fileUrl = $(this).data('file');
+
+        $('#bgFrame').attr('src', fileUrl);
     });
+});
 </script>
 
 <script>

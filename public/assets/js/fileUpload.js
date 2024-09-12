@@ -15,7 +15,7 @@
                         <span>OR</span>
                         <div>Browse Files</div>
                     </div>
-                    <input type="file" id="${fileUploadId}" name=documents[] multiple hidden />
+                    <input type="file" id="${fileUploadId}" name="documents[]" multiple hidden accept="application/pdf, image/png, image/jpeg, image/jpg, image/webp"/>
                 </label>
             `;
 

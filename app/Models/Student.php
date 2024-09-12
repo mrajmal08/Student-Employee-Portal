@@ -22,4 +22,10 @@ class Student extends Model
     {
         return $this->belongsToMany(Dependant::class, 'student_dependants', 'student_id', 'dependant_id');
     }
+
+    public function media()
+    {
+        return $this->hasMany(StudentMedia::class, 'student_id', 'id');
+    }
+
 }
