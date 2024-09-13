@@ -53,6 +53,6 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination{
     height: calc(100vh - 290px);
 }
 .close{
-
     color: #ffffff !important;
+    opacity: 1.5 !important;
 }

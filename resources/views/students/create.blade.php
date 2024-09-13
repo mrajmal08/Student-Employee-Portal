@@ -8,6 +8,9 @@
 
 <link href="{{ asset('assets/css/select.css') }}" rel="stylesheet" />
 <link href="{{ asset('assets/css/case.css') }}" rel="stylesheet" />
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 @push('css')
 @endpush
 @section('content')
@@ -825,7 +828,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Qualification Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $qualificationDocCount }}</span>
+                                                <span class="float-left mr-3 passport">Qualification</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $qualificationDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#qualification" aria-expanded="false" aria-controls="qualification">
                                                     +
                                                 </button>
@@ -878,7 +881,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Language Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $langDocCount }}</span>
+                                                <span class="float-left mr-3 passport">Language</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $langDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#language" aria-expanded="false" aria-controls="language">
                                                     +
                                                 </button>
@@ -931,7 +934,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Miscellaneous Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $miscellaneousDocCount }}</span>
+                                                <span class="float-left mr-3 passport">Miscellaneous</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $miscellaneousDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#miscellaneous" aria-expanded="false" aria-controls="miscellaneous">
                                                     +
                                                 </button>
@@ -984,7 +987,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">TB Certificate Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $tbCertificateDocCount }}</span>
+                                                <span class="float-left mr-3 passport">TB Certificate</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $tbCertificateDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#tb_certificate" aria-expanded="false" aria-controls="tb_certificate">
                                                     +
                                                 </button>
@@ -1037,7 +1040,7 @@
 
                                         <div class="doc-div mt-3">
                                             <div class="doc-btn">
-                                                <span class="float-left mr-3 passport">Previous Cas Doc</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $previousCasDocCount }}</span>
+                                                <span class="float-left mr-3 passport">Previous Cas</span> <span class="float-left mr-3 passport">|</span> <span class="float-left passport">{{ $previousCasDocCount }}</span>
                                                 <button class="btn btn-primary btn-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#previous_cas" aria-expanded="false" aria-controls="previous_cas">
                                                     +
                                                 </button>
@@ -1094,13 +1097,13 @@
                                     </div>
 
                                     <div class="col-lg-6 col-md-12 pe-0">
-                                        <div class="position-fixed2 border">
+                                        <div class="position-fixed2 border" style="position: sticky; top: 20px; z-index: 1000;">
                                             <div class="input-group border-radius-bottom mb-0" style="background: #7d7979;">
                                                 <div class="col-6">
                                                     <h3 class="mb-0">Preview</h3>
                                                 </div>
                                                 <div class="col-6 text-end">
-                                                    <button type="button" aria-label="Close" class="close">
+                                                    <button type="button" aria-label="Close" class="close"  id="resetBtn">
                                                         <span aria-hidden="true">×</span>
                                                     </button>
                                                 </div>
@@ -1705,6 +1708,14 @@
     });
 </script>
 
+<script>
+    $(document).ready(function() {
+        $('#resetBtn').click(function() {
+            // Reset the iframe source to the original background image
+            $('#bgFrame').attr('src', 'https://nasir.ovadadme.org/assets/images/preview.jpg');
+        });
+    });
+</script>
 
 
 <script>
@@ -1718,20 +1729,31 @@
 </script>
 
 <script>
-    $(document).ready(function() {
-        $("#fileUpload").fileUpload();
-    });
-</script>
+        $(document).ready(function () {
+            $("#fileUpload").fileUpload();
+        });
+    </script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VDDWMRSTH"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
-    gtag('config', 'G-1VDDWMRSTH');
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-1VDDWMRSTH');
+</script>
+<script>
+try {
+  fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
+    return true;
+  }).catch(function(e) {
+    var carbonScript = document.createElement("script");
+    carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+    carbonScript.id = "_carbonads_js";
+    document.getElementById("carbon-block").appendChild(carbonScript);
+  });
+} catch (error) {
+  console.log(error);
+}
 </script>
 <script>
     try {

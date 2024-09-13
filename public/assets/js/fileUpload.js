@@ -52,6 +52,8 @@
                     createTable();
                 }
 
+                fileUploadDiv.find(`#${fileUploadId}`)[0].files = files;
+
                 tableBody.empty();
                 if (files.length > 0) {
                     $.each(files, function (index, file) {
