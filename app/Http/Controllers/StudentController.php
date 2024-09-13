@@ -80,7 +80,16 @@ class StudentController extends Controller
     {
         $dependants = Dependant::orderBy('id', 'DESC')->get();
         $courses = Course::orderBy('id', 'DESC')->get();
-        $student = Student::with(['dependants', 'media'])->findOrFail($id);
+        $student = Student::whereNull('students.deleted_at')
+            ->with([
+                'dependants' => function ($query) {
+                    $query->whereNull('dependants.deleted_at');
+                },
+                'media' => function ($query) {
+                    $query->whereNull('students_media.deleted_at');
+                }
+            ])
+            ->findOrFail($id);
         $recruitmentAgent = RecruitmentAgent::orderBy('id', 'DESC')->get();
         $status = Status::orderBy('id', 'ASC')->get();
         $selectedDependants = $student->dependants->pluck('id')->toArray();
@@ -360,6 +369,13 @@ class StudentController extends Controller
 
     public function update(Request $request, $id, FlasherInterface $flasher)
     {
+
+        if (is_null($request->documents_type)) {
+            $flasher->option('position', 'top-center')->addError('Document Type field is required');
+            return redirect()->back()->with('message', 'Student updated Successfully');
+
+        }
+
         $student = Student::find($id);
         if (!$student) {
             $flasher->option('position', 'top-center')->addError('Id not found');
@@ -484,5 +500,22 @@ class StudentController extends Controller
             'position' => 'top-center',
         ])->addSuccess('Student deleted Successfully');
         return redirect()->route('students.index')->with('message', 'Student deleted Successfully');
+    }
+
+    public function mediaDelete($id, FlasherInterface $flasher)
+    {
+
+        $student = StudentMedia::find($id);
+
+        if (!$student) {
+            $flasher->option('position', 'top-center')->addError('Id not found');
+            return redirect()->back()->with('message', 'Media deleted Successfully');
+        }
+        $student->delete();
+        $flasher->options([
+            'timeout' => 3000,
+            'position' => 'top-center',
+        ])->addSuccess('Media deleted Successfully');
+        return redirect()->back()->with('message', 'Media deleted Successfully');
     }
 }

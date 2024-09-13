@@ -28,6 +28,7 @@ Route::get('/student/view/{id}', [App\Http\Controllers\StudentController::class,
 Route::get('/student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit'])->name('students.edit');
 Route::post('/student/update/{id}', [App\Http\Controllers\StudentController::class, 'update'])->name('students.update');
 Route::get('/student/delete/{id}', [App\Http\Controllers\StudentController::class, 'delete'])->name('students.delete');
+Route::get('/student/media/delete/{id}', [App\Http\Controllers\StudentController::class, 'mediaDelete'])->name('media.delete');
 
 //Course routes
 Route::get('/courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses.index');

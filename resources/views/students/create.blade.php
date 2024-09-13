@@ -694,8 +694,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->passport_doc) }}" download="{{ $media->passport_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $media->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -742,8 +749,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->brp_doc) }}" download="{{ $media->brp_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $media->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -788,8 +802,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->financial_statement_doc) }}" download="{{ $media->financial_statement_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $media->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -835,8 +856,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->qualification_doc) }}" download="{{ $media->qualification_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $media->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -881,8 +909,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->lang_doc) }}" download="{{ $media->lang_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $item->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -927,8 +962,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->miscellaneous_doc) }}" download="{{ $media->miscellaneous_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $media->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -973,8 +1015,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->tb_certificate_doc) }}" download="{{ $media->tb_certificate_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $media->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -1019,8 +1068,15 @@
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
                                                                         </a>
                                                                         <a href="{{ asset('assets/studentFiles/' . $media->previous_cas_doc) }}" download="{{ $media->previous_cas_doc }}">
-                                                                            <i class="fa fa-download" style="color: #03a853;"></i>
+                                                                            <i class="fa fa-download mr-2" style="color: #03a853;"></i>
                                                                         </a>
+                                                                        <form method="GET" action="{{ route('media.delete', $media->id) }}" class="d-inline">
+                                                                            @csrf
+                                                                            <input name="_method" type="hidden" value="DELETE">
+                                                                            <a href="{{ route('media.delete', $media->id) }}" class="show_confirm" data-toggle="tooltip" title="Delete">
+                                                                                <i class="bi bi-x-lg text-danger" style="font-weight: bold;"></i>
+                                                                            </a>
+                                                                        </form>
                                                                     </td>
                                                                 </tr>
                                                                 @endif
@@ -1590,8 +1646,8 @@
                         <div class="form-row">
                             <div class="form-group ">
                                 <label class="label" for="documents">Choose Document Type:<span class="star-color">*</span></label>
-                                <select id="document" class="form-control" name="documents_type">
-                                    <option default selected>--Select One--</option>
+                                <select id="document" class="form-control" name="documents_type" required>
+                                    <option default disabled selected>Select Document Type</option>
                                     <option value="passport_doc">Passport</option>
                                     <option value="brp_doc">BRP</option>
                                     <option value="financial_statement_doc">Financial Statement</option>
@@ -1622,6 +1678,33 @@
 
 
 </section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script type="text/javascript">
+    $('.show_confirm').click(function(event) {
+
+        var form = $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+
+        swal({
+
+                title: `Are you sure you want to delete this Media File?`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+
+            })
+            .then((willDelete) => {
+
+                if (willDelete) {
+                    form.submit();
+                }
+            });
+    });
+</script>
+
 
 
 <script>
