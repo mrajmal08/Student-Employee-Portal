@@ -685,10 +685,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->passport_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                    <td>{{ str_replace('.pdf', '', $media->passport_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->passport_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
@@ -740,10 +740,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->brp_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                <td>{{ str_replace('.pdf', '', $media->brp_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->brp_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
@@ -793,10 +793,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->financial_statement_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                <td>{{ str_replace('.pdf', '', $media->financial_statement_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->financial_statement_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
@@ -847,10 +847,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->qualification_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                <td>{{ str_replace('.pdf', '', $media->qualification_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->qualification_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
@@ -900,10 +900,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->lang_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                <td>{{ str_replace('.pdf', '', $media->lang_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->lang_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
@@ -953,10 +953,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->miscellaneous_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                <td>{{ str_replace('.pdf', '', $media->miscellaneous_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->miscellaneous_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
@@ -1006,10 +1006,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->tb_certificate_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                <td>{{ str_replace('.pdf', '', $media->tb_certificate_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->tb_certificate_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>
@@ -1059,10 +1059,10 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->previous_cas_doc)
                                                                 <tr>
-                                                                <td>{{ ucwords(str_replace('_', ' ', $media->document_name)) }}</td>
+                                                                <td>{{ str_replace('.pdf', '', $media->previous_cas_doc) }}</td>
                                                                     <td>{{ $media->created_at }}</td>
-                                                                    <td>{{ $media->created_by }}</td>
-                                                                    <td>{{ $media->updated_by }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
+                                                                    <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
                                                                     <td class="ealign-items-center">
                                                                         <a href="javascript:void(0);" class="me-2 menulink" data-file="{{ asset('assets/studentFiles/' . $media->previous_cas_doc) }}">
                                                                             <i class="bi bi-eye-fill mr-2" style="color: #03a853;"></i>

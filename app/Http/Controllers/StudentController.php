@@ -370,8 +370,8 @@ class StudentController extends Controller
     public function update(Request $request, $id, FlasherInterface $flasher)
     {
 
-        if (is_null($request->documents_type)) {
-            $flasher->option('position', 'top-center')->addError('Document Type field is required');
+        if (is_null($request->documents_type) || is_null($request->documents)) {
+            $flasher->option('position', 'top-center')->addError('Document Type and Documents field is required');
             return redirect()->back()->with('message', 'Student updated Successfully');
 
         }
