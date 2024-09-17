@@ -241,7 +241,7 @@ class StudentController extends Controller
 
         $student->update($validatedData);
 
-        if($request->has('tab')){
+        if ($request->has('tab')) {
             $flasher->option('position', 'top-center')->addSuccess('Student updated Successfully');
             return redirect()->back()->with('message', 'Student updated Successfully');
         }
@@ -370,10 +370,20 @@ class StudentController extends Controller
     public function update(Request $request, $id, FlasherInterface $flasher)
     {
 
-        if (is_null($request->documents_type) || is_null($request->documents)) {
-            $flasher->option('position', 'top-center')->addError('Document Type and Documents field is required');
-            return redirect()->back()->with('message', 'Student updated Successfully');
 
+        if ($request->documents_type) {
+            if (is_null($request->documents)) {
+
+                $flasher->option('position', 'top-center')->addError('Documents field is required');
+                return redirect()->back()->with('message', 'Student updated Successfully');
+            }
+        }
+
+        if ($request->documents) {
+            if (is_null($request->documents_type)) {
+                $flasher->option('position', 'top-center')->addError('Document Type field is required');
+                return redirect()->back()->with('message', 'Student updated Successfully');
+            }
         }
 
         $student = Student::find($id);
@@ -398,7 +408,6 @@ class StudentController extends Controller
                     return Redirect::back()->withErrors($validator)->withInput();
                 }
             }
-
         }
 
         if ($request->course_id) {
@@ -479,7 +488,6 @@ class StudentController extends Controller
                     }
                 }
             }
-
         }
 
         $flasher->option('position', 'top-center')->addSuccess('Student updated Successfully');
