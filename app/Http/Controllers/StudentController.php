@@ -370,7 +370,6 @@ class StudentController extends Controller
     public function update(Request $request, $id, FlasherInterface $flasher)
     {
 
-
         if ($request->documents_type) {
             if (is_null($request->documents)) {
 
@@ -475,7 +474,7 @@ class StudentController extends Controller
                     if ($file instanceof \Illuminate\Http\UploadedFile) {
 
                         $extension = $file->getClientOriginalExtension();
-                        $filename = rand(99999, 234567) . $timestamp . '.' . $extension;
+                        $filename = $file->getClientOriginalName() . '_' . rand(999, 2345) . '_' . $timestamp . '.' . $extension;
                         $file->move(public_path('assets/studentFiles'), $filename);
 
                         StudentMedia::create([

@@ -133,7 +133,7 @@
                                                     <div class="form-group">
                                                         <label class="label">Intake:<span class="star-color">*</span></label>
                                                         <select name="intake" id="intake_select" class="form-control">
-                                                            <option disabled>--Select One--</option>
+                                                            <option disabled selected>--Select One--</option>
                                                             <option value="January" {{ $student->intake === 'January' ? 'selected' : '' }}>January</option>
                                                             <option value="February" {{ $student->intake === 'February' ? 'selected' : '' }}>February</option>
                                                             <option value="March" {{ $student->intake === 'March' ? 'selected' : '' }}>March</option>
@@ -246,7 +246,7 @@
                                                 <div class="form-row mt-3">
                                                     <div class="form-group">
                                                         <label class="label" for="address">Address Line 1:<span class="star-color">*</span></label>
-                                                        <input type="text" id="address" class="form-control" name="address" value="{{ $student->address }}">
+                                                        <input type="text" class="form-control" name="address" value="{{ $student->address }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="label" for="address2">Address Line 2:</label>
@@ -460,6 +460,7 @@
 
                                                             @foreach ($recruitmentAgent as $agent)
                                                             <option value="{{ $agent->id }}"
+                                                                data-id="{{ $agent->id }}"
                                                                 data-name="{{ $agent->name }}"
                                                                 data-directors="{{ $agent->directors }}"
                                                                 data-company-register-number="{{ $agent->company_register_number }}"
@@ -484,7 +485,31 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="form-row mt-3">
+                                                    <div class="form-group col-md-4">
+                                                        <label class="label" for="email">Referral</label>
+                                                        <input type="text" name="referral" class="form-control" id="referral" value="{{ $student->referral }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-row mt-3">
+                                                    <div class="form-group col-md-4">
+                                                        <label class="label" for="middleName">Other Stakeholder:</label>
+                                                        <input type="text" name="stakeholder" class="form-control" id="stakeholder" value="{{ $student->stakeholder }}">
+                                                    </div>
+                                                </div>
+                                                <div class="form-buttons my-4">
+                                                    <button type="submit" class="btn filter-btn">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog modal-xl">
                                                         <div class="modal-content">
 
@@ -493,14 +518,18 @@
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
+                                                                <form method="POST" action="{{ route('recruitments_agent.update') }}">
+                                                     @csrf
                                                                 <div class="my-3">
                                                                     <span class="star-color">*</span><span class="label"> <i>Indicates required field</i></span>
                                                                 </div>
+
                                                                 <div class="form-row mt-3">
                                                                     <div class="form-group">
                                                                         <label class="label" for="name">Name Of Agent:<span class="star-color">*</span></label>
                                                                         <input type="text" class="form-control" id="name" name="name">
                                                                         <input type="hidden" class="form-control" id="student_form" value="stundet form" name="student_form">
+                                                                        <input type="hidden" class="form-control" id="agent"  name="id">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label class="label" for="directors">List The Name Of All Your Directors:<span class="star-color">*</span></label>
@@ -573,37 +602,16 @@
                                                                 <div class="form-row">
                                                                     <textarea class="form-control" name="career_history" id="career_history" rows="3"></textarea>
                                                                 </div>
+                                                                <div class="modal-footer d-flex justify-content-center w-100">
+                                                                <button type="submit" class="btn filter-btn" data-bs-dismiss="modal">Edit</button>
                                                             </div>
-                                                            <div class="modal-footer d-flex justify-content-center w-100">
-                                                                <button type="submit" class="btn filter-btn" data-bs-dismiss="modal">Submit</button>
                                                             </div>
 
+                                                 </form>
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                <div class="form-row mt-3">
-                                                    <div class="form-group col-md-4">
-                                                        <label class="label" for="email">Referral</label>
-                                                        <input type="text" name="referral" class="form-control" id="referral" value="{{ $student->referral }}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-row mt-3">
-                                                    <div class="form-group col-md-4">
-                                                        <label class="label" for="middleName">Other Stakeholder:</label>
-                                                        <input type="text" name="stakeholder" class="form-control" id="stakeholder" value="{{ $student->stakeholder }}">
-                                                    </div>
-                                                </div>
-                                                <div class="form-buttons my-4">
-                                                    <button type="submit" class="btn filter-btn">Submit</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
 
                         <!-- Documents Information -->
                         <div class="tab-pane fade" id="pills-docs" role="tabpanel" aria-labelledby="pills-docs-tab" tabindex="0">
@@ -688,7 +696,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->passport_doc)
                                                                 <tr>
-                                                                    <td>{{ str_replace('.pdf', '', $media->passport_doc) }}</td>
+                                                                <td>
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->passport_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->passport_doc), 20, '...') }}
+                                                                </span>
+                                                                </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -743,7 +755,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->brp_doc)
                                                                 <tr>
-                                                                <td>{{ str_replace('.pdf', '', $media->brp_doc) }}</td>
+                                                                <td>
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->brp_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->brp_doc), 20, '...') }}
+                                                                </span>
+                                                               </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -796,7 +812,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->financial_statement_doc)
                                                                 <tr>
-                                                                <td>{{ str_replace('.pdf', '', $media->financial_statement_doc) }}</td>
+                                                                <td>
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->financial_statement_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->financial_statement_doc), 20, '...') }}
+                                                                </span>
+                                                                </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -850,7 +870,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->qualification_doc)
                                                                 <tr>
-                                                                <td>{{ str_replace('.pdf', '', $media->qualification_doc) }}</td>
+                                                                <td>
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->qualification_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->qualification_doc), 20, '...') }}
+                                                                </span>
+                                                                </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -903,7 +927,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->lang_doc)
                                                                 <tr>
-                                                                <td>{{ str_replace('.pdf', '', $media->lang_doc) }}</td>
+                                                                <td>
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->lang_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->lang_doc), 20, '...') }}
+                                                                </span>
+                                                                </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -956,7 +984,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->miscellaneous_doc)
                                                                 <tr>
-                                                                <td>{{ str_replace('.pdf', '', $media->miscellaneous_doc) }}</td>
+                                                                <td>
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->miscellaneous_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->miscellaneous_doc), 20, '...') }}
+                                                                </span>
+                                                                </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -1009,7 +1041,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->tb_certificate_doc)
                                                                 <tr>
-                                                                <td>{{ str_replace('.pdf', '', $media->tb_certificate_doc) }}</td>
+                                                                <td>
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->tb_certificate_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->tb_certificate_doc), 20, '...') }}
+                                                                </span>
+                                                                </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -1062,7 +1098,11 @@
                                                                 @foreach ($student->media as $media)
                                                                 @if ($media->previous_cas_doc)
                                                                 <tr>
-                                                                <td>{{ str_replace('.pdf', '', $media->previous_cas_doc) }}</td>
+                                                                <td>
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->previous_cas_doc }}">
+                                                                    {{ Str::limit(str_replace('.pdf', '', $media->previous_cas_doc), 20, '...') }}
+                                                                </span>
+                                                                </td>
                                                                     <td>{{ $media->created_at }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->created_by)->value('name') }}</td>
                                                                     <td>{{ \app\Models\User::where('id', $media->updated_by)->value('name') }}</td>
@@ -1111,7 +1151,7 @@
 
                                             <div class="container-fluid mt-2">
                                                 <div class="preview-border text-center">
-                                                    <iframe type="application/pdf" id="bgFrame" src="https://nasir.ovadadme.org/assets/images/preview.jpg" frameborder="0" style="width: 100%; height: 600px;"></iframe>
+                                                    <iframe type="application/pdf" id="bgFrame" src="{{ asset('assets/img/doc_background_img.png') }}" frameborder="0" style="width: 100%; height: 600px;"></iframe>
                                                 </div>
                                             </div>
                                         </div>
@@ -1599,7 +1639,7 @@
                         <div class="form-row">
                             <div class="form-group">
                                 <label class="label" for="address">Address If Company Not In UK:</label>
-                                <input type="text" class="form-control" name="address" id="address">
+                                <input type="text" class="form-control" name="address">
                             </div>
                             <div class="form-group">
                                 <label class="label">Compliance Check:</label>
@@ -1684,6 +1724,8 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+
 <script type="text/javascript">
     $('.show_confirm').click(function(event) {
 
@@ -1709,10 +1751,19 @@
 </script>
 
 <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+
+<script>
     $(document).ready(function() {
         $('#resetBtn').click(function() {
             // Reset the iframe source to the original background image
-            $('#bgFrame').attr('src', 'https://nasir.ovadadme.org/assets/images/preview.jpg');
+            $('#bgFrame').attr('src', '{{ asset("assets/img/doc_background_img.png") }}');
         });
     });
 </script>
@@ -1780,6 +1831,8 @@ try {
         $('#agent_id').change(function() {
             // Get the selected option data
             var selectedOption = $(this).find('option:selected');
+
+            var id = selectedOption.data('id');
             var name = selectedOption.data('name');
             var directors = selectedOption.data('directors');
             var companyRegisterNumber = selectedOption.data('company-register-number');
@@ -1795,6 +1848,7 @@ try {
             var agentId = selectedOption.val();
 
             // Update form fields with the selected data
+            $('#agent').val(id);
             $('#name').val(name);
             $('#directors').val(directors);
             $('#company_register_number').val(companyRegisterNumber);

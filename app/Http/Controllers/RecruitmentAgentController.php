@@ -86,11 +86,14 @@ class RecruitmentAgentController extends Controller
 
             RecruitmentAgent::create($data);
 
-            $flasher->option('position', 'top-center')->addSuccess('Recruitment added Successfully');
             if($request->student_form){
-                return redirect()->route('students.create')->with('message', 'Recruitment added Successfully');
+                $flasher->option('position', 'top-center')->addSuccess('Recruitment added Successfully');
+                return redirect()->back()->with('message', 'Recruitment added Successfully');
+            }else{
+                $flasher->option('position', 'top-center')->addSuccess('Recruitment added Successfully');
+                return redirect()->route('recruitments.index')->with('message', 'Recruitment added Successfully');
             }
-            return redirect()->route('recruitments.index')->with('message', 'Recruitment added Successfully');
+
         } catch (\Exception $e) {
             $flasher->option('position', 'top-center')->addError('Something went wrong');
             return redirect()->route('recruitments.index')->with('message', 'Something went wrong');
@@ -102,6 +105,50 @@ class RecruitmentAgentController extends Controller
         $recruitment = RecruitmentAgent::findOrFail($id);
         return view('recruitments.edit', compact('recruitment'));
     }
+
+    public function updateAgent(Request $request, FlasherInterface $flasher){
+
+
+        $recruitment = RecruitmentAgent::find($request->id);
+
+        if (!$recruitment) {
+            $flasher->option('position', 'top-center')->addError('Id not found');
+            return redirect()->route('recruitments.index')->with('error', 'Id not found');
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'directors' => 'required|max:255',
+            'company_register_number' => 'nullable|max:255',
+            'date_of_registration' => 'nullable|date',
+            'payment_method' => 'required',
+            'account_name' => 'nullable|max:255',
+            'account_number' => 'nullable|max:255',
+            'institutions' => 'nullable|max:255',
+            'career_history' => 'nullable|max:255',
+            'address_uk' => 'nullable|max:255',
+            'address' => 'nullable|max:255',
+            'compliance_check' => 'nullable|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            foreach ($errors as $error) {
+                $flasher->options([
+                    'timeout' => 3000,
+                    'position' => 'top-center',
+                ])->addError('Validation Error', $error);
+            }
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $recruitment->update($validator->validated());
+
+        $flasher->option('position', 'top-center')->addSuccess('Recruitment updated Successfully');
+        return redirect()->back()->with('message', 'Recruitment updated Successfully');
+    }
+
+
 
     public function update(Request $request, $id, FlasherInterface $flasher)
     {
