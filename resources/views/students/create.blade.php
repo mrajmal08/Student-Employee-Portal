@@ -697,7 +697,7 @@
                                                                 @if ($media->passport_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->passport_doc }}">
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->passport_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->passport_doc), 20, '...') }}
                                                                 </span>
                                                                 </td>
@@ -756,7 +756,7 @@
                                                                 @if ($media->brp_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->brp_doc }}">
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->brp_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->brp_doc), 20, '...') }}
                                                                 </span>
                                                                </td>
@@ -813,7 +813,7 @@
                                                                 @if ($media->financial_statement_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->financial_statement_doc }}">
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->financial_statement_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->financial_statement_doc), 20, '...') }}
                                                                 </span>
                                                                 </td>
@@ -871,7 +871,7 @@
                                                                 @if ($media->qualification_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->qualification_doc }}">
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->qualification_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->qualification_doc), 20, '...') }}
                                                                 </span>
                                                                 </td>
@@ -928,7 +928,7 @@
                                                                 @if ($media->lang_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->lang_doc }}">
+                                                                <span data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->lang_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->lang_doc), 20, '...') }}
                                                                 </span>
                                                                 </td>
@@ -985,7 +985,7 @@
                                                                 @if ($media->miscellaneous_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->miscellaneous_doc }}">
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->miscellaneous_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->miscellaneous_doc), 20, '...') }}
                                                                 </span>
                                                                 </td>
@@ -1042,7 +1042,7 @@
                                                                 @if ($media->tb_certificate_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->tb_certificate_doc }}">
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->tb_certificate_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->tb_certificate_doc), 20, '...') }}
                                                                 </span>
                                                                 </td>
@@ -1099,7 +1099,7 @@
                                                                 @if ($media->previous_cas_doc)
                                                                 <tr>
                                                                 <td>
-                                                                <span  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $media->previous_cas_doc }}">
+                                                                <span  data-bs-toggle="tooltip" data-bs-placement="right" title="{{ $media->previous_cas_doc }}">
                                                                     {{ Str::limit(str_replace('.pdf', '', $media->previous_cas_doc), 20, '...') }}
                                                                 </span>
                                                                 </td>
