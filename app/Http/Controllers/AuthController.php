@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -16,26 +15,26 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        $user = User::where('email', $request->email)->first();
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
 
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['Invalid credentials.'],
-            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Login successful',
+                'token' => $token,
+                'user' => $user
+            ], 200);
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
-            'status' => true,
-            'message' => 'User logged in successfully',
-            'token' => $token,
-            'user' => $user
-        ], 200);
+            'status' => false,
+            'message' => 'Invalid email or password',
+            'token' => null,
+            'user' => null
+        ], 401);
     }
 
     /**
@@ -44,7 +43,6 @@ class AuthController extends Controller
     public function profile(Request $request)
     {
         $user = $request->user();
-
         if ($user) {
             return response()->json([
                 'status' => true,
