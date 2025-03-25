@@ -15,21 +15,21 @@ class CreateStudentsMediaTable extends Migration
     {
         Schema::create('students_media', function (Blueprint $table) {
             $table->id();
-            $table->bigIncrements('student_id')->nullable();
+            $table->unsignedBigInteger('student_id')->nullable();
             $table->string('document_name')->nullable();
             $table->string('academic_document')->nullable();
-			$table->string('passport_doc')->nullable();
-			$table->string('brp_doc')->nullable();
-			$table->string('financial_statement_doc')->nullable();
-			$table->string('qualification_doc')->nullable();
-			$table->string('lang_doc')->nullable();
-			$table->string('miscellaneous_doc')->nullable();
-			$table->string('tb_certificate_doc')->nullable();
-			$table->string('previous_cas_doc')->nullable();
+            $table->string('passport_doc')->nullable();
+            $table->string('brp_doc')->nullable();
+            $table->string('financial_statement_doc')->nullable();
+            $table->string('qualification_doc')->nullable();
+            $table->string('lang_doc')->nullable();
+            $table->string('miscellaneous_doc')->nullable();
+            $table->string('tb_certificate_doc')->nullable();
+            $table->string('previous_cas_doc')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
-            $table->bigIncrements('created_by')->nullable();
-            $table->bigIncrements('updated_by')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
         });
     }
