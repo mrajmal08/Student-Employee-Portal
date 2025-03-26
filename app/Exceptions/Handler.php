@@ -3,6 +3,9 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -32,10 +35,37 @@ class Handler extends ExceptionHandler
      *
      * @return void
      */
+    // public function register()
+    // {
+    //     $this->reportable(function (Throwable $e) {
+    //         //
+    //     });
+    // }
+
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'API not found'
+                ], 404);
+            }
         });
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->is('api/*')) {
+            return response()->json([
+                'status' => false,
+                'message' => 'You are not logged in.'
+            ], 401);
+        }
+
+        return $request->expectsJson()
+            ? response()->json(['status' => false, 'message' => 'You are not logged in.'], 401)
+            : redirect()->guest(route('login'));
+    }
+
 }

@@ -25,7 +25,7 @@ class AuthController extends Controller
                 'status' => true,
                 'message' => 'Login successful',
                 'token' => $token,
-                'user' => $user
+                'result' => $user
             ], 200);
         }
 
@@ -33,7 +33,7 @@ class AuthController extends Controller
             'status' => false,
             'message' => 'Invalid email or password',
             'token' => null,
-            'user' => null
+            'result' => null
         ], 401);
     }
 
@@ -48,7 +48,7 @@ class AuthController extends Controller
                 'status' => true,
                 'message' => 'User profile retrieved successfully',
                 'token' => $request->bearerToken(),
-                'user' => $user
+                'result' => $user
             ], 200);
         } else {
             return response()->json([

@@ -3,111 +3,150 @@
 namespace App\Http\Controllers;
 
 use Flasher\Prime\FlasherInterface;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Course;
-use Validator;
-use Redirect;
+use App\Models\User;
 
 class CourseController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index(Request $request)
     {
+        try {
+            $coursesQuery = Course::orderBy('id', 'DESC');
 
-        $coursesQuery = Course::orderBy('id', 'DESC');
+            if ($request->filled('name')) {
+                $coursesQuery->where('name', 'like', '%' . $request->name . '%');
+            }
 
+            if ($request->has('pagination') && $request->pagination == 1) {
+                $perPage = $request->input('per_page', 20);
+                $courses = $coursesQuery->paginate($perPage);
+            } else {
+                $courses = $coursesQuery->get();
+            }
 
-        if ($request->has('name')) {
-            $coursesQuery->where('name', 'like', '%' . $request->name . '%');
+            foreach ($courses as $course) {
+                $course->created_by = User::userDetails($course->created_by);
+                $course->updated_by = User::userDetails($course->updated_by);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Courses data retrieved successfully',
+                'result' => $courses
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
         }
-
-        $courses = $coursesQuery->get();
-
-        return view('courses.index', compact('courses'));
     }
 
-    public function create()
-    {
-        return view('courses.create');
-    }
 
-    public function insert(Request $request, FlasherInterface $flasher)
+    public function insert(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            foreach ($errors as $error) {
-                $flasher->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->option('position', 'top-center')->addError('Validation Error', $error);
-                return Redirect::back()->withErrors($validator)->withInput();
-            }
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
         }
 
         try {
-            $data['name'] = $request->name;
+            $course = Course::add($request->all());
 
-            Course::create($data);
-            $flasher->option('position', 'top-center')->addSuccess('Course added Successfully');
+            return response()->json([
+                'status' => true,
+                'message' => 'Course added successfully',
+                'data' => $course
+            ], 201);
 
-            return redirect()->route('courses.index')->with('message', 'Course added Successfully');
         } catch (\Exception $e) {
-            $flasher->option('position', 'top-center')->addError('Something went wrong');
-            return redirect()->route('courses.index')->with('message', 'Something went wrong');
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to add course',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
 
-    public function edit($id)
+    public function single($id)
     {
         $course = Course::findOrFail($id);
-        return view('courses.edit', compact('course'));
+        return response()->json([
+            'status' => true,
+            'message' => 'Course detail get successfully',
+            'data' => $course
+        ], 201);
+
     }
 
-    public function update(Request $request, $id, FlasherInterface $flasher)
+    public function update(Request $request)
     {
-        $course = Course::find($id);
-
-        if (!$course) {
-            $flasher->option('position', 'top-center')->addError('Id not found');
-            return redirect()->route('courses.index')->with('error', 'Id not found');
-        }
-
-        $validatedData = $request->validate([
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:courses,id',
             'name' => 'required|max:255',
         ]);
 
-        $course->update($validatedData);
-        $flasher->option('position', 'top-center')->addSuccess('Course updated Successfully');
-        return redirect()->route('courses.index')->with('message', 'Course updated Successfully');
-    }
-
-    public function delete($id, FlasherInterface $flasher)
-    {
-        $Course = Course::find($id);
-
-        if (!$Course) {
-            $flasher->option('position', 'top-center')->addError('Id not found');
-            return redirect()->route('courses.index')->with('error', 'Id not found');
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
         }
-        $Course->delete();
-        $flasher->options([
-            'timeout' => 3000,
-            'position' => 'top-center',
-        ])->addSuccess('Course deleted Successfully');
-        return redirect()->route('courses.index')->with('message', 'Course deleted Successfully');
+
+        try {
+            $course = Course::edit($request->all());
+            return response()->json([
+                'status' => true,
+                'message' => 'Course updated successfully',
+                'result' => $course
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
     }
+
+
+    public function delete($id)
+    {
+        try {
+            $course = Course::find($id);
+
+            if (!$course) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Course not found'
+                ], 404);
+            }
+
+            $course->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Course deleted successfully'
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
 }

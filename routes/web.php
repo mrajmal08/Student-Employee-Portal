@@ -31,12 +31,12 @@ Route::get('/student/delete/{id}', [App\Http\Controllers\StudentController::clas
 Route::get('/student/media/delete/{id}', [App\Http\Controllers\StudentController::class, 'mediaDelete'])->name('media.delete');
 
 //Course routes
-Route::get('/courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses.index');
-Route::get('/course/create', [App\Http\Controllers\CourseController::class, 'create'])->name('courses.create');
-Route::post('/course/insert', [App\Http\Controllers\CourseController::class, 'insert'])->name('courses.insert');
-Route::get('/course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('courses.edit');
-Route::post('/course/update/{id}', [App\Http\Controllers\CourseController::class, 'update'])->name('courses.update');
-Route::get('/course/delete/{id}', [App\Http\Controllers\CourseController::class, 'delete'])->name('courses.delete');
+// Route::get('/courses', [App\Http\Controllers\CourseController::class, 'index'])->name('courses.index');
+// Route::get('/course/create', [App\Http\Controllers\CourseController::class, 'create'])->name('courses.create');
+// Route::post('/course/insert', [App\Http\Controllers\CourseController::class, 'insert'])->name('courses.insert');
+// Route::get('/course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('courses.edit');
+// Route::post('/course/update/{id}', [App\Http\Controllers\CourseController::class, 'update'])->name('courses.update');
+// Route::get('/course/delete/{id}', [App\Http\Controllers\CourseController::class, 'delete'])->name('courses.delete');
 
 //Dependant routes
 Route::get('/dependants', [App\Http\Controllers\DependantController::class, 'index'])->name('dependants.index');

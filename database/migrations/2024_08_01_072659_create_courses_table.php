@@ -18,6 +18,8 @@ class CreateCoursesTable extends Migration
             $table->string('name')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
         });
     }
 
