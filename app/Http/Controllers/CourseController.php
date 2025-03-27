@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\Course;
 use App\Models\User;
 
 class CourseController extends Controller
 {
-
+    use ApiResponseTrait;
+    
     public function index(Request $request)
     {
         try {
@@ -32,17 +33,10 @@ class CourseController extends Controller
                 $course->updated_by = User::userDetails($course->updated_by);
             }
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Courses data retrieved successfully',
-                'result' => $courses
-            ], 200);
+            return $this->successResponse('Courses data retrieved successfully', $courses);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ], 500);
+            return $this->errorResponse('Error retrieving courses', $e->getMessage());
         }
     }
 
@@ -54,40 +48,23 @@ class CourseController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 422);
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
         try {
             $course = Course::add($request->all());
+            return $this->successResponse('Course added successfully', $course, 201);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Course added successfully',
-                'data' => $course
-            ], 201);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Failed to add course',
-                'error' => $e->getMessage()
-            ], 500);
+            return $this->errorResponse('Failed to add course', $e->getMessage());
         }
     }
 
     public function single($id)
     {
         $course = Course::findOrFail($id);
-        return response()->json([
-            'status' => true,
-            'message' => 'Course detail get successfully',
-            'data' => $course
-        ], 201);
-
+        return $this->successResponse('Course detail get successfully', $course);
     }
 
     public function update(Request $request)
@@ -98,26 +75,16 @@ class CourseController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Validation failed',
-                'errors' => $validator->errors()
-            ], 422);
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
         try {
             $course = Course::edit($request->all());
-            return response()->json([
-                'status' => true,
-                'message' => 'Course updated successfully',
-                'result' => $course
-            ], 200);
+            return $this->successResponse('Course updated successfully', $course, 201);
+
 
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ], 500);
+            return $this->errorResponse('Failed to update course', $e->getMessage());
         }
     }
 
@@ -128,24 +95,15 @@ class CourseController extends Controller
             $course = Course::find($id);
 
             if (!$course) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Course not found'
-                ], 404);
+            return $this->errorResponse('Course not found', $e->getMessage(), 404);
             }
 
             $course->delete();
+            return $this->successResponse('Course deleted successfully', $course, 201);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Course deleted successfully'
-            ], 200);
 
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Error: ' . $e->getMessage()
-            ], 500);
+            return $this->errorResponse('Failed to delete course', $e->getMessage());
         }
     }
 
