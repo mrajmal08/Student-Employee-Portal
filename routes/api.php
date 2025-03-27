@@ -23,9 +23,17 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
+     //Course routes
     Route::get('/courses', [App\Http\Controllers\CourseController::class, 'index']);
     Route::post('/course/insert', [App\Http\Controllers\CourseController::class, 'insert']);
     Route::get('/course/single/{id}', [App\Http\Controllers\CourseController::class, 'single']);
     Route::post('/course/update', [App\Http\Controllers\CourseController::class, 'update']);
     Route::get('/course/delete/{id}', [App\Http\Controllers\CourseController::class, 'delete']);
+
+    //Status routes
+    Route::get('/status', [App\Http\Controllers\StatusController::class, 'index']);
+    Route::post('/status/insert', [App\Http\Controllers\StatusController::class, 'insert']);
+    Route::get('/status/single/{id}', [App\Http\Controllers\StatusController::class, 'single']);
+    Route::post('/status/update', [App\Http\Controllers\StatusController::class, 'update']);
+    Route::get('/status/delete/{id}', [App\Http\Controllers\StatusController::class, 'delete']);
 });

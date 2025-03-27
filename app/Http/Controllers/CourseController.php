@@ -11,7 +11,7 @@ use App\Models\User;
 class CourseController extends Controller
 {
     use ApiResponseTrait;
-    
+
     public function index(Request $request)
     {
         try {
@@ -95,11 +95,11 @@ class CourseController extends Controller
             $course = Course::find($id);
 
             if (!$course) {
-            return $this->errorResponse('Course not found', $e->getMessage(), 404);
+            return $this->errorResponse('Course id not found', null, 404);
             }
 
             $course->delete();
-            return $this->successResponse('Course deleted successfully', $course, 201);
+            return $this->successResponse('Course deleted successfully', null, 201);
 
 
         } catch (\Exception $e) {

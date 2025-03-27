@@ -2,136 +2,101 @@
 
 namespace App\Http\Controllers;
 
-use Flasher\Prime\FlasherInterface;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\Status;
-use Validator;
-use Redirect;
+use App\Models\User;
+
 
 class StatusController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    use ApiResponseTrait;
 
     public function index(Request $request)
     {
-        $statusQuery = Status::orderBy('id', 'DESC');
+        try {
+            $statusQuery = Status::orderBy('id', 'DESC');
 
-        $filters = [
-            'name' => 'name',
-        ];
-
-        foreach ($filters as $requestKey => $column) {
-            if ($request->filled($requestKey)) {
-                $statusQuery->where($column, 'like', '%' . $request->$requestKey . '%');
+            if ($request->filled('name')) {
+                $statusQuery->where('name', 'like', '%' . $request->name . '%');
             }
+
+            if ($request->has('pagination') && $request->pagination == 1) {
+                $perPage = $request->input('per_page', 20);
+                $statuses = $statusQuery->paginate($perPage);
+            } else {
+                $statuses = $statusQuery->get();
+            }
+
+            foreach ($statuses as $status) {
+                $status->created_by = User::userDetails($status->created_by);
+                $status->updated_by = User::userDetails($status->updated_by);
+            }
+
+            return $this->successResponse('Status data retrieved successfully', $statuses);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Error retrieving status', $e->getMessage());
         }
-        $users = $statusQuery->get();
-
-        return view('statuses.index', compact('users'));
     }
 
-    public function create()
+    public function insert(Request $request)
     {
-        return view('statuses.create');
-    }
 
-    public function insert(Request $request, FlasherInterface $flasher)
-    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
         ]);
 
-        // Handle validation errors
         if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            foreach ($errors as $error) {
-                $flasher->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->addError('Validation Error', $error);
-            }
-            return Redirect::back()->withErrors($validator)->withInput();
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
         try {
-            Status::create([
-                'name' => $request->name,
-                'description' => $request->description,
-            ]);
-
-            $flasher->option('position', 'top-center')->addSuccess('Status added Successfully');
-            return redirect()->route('status.index')->with('message', 'Status added Successfully');
+            $status = Status::add($request->all());
+            return $this->successResponse('Status added successfully', $status, 201);
         } catch (\Exception $e) {
-            $flasher->option('position', 'top-center')->addError('Something went wrong');
-            return redirect()->route('status.index')->with('message', 'Something went wrong');
+            return $this->errorResponse('Failed to add status', $e->getMessage());
         }
     }
 
-    public function edit($id)
+    public function single($id)
     {
         $status = Status::findOrFail($id);
-        return view('statuses.edit', compact('status'));
+        return $this->successResponse('Status detail get successfully', $status);
     }
 
-    public function update(Request $request, FlasherInterface $flasher, $id)
+    public function update(Request $request)
     {
-        $status = Status::find($id);
-        if (!$status) {
-            $flasher->option('position', 'top-center')->addError('Status not found');
-            return redirect()->route('status.index')->with('error', 'Status not found');
-        }
-
         $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:status,id',
             'name' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            foreach ($errors as $error) {
-                $flasher->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->addError('Validation Error', $error);
-            }
-            return redirect()->back()->withErrors($validator)->withInput();
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
-        if ($request->name) {
-            $status->name = $request->name;
+        try {
+            $status = Status::edit($request->all());
+            return $this->successResponse('Status updated successfully', $status, 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to update Status', $e->getMessage());
         }
-        if ($request->description) {
-            $status->description = $request->description;
-        }
-
-        $status->save();
-
-        $flasher->option('position', 'top-center')->addSuccess('Status updated successfully.');
-        return redirect()->route('status.index');
     }
 
-    public function delete($id, FlasherInterface $flasher)
+    public function delete($id)
     {
-        $status = Status::find($id);
+        try {
+            $status = Status::find($id);
 
-        if (!$status) {
-            $flasher->option('position', 'top-center')->addError('Id not found');
-            return redirect()->route('status.index')->with('error', 'Id not found');
+            if (!$status) {
+                return $this->errorResponse('Status id not found', null, 404);
+            }
+
+            $status->delete();
+            return $this->successResponse('Status deleted successfully', null, 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to delete status', $e->getMessage());
         }
-        $status->delete();
-        $flasher->options([
-            'timeout' => 3000,
-            'position' => 'top-center',
-        ])->addSuccess('status deleted Successfully');
-        return redirect()->route('status.index')->with('message', 'Status deleted Successfully');
     }
 }
-

@@ -19,6 +19,8 @@ class CreateStatusTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
 
         });
     }
