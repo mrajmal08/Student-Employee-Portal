@@ -36,4 +36,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/status/single/{id}', [App\Http\Controllers\StatusController::class, 'single']);
     Route::post('/status/update', [App\Http\Controllers\StatusController::class, 'update']);
     Route::get('/status/delete/{id}', [App\Http\Controllers\StatusController::class, 'delete']);
+
+    //Users routes
+    Route::get('/users', [App\Http\Controllers\UserController::class, 'index']);
+    Route::post('/user/insert', [App\Http\Controllers\UserController::class, 'insert']);
+    Route::get('/user/single/{id}', [App\Http\Controllers\UserController::class, 'single']);
+    Route::post('/user/update', [App\Http\Controllers\UserController::class, 'update']);
+    Route::get('/user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete']);
 });

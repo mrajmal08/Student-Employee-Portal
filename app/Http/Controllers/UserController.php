@@ -2,52 +2,50 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Hash;
-use Flasher\Prime\FlasherInterface;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Traits\ApiResponseTrait;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Validator;
-use Redirect;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    use ApiResponseTrait;
 
     public function index(Request $request)
     {
-        $userQuery = User::orderBy('id', 'DESC');
+        try {
+            $userQuery = User::orderBy('id', 'DESC');
 
-        $filters = [
-            'name' => 'name',
-            'email' => 'email',
-            'phone_no' => 'phone_no',
-        ];
-
-        foreach ($filters as $requestKey => $column) {
-            if ($request->filled($requestKey)) {
-                $userQuery->where($column, 'like', '%' . $request->$requestKey . '%');
+            if ($request->filled('name')) {
+                $userQuery->where('name', 'like', '%' . $request->name . '%');
             }
+            if ($request->filled('email')) {
+                $userQuery->where('email', 'like', '%' . $request->email . '%');
+            }
+            if ($request->filled('phone_no')) {
+                $userQuery->where('phone_no', 'like', '%' . $request->phone_no . '%');
+            }
+
+            if ($request->has('pagination') && $request->pagination == 1) {
+                $perPage = $request->input('per_page', 20);
+                $users = $userQuery->paginate($perPage);
+            } else {
+                $users = $userQuery->get();
+            }
+
+            foreach ($users as $user) {
+                $user->created_by = User::userDetails($user->created_by);
+                $user->updated_by = User::userDetails($user->updated_by);
+            }
+
+            return $this->successResponse('Users data retrieved successfully', $users);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Error retrieving courses', $e->getMessage());
         }
-        $users = $userQuery->get();
-
-        return view('users.index', compact('users'));
     }
 
-    public function create()
-    {
-        return view('users.create');
-    }
-
-    public function insert(Request $request, FlasherInterface $flasher)
+    public function insert(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -57,111 +55,67 @@ class UserController extends Controller
             'password_confirmation' => 'required',
         ]);
 
-        // Handle validation errors
         if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            foreach ($errors as $error) {
-                $flasher->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->addError('Validation Error', $error);
-            }
-            return Redirect::back()->withErrors($validator)->withInput();
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
         if (isset($request->password) && isset($request->confirm_password)) {
             if ($request->password == $request->confirm_password) {
                 $user['password'] = $request->password;
             } else {
-                $flasher->option('position', 'top-center')->addError('Password Not Matched');
+                return $this->errorResponse('Validation failed', $validator->errors(), 422);
             }
         }
 
         try {
-            $hashedPassword = Hash::make($request->password);
-            // Create a new user
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone_no' => $request->phone_no,
-                'password' => $hashedPassword,
-                'role_id' => 2,
-            ]);
 
-            $flasher->option('position', 'top-center')->addSuccess('User added Successfully');
-            return redirect()->route('user.index')->with('message', 'User added Successfully');
+            $user = User::add($request->all());
+            return $this->successResponse('User added successfully', $user, 201);
         } catch (\Exception $e) {
-            $flasher->option('position', 'top-center')->addError('Something went wrong');
-            return redirect()->route('user.index')->with('message', 'Something went wrong');
+            return $this->errorResponse('Failed to add User', $e->getMessage());
         }
     }
 
-    public function edit($id)
+
+    public function single($id)
     {
         $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        return $this->successResponse('Sser detail get successfully', $user);
     }
 
-    public function update(Request $request, FlasherInterface $flasher, $id)
+    public function update(Request $request)
     {
-        $user = User::find($id);
-        if (!$user) {
-            $flasher->option('position', 'top-center')->addError('User not found');
-            return redirect()->route('user.index')->with('error', 'User not found');
-        }
+        $user = User::findOrFail($request->id);
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'phone_no' => 'required',
-            'password' => 'nullable|min:8|confirmed',
-            'password_confirmation' => 'nullable',
+            'id' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            foreach ($errors as $error) {
-                $flasher->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->addError('Validation Error', $error);
-            }
-            return redirect()->back()->withErrors($validator)->withInput();
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
-        if ($request->name) {
-            $user->name = $request->name;
+        try {
+            $updatedUser = User::edit($user, $request->all());
+            return $this->successResponse('User updated successfully', $updatedUser, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to update User', $e->getMessage(), 500);
         }
-        if ($request->email) {
-            $user->email = $request->email;
-        }
-        if ($request->phone_no) {
-            $user->phone_no = $request->phone_no;
-        }
-
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
-
-        $user->save();
-
-        $flasher->option('position', 'top-center')->addSuccess('User updated successfully.');
-        return redirect()->route('user.index');
     }
 
-    public function delete($id, FlasherInterface $flasher)
+    public function delete($id)
     {
-        $user = User::find($id);
+        try {
+            $user = User::find($id);
 
-        if (!$user) {
-            $flasher->option('position', 'top-center')->addError('Id not found');
-            return redirect()->route('user.index')->with('error', 'Id not found');
+            if (!$user) {
+                return $this->errorResponse('User id not found', null, 404);
+            }
+
+            $user->delete();
+            return $this->successResponse('User deleted successfully', null, 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to delete course', $e->getMessage());
         }
-        $user->delete();
-        $flasher->options([
-            'timeout' => 3000,
-            'position' => 'top-center',
-        ])->addSuccess('user deleted Successfully');
-        return redirect()->route('user.index')->with('message', 'user deleted Successfully');
     }
 }

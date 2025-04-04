@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -41,4 +43,59 @@ class User extends Authenticatable
         else
             return NULL;
     }
+
+    public static function add($user)
+    {
+        $hashedPassword = Hash::make($user['password']);
+        $new_user = new User();
+        $new_user->name = $user['name'];
+        $new_user->email = $user['email'];
+        $new_user->phone_no = $user['phone_no'];
+        $new_user->password = $hashedPassword;
+        $new_user->role_id = 2;
+        $new_user->created_by = Auth::user()->id;
+        $new_user->updated_by = Auth::user()->id;
+        $new_user->save();
+        return $new_user;
+    }
+
+    public static function edit($user, $requestData)
+    {
+        $updatedData = [];
+
+        if (isset($requestData['name']) && $requestData['name'] !== $user->name) {
+            $updatedData['name'] = $requestData['name'];
+        }
+
+        if (isset($requestData['email']) && $requestData['email'] !== $user->email) {
+            $emailExists = DB::table('users')
+                ->where('email', $requestData['email'])
+                ->where('id', '!=', $user->id)
+                ->exists();
+
+            if ($emailExists) {
+                throw new \Exception("The email {$requestData['email']} is already taken.");
+            }
+
+            $updatedData['email'] = $requestData['email'];
+        }
+
+        if (isset($requestData['phone_no']) && $requestData['phone_no'] !== $user->phone_no) {
+            $updatedData['phone_no'] = $requestData['phone_no'];
+        }
+
+        if (isset($requestData['password']) && $requestData['password'] !== null) {
+            $updatedData['password'] = Hash::make($requestData['password']);
+        }
+
+        $updatedData['updated_by'] = Auth::user()->id;
+
+        if (!empty($updatedData)) {
+            DB::table('users')->where('id', $user->id)->update($updatedData);
+        }
+
+        return User::find($user->id);
+    }
+
+
 }
