@@ -16,17 +16,22 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('surname')->nullable();
             $table->string('email')->unique();
             $table->string('nationality')->nullable();
+            $table->string('place_of_birth')->nullable();
 			$table->string('phone_no')->nullable();
             $table->date('date_of_birth')->nullable();
-			$table->tinyInteger('gender')->comment('1=male,2=female');
+			$table->string('gender')->nullable();
             $table->string('address')->nullable();
             $table->string('address2')->nullable();
             $table->string('city')->nullable();
             $table->string('county')->nullable();
             $table->string('post_code')->nullable();
 			$table->string('passport')->nullable();
+			$table->date('passport_start_date')->nullable();
+			$table->date('passport_expiry_date')->nullable();
+			$table->string('passport_status')->nullable();
 			$table->text('academic_history')->nullable();
 			$table->text('travel_history')->nullable();
 			$table->text('work_experience')->nullable();

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponseTrait;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -79,8 +78,8 @@ class UserController extends Controller
 
     public function single($id)
     {
-        $user = User::findOrFail($id);
-        return $this->successResponse('Sser detail get successfully', $user);
+        $user = User::find($id);
+        return $this->successResponse('User detail get successfully', $user);
     }
 
     public function update(Request $request)
@@ -115,7 +114,7 @@ class UserController extends Controller
             $user->delete();
             return $this->successResponse('User deleted successfully', null, 201);
         } catch (\Exception $e) {
-            return $this->errorResponse('Failed to delete course', $e->getMessage());
+            return $this->errorResponse('Failed to delete user', $e->getMessage());
         }
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Flasher\Prime\FlasherInterface;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use App\Traits\ApiResponseTrait;
 use App\Models\RecruitmentAgent;
 use App\Models\StudentDependant;
 use App\Models\StudentCourse;
@@ -13,67 +13,45 @@ use App\Models\Dependant;
 use App\Models\Student;
 use App\Models\Course;
 use App\Models\Status;
+use App\Models\User;
 use Carbon\Carbon;
-use Validator;
 use Redirect;
 
 class StudentController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    use ApiResponseTrait;
 
     public function index(Request $request)
     {
-        $studentsQuery = Student::with('dependants')
-            ->join('users as created_user', 'students.created_by', '=', 'created_user.id')
-            ->join('users as updated_user', 'students.updated_by', '=', 'updated_user.id')
-            ->select('students.*')
-            ->orderBy('students.id', 'DESC');
+        try {
+            $studentsQuery = Student::orderBy('id', 'DESC');
 
-        if ($request->id) {
-            $studentsQuery->where('id', $request->id);
-        }
-
-        $filters = [
-            'name' => 'name',
-            'email' => 'email',
-            'phone_no' => 'phone_no',
-            'phone_no' => 'phone_no',
-        ];
-
-        foreach ($filters as $requestKey => $column) {
-            if ($request->filled($requestKey)) {
-                $studentsQuery->where($column, 'like', '%' . $request->$requestKey . '%');
+            if ($request->filled('name')) {
+                $studentsQuery->where('name', 'like', '%' . $request->name . '%');
             }
+            if ($request->filled('email')) {
+                $studentsQuery->where('email', 'like', '%' . $request->email . '%');
+            }
+            if ($request->filled('phone_no')) {
+                $studentsQuery->where('phone_no', 'like', '%' . $request->phone_no . '%');
+            }
+
+            if ($request->has('pagination') && $request->pagination == 1) {
+                $perPage = $request->input('per_page', 20);
+                $users = $studentsQuery->paginate($perPage);
+            } else {
+                $users = $studentsQuery->get();
+            }
+
+            foreach ($users as $user) {
+                $user->created_by = User::userDetails($user->created_by);
+                $user->updated_by = User::userDetails($user->updated_by);
+            }
+
+            return $this->successResponse('Users data retrieved successfully', $users);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Error retrieving courses', $e->getMessage());
         }
-
-        if ($request->created_at) {
-            $studentsQuery->whereDate('students.created_at', '=', $request->created_at);
-        }
-
-        if ($request->updated_at) {
-            $studentsQuery->whereDate('students.updated_at', '=', $request->updated_at);
-        }
-
-        if ($request->created_by) {
-            $studentsQuery->where('created_user.name', 'like', '%' . $request->created_by . '%');
-        }
-
-        // Filter by updated_by name
-        if ($request->updated_by) {
-            $studentsQuery->where('updated_user.name', 'like', '%' . $request->updated_by . '%');
-        }
-
-        $students = $studentsQuery->get();
-
-        return view('students.index', compact('students'));
     }
 
     public function create($id)
@@ -97,11 +75,13 @@ class StudentController extends Controller
         return view('students.create', compact('dependants', 'selectedDependants', 'courses', 'recruitmentAgent', 'status', 'student'));
     }
 
-    public function view($id)
+    public function single($id)
     {
-        $student = Student::with('dependants')->findOrFail($id);
-
-        return view('students.view', compact('student'));
+        $student = Student::find($id);
+        if (!$student) {
+            return $this->errorResponse('Student id not found', null, 404);
+        }
+        return $this->successResponse('Student detail get successfully', $student);
     }
 
     public function add()
@@ -112,145 +92,59 @@ class StudentController extends Controller
         return view('students.add', compact('status'));
     }
 
-    public function add_student(Request $request, FlasherInterface $flasher)
+    public function add_student(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'surname' => 'required|max:255',
             'email' => 'required|unique:students,email',
             'nationality' => 'required|max:255',
+            'date_of_birth' => 'required|max:255|date_format:Y-m-d',
+            'place_of_birth' => 'required|max:255',
+            'passport_start_date' => 'required|date_format:Y-m-d',
+            'passport_expiry_date' => 'required|date_format:Y-m-d',
+            'passport_status' => 'required|max:255',
             'phone_no' => 'required',
-            'address' => 'required',
-            'gender' => 'required|in:1,2',
-            'city' => 'required',
-            'post_code' => 'required',
+            'gender' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            foreach ($errors as $error) {
-                $flasher->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->option('position', 'top-center')->addError('Validation Error', $error);
-                return Redirect::back()->withErrors($validator)->withInput();
-            }
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
         try {
-            $data['name'] = $request->name;
-            $data['email'] = $request->email;
-            $data['phone_no'] = $request->phone_no;
-            $data['date_of_birth'] = $request->date_of_birth;
-            $data['gender'] = $request->gender;
-            $data['passport'] = $request->passport;
-            $data['nationality'] = $request->nationality;
-            $data['status_id'] = $request->status_id;
-            $data['address'] = $request->address;
-            $data['address2'] = $request->address2;
-            $data['city'] = $request->city;
-            $data['address'] = $request->address;
-            $data['county'] = $request->county;
-            $data['post_code'] = $request->post_code;
-            $data['created_by'] = auth()->user()->id;
-            $data['updated_by'] = auth()->user()->id;
-            Student::create($data);
 
-            $flasher->option('position', 'top-center')->addSuccess('Student added Successfully');
-            return redirect()->route('students.index')->with('message', 'Student added Successfully');
+            $student = Student::add($request->all());
+
+            return $this->successResponse('Student added successfully', $student, 201);
         } catch (\Exception $e) {
-            $flasher->option('position', 'top-center')->addError('Something went wrong');
-            return redirect()->route('students.index')->with('message', 'Something went wrong');
+            return $this->errorResponse('Failed to add User', $e->getMessage());
         }
     }
 
 
-    public function update_student(Request $request, $id, FlasherInterface $flasher)
+    public function update_student(Request $request)
     {
-        $student = Student::find($id);
-        if (!$student) {
-            $flasher->option('position', 'top-center')->addError('Id not found');
-            return redirect()->route('students.index')->with('error', 'Id not found');
-        }
+        $student = Student::findOrFail($request->id);
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:255',
-            'email' => 'required|email',
-            'nationality' => 'required|max:255',
-            'phone_no' => 'required',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:1,2',
-            'address' => 'required',
-            'city' => 'required',
-            'post_code' => 'required',
+            'id' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
-            $errors = $validator->errors()->all();
-            foreach ($errors as $error) {
-                $flasher->options([
-                    'timeout' => 3000,
-                    'position' => 'top-center',
-                ])->option('position', 'top-center')->addError('Validation Error', $error);
-                return Redirect::back()->withErrors($validator)->withInput();
-            }
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
-
-
-        $validatedData = [];
-
-        if ($request->name) {
-            $validatedData['name'] = $request->name;
+        try {
+            $updatedUser = Student::edit($student, $request->all());
+            return $this->successResponse('User updated successfully', $updatedUser, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to update User', $e->getMessage(), 500);
         }
-        if ($request->email) {
-            $validatedData['email'] = $request->email;
-        }
-        if ($request->nationality) {
-            $validatedData['nationality'] = $request->nationality;
-        }
-        if ($request->phone_no) {
-            $validatedData['phone_no'] = $request->phone_no;
-        }
-        if ($request->date_of_birth) {
-            $validatedData['date_of_birth'] = $request->date_of_birth;
-        }
-        if ($request->gender) {
-            $validatedData['gender'] = $request->gender;
-        }
-        if ($request->status_id) {
-            $validatedData['status_id'] = $request->status_id;
-        }
-        if ($request->address) {
-            $validatedData['address'] = $request->address;
-        }
-        if ($request->address2) {
-            $validatedData['address2'] = $request->address2;
-        }
-        if ($request->city) {
-            $validatedData['city'] = $request->city;
-        }
-        if ($request->county) {
-            $validatedData['county'] = $request->county;
-        }
-        if ($request->post_code) {
-            $validatedData['post_code'] = $request->post_code;
-        }
-
-        $validatedData['updated_by'] = auth()->user()->id;
-
-        $student->update($validatedData);
-
-        if ($request->has('tab')) {
-            $flasher->option('position', 'top-center')->addSuccess('Student updated Successfully');
-            return redirect()->back()->with('message', 'Student updated Successfully');
-        }
-
-        $flasher->option('position', 'top-center')->addSuccess('Student updated Successfully');
-        return redirect()->route('students.index')->with('message', 'Student updated Successfully');
     }
 
-    public function insert(Request $request, FlasherInterface $flasher)
+    public function insert(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -493,23 +387,23 @@ class StudentController extends Controller
         return redirect()->back()->with('message', 'Student updated Successfully');
     }
 
-    public function delete($id, FlasherInterface $flasher)
+    public function delete($id)
     {
-        $student = Student::find($id);
+        try {
+            $student = Student::find($id);
 
-        if (!$student) {
-            $flasher->option('position', 'top-center')->addError('Id not found');
-            return redirect()->route('students.index')->with('error', 'Id not found');
+            if (!$student) {
+                return $this->errorResponse('Student id not found', null, 404);
+            }
+
+            $student->delete();
+            return $this->successResponse('Student deleted successfully', null, 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to delete student', $e->getMessage());
         }
-        $student->delete();
-        $flasher->options([
-            'timeout' => 3000,
-            'position' => 'top-center',
-        ])->addSuccess('Student deleted Successfully');
-        return redirect()->route('students.index')->with('message', 'Student deleted Successfully');
     }
 
-    public function mediaDelete($id, FlasherInterface $flasher)
+    public function mediaDelete($id)
     {
 
         $student = StudentMedia::find($id);

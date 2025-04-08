@@ -61,7 +61,10 @@ class StatusController extends Controller
 
     public function single($id)
     {
-        $status = Status::findOrFail($id);
+        $status = Status::find($id);
+        if (!$status) {
+            return $this->errorResponse('Status id not found', null, 404);
+        }
         return $this->successResponse('Status detail get successfully', $status);
     }
 

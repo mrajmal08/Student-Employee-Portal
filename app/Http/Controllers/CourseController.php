@@ -63,7 +63,10 @@ class CourseController extends Controller
 
     public function single($id)
     {
-        $course = Course::findOrFail($id);
+        $course = Course::find($id);
+        if (!$course) {
+            return $this->errorResponse('Course id not found', null, 404);
+            }
         return $this->successResponse('Course detail get successfully', $course);
     }
 
