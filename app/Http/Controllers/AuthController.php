@@ -16,6 +16,25 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'User not found',
+                'token' => null,
+                'result' => null
+            ], 404);
+        }
+
+        if ($user->status == 0) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Sorry, user status is not active',
+                'token' => null,
+                'result' => null
+            ], 403);
+        }
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
@@ -29,6 +48,7 @@ class AuthController extends Controller
             ], 200);
         }
 
+        // Invalid credentials
         return response()->json([
             'status' => false,
             'message' => 'Invalid email or password',
@@ -36,6 +56,7 @@ class AuthController extends Controller
             'result' => null
         ], 401);
     }
+
 
     /**
      * Get the authenticated user.

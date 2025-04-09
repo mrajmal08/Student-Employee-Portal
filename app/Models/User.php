@@ -53,6 +53,7 @@ class User extends Authenticatable
         $new_user->phone_no = $user['phone_no'];
         $new_user->password = $hashedPassword;
         $new_user->role_id = 2;
+        $new_user->status = 1;
         $new_user->created_by = Auth::user()->id;
         $new_user->updated_by = Auth::user()->id;
         $new_user->save();
@@ -82,6 +83,10 @@ class User extends Authenticatable
 
         if (isset($requestData['phone_no']) && $requestData['phone_no'] !== $user->phone_no) {
             $updatedData['phone_no'] = $requestData['phone_no'];
+        }
+
+        if (isset($requestData['status']) && $requestData['status'] !== $user->status) {
+            $updatedData['status'] = $requestData['status'];
         }
 
         if (isset($requestData['password']) && $requestData['password'] !== null) {

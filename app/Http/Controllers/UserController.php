@@ -26,6 +26,10 @@ class UserController extends Controller
                 $userQuery->where('phone_no', 'like', '%' . $request->phone_no . '%');
             }
 
+            if ($request->filled('status')) {
+                $userQuery->where('status',  $request->status);
+            }
+
             if ($request->has('pagination') && $request->pagination == 1) {
                 $perPage = $request->input('per_page', 20);
                 $users = $userQuery->paginate($perPage);
