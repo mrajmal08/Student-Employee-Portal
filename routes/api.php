@@ -44,6 +44,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/update', [App\Http\Controllers\UserController::class, 'update']);
     Route::get('/user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete']);
 
+    //Sessions routes
+    Route::get('/sessions', [App\Http\Controllers\SessionController::class, 'index']);
+    Route::post('/session/insert', [App\Http\Controllers\SessionController::class, 'insert']);
+    Route::get('/session/single/{id}', [App\Http\Controllers\SessionController::class, 'single']);
+    Route::post('/session/update', [App\Http\Controllers\SessionController::class, 'update']);
+    Route::get('/session/delete/{id}', [App\Http\Controllers\SessionController::class, 'delete']);
+
     Route::get('/students', [App\Http\Controllers\StudentController::class, 'index']);
     Route::post('/student/add_student', [App\Http\Controllers\StudentController::class, 'add_student']);
     Route::get('/student/create/{id}', [App\Http\Controllers\StudentController::class, 'create']);
