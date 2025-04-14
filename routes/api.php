@@ -53,14 +53,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/students', [App\Http\Controllers\StudentController::class, 'index']);
     Route::post('/student/add_student', [App\Http\Controllers\StudentController::class, 'add_student']);
-    Route::get('/student/create/{id}', [App\Http\Controllers\StudentController::class, 'create']);
-    Route::get('/student/add', [App\Http\Controllers\StudentController::class, 'add']);
-    Route::post('/student/update_student/', [App\Http\Controllers\StudentController::class, 'update_student']);
-    Route::post('/student/insert', [App\Http\Controllers\StudentController::class, 'insert']);
     Route::get('/student/single/{id}', [App\Http\Controllers\StudentController::class, 'single']);
-    Route::get('/student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit']);
-    Route::post('/student/update/{id}', [App\Http\Controllers\StudentController::class, 'update']);
+    Route::post('/student/update_student/', [App\Http\Controllers\StudentController::class, 'update_student']);
     Route::get('/student/delete/{id}', [App\Http\Controllers\StudentController::class, 'delete']);
-    Route::get('/student/media/delete/{id}', [App\Http\Controllers\StudentController::class, 'mediaDelete']);
+    // Route::get('/student/create/{id}', [App\Http\Controllers\StudentController::class, 'create']);
+    // Route::get('/student/add', [App\Http\Controllers\StudentController::class, 'add']);
+    // Route::post('/student/insert', [App\Http\Controllers\StudentController::class, 'insert']);
+    // Route::get('/student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit']);
+    // Route::post('/student/update/{id}', [App\Http\Controllers\StudentController::class, 'update']);
+    // Route::get('/student/media/delete/{id}', [App\Http\Controllers\StudentController::class, 'mediaDelete']);
+
+
+    //Student Case routes
+    Route::get('/case/add', [App\Http\Controllers\SessionController::class, 'add']);
 
 });
