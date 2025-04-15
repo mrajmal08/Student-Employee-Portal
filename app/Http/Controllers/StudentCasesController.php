@@ -6,14 +6,48 @@ use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\StudentCase;
+use App\Models\Student;
+use App\Models\Session;
+use App\Models\Course;
+use App\Models\User;
 
 class StudentCasesController extends Controller
 {
     use ApiResponseTrait;
 
+    public function index(Request $request)
+    {
+        $query = StudentCase::with(['student', 'course', 'session', 'agent']);
+
+        if ($request->filled('student_id')) {
+            $query->where('student_id', $request->student_id);
+        }
+
+        if ($request->filled('course_id')) {
+            $query->where('course_id', $request->course_id);
+        }
+
+        if ($request->filled('session_id')) {
+            $query->where('session_id', $request->session_id);
+        }
+
+        if ($request->filled('agent_id')) {
+            $query->where('agent_id', $request->agent_id);
+        }
+
+        if ($request->has('pagination') && $request->pagination == 1) {
+            $perPage = $request->input('per_page', 20);
+            $search_data = $query->paginate($perPage);
+        } else {
+            $search_data = $query->get();
+        }
+
+        return $this->successResponse('Case List', $search_data, 201);
+    }
+
+
     public function add(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'course_id' => 'exists:courses,id,deleted_at,NULL',
             'session_id' => 'exists:sessions,id,deleted_at,NULL',
@@ -27,7 +61,6 @@ class StudentCasesController extends Controller
         try {
 
             $student = StudentCase::add($request->all());
-
             return $this->successResponse('Case added successfully', $student, 201);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to add case', $e->getMessage());

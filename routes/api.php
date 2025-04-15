@@ -65,6 +65,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     //Student Case routes
-    Route::get('/case/add', [App\Http\Controllers\SessionController::class, 'add']);
+    Route::get('/case/get', [App\Http\Controllers\StudentCasesController::class, 'index']);
+    Route::post('/case/add', [App\Http\Controllers\StudentCasesController::class, 'add']);
 
 });
