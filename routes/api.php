@@ -51,6 +51,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/session/update', [App\Http\Controllers\SessionController::class, 'update']);
     Route::get('/session/delete/{id}', [App\Http\Controllers\SessionController::class, 'delete']);
 
+    //Department routes
+    Route::get('/departments', [App\Http\Controllers\DepartmentController::class, 'index']);
+    Route::post('/department/insert', [App\Http\Controllers\DepartmentController::class, 'insert']);
+    Route::get('/department/single/{id}', [App\Http\Controllers\DepartmentController::class, 'single']);
+    Route::post('/department/update', [App\Http\Controllers\DepartmentController::class, 'update']);
+    Route::get('/department/delete/{id}', [App\Http\Controllers\DepartmentController::class, 'delete']);
+
+    //Designation routes
+    Route::get('/designations', [App\Http\Controllers\DesignationController::class, 'index']);
+    Route::post('/designation/insert', [App\Http\Controllers\DesignationController::class, 'insert']);
+    Route::get('/designation/single/{id}', [App\Http\Controllers\DesignationController::class, 'single']);
+    Route::post('/designation/update', [App\Http\Controllers\DesignationController::class, 'update']);
+    Route::get('/designation/delete/{id}', [App\Http\Controllers\DesignationController::class, 'delete']);
+
+
     Route::get('/students', [App\Http\Controllers\StudentController::class, 'index']);
     Route::post('/student/add_student', [App\Http\Controllers\StudentController::class, 'add_student']);
     Route::get('/student/single/{id}', [App\Http\Controllers\StudentController::class, 'single']);
