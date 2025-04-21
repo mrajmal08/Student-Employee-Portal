@@ -44,6 +44,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/update', [App\Http\Controllers\UserController::class, 'update']);
     Route::get('/user/delete/{id}', [App\Http\Controllers\UserController::class, 'delete']);
 
+    Route::get('/roles', [App\Http\Controllers\UserController::class, 'get_all_roles']);
+
+
     //Sessions routes
     Route::get('/sessions', [App\Http\Controllers\SessionController::class, 'index']);
     Route::post('/session/insert', [App\Http\Controllers\SessionController::class, 'insert']);

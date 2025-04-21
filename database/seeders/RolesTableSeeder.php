@@ -16,16 +16,50 @@ class RolesTableSeeder extends Seeder
     {
         DB::table('roles')->insert([
             [
-                'name' => 'Admin',
+                'name' => 'Supper Admin',
                 'created_at' => NOW(),
                 'updated_at' => NOW(),
             ],
             [
-                'name' => 'Agent',
+                'name' => 'Recruitment Agent',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ],
+            [
+                'name' => 'Head of Sale',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ],
+            [
+                'name' => 'Sales Support',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ],
+            [
+                'name' => 'Head of Admissions',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ],
+            [
+                'name' => 'Admin Support',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ],
+            [
+                'name' => 'Compliance Support',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ],
+            [
+                'name' => 'Head Of Registry',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ],
+            [
+                'name' => 'Registry Support',
                 'created_at' => NOW(),
                 'updated_at' => NOW(),
             ],
         ]);
-
     }
 }

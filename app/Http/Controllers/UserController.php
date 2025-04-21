@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
@@ -14,7 +15,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         try {
-            $userQuery = User::orderBy('id', 'DESC');
+            $userQuery = User::with(['role', 'department', 'designation'])->orderBy('id', 'DESC');
 
             if ($request->filled('name')) {
                 $userQuery->where('name', 'like', '%' . $request->name . '%');
@@ -25,9 +26,17 @@ class UserController extends Controller
             if ($request->filled('phone_no')) {
                 $userQuery->where('phone_no', 'like', '%' . $request->phone_no . '%');
             }
-
             if ($request->filled('status')) {
-                $userQuery->where('status',  $request->status);
+                $userQuery->where('status', $request->status);
+            }
+            if ($request->filled('role_id')) {
+                $userQuery->where('role_id', $request->role_id);
+            }
+            if ($request->filled('department_id')) {
+                $userQuery->where('department_id', $request->department_id);
+            }
+            if ($request->filled('designation_id')) {
+                $userQuery->where('designation_id', $request->designation_id);
             }
 
             if ($request->has('pagination') && $request->pagination == 1) {
@@ -44,9 +53,10 @@ class UserController extends Controller
 
             return $this->successResponse('Users data retrieved successfully', $users);
         } catch (\Exception $e) {
-            return $this->errorResponse('Error retrieving courses', $e->getMessage());
+            return $this->errorResponse('Error retrieving users', $e->getMessage());
         }
     }
+
 
     public function insert(Request $request)
     {
@@ -56,6 +66,10 @@ class UserController extends Controller
             'phone_no' => 'required',
             'password' => 'required|min:8|confirmed',
             'password_confirmation' => 'required',
+            'role_id' => 'required',
+            'department_id' => 'required',
+            'designation_id' => 'required',
+            'session_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -119,6 +133,17 @@ class UserController extends Controller
             return $this->successResponse('User deleted successfully', null, 201);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to delete user', $e->getMessage());
+        }
+    }
+
+    public function get_all_roles()
+    {
+        try {
+            
+            $roles = Role::orderBy('id', 'DESC')->get();
+            return $this->successResponse('Roles data retrieved successfully', $roles);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Error retrieving Roles', $e->getMessage());
         }
     }
 }
