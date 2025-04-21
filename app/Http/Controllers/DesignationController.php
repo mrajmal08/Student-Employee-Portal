@@ -70,7 +70,7 @@ class DesignationController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required|exists:sessions,id',
+            'id' => 'required|exists:designations,id',
             'name' => 'required|max:255',
         ]);
 
