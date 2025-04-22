@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         try {
-            $userQuery = User::with(['role', 'department', 'designation'])->orderBy('id', 'DESC');
+            $userQuery = User::with(['role', 'department', 'designation', 'session'])->orderBy('id', 'DESC');
 
             if ($request->filled('name')) {
                 $userQuery->where('name', 'like', '%' . $request->name . '%');
@@ -37,6 +37,9 @@ class UserController extends Controller
             }
             if ($request->filled('designation_id')) {
                 $userQuery->where('designation_id', $request->designation_id);
+            }
+            if ($request->filled('session_id')) {
+                $userQuery->where('session_id', $request->session_id);
             }
 
             if ($request->has('pagination') && $request->pagination == 1) {
@@ -139,7 +142,7 @@ class UserController extends Controller
     public function get_all_roles()
     {
         try {
-            
+
             $roles = Role::orderBy('id', 'DESC')->get();
             return $this->successResponse('Roles data retrieved successfully', $roles);
         } catch (\Exception $e) {

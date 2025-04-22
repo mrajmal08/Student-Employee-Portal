@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->belongsTo(Designation::class);
     }
 
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
+    }
+
     public static function userDetails($id = NULL)
     {
         if(!is_null($id))
