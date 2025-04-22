@@ -107,6 +107,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($request->id);
 
+        if ($user->id == 1){
+            return $this->errorResponse('Sorry; Super Admin can not be updated', null, 404);
+        }
+
         $validator = Validator::make($request->all(), [
             'id' => 'required|max:255',
         ]);
@@ -127,6 +131,10 @@ class UserController extends Controller
     {
         try {
             $user = User::find($id);
+
+            if ($user->id == 1){
+                return $this->errorResponse('Sorry; Super Admin can not be deleted', null, 404);
+            }
 
             if (!$user) {
                 return $this->errorResponse('User id not found', null, 404);
