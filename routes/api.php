@@ -68,11 +68,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/designation/update', [App\Http\Controllers\DesignationController::class, 'update']);
     Route::get('/designation/delete/{id}', [App\Http\Controllers\DesignationController::class, 'delete']);
 
-
+    //Student routes
     Route::get('/students', [App\Http\Controllers\StudentController::class, 'index']);
-    Route::post('/student/add_student', [App\Http\Controllers\StudentController::class, 'add_student']);
+    Route::post('/student/insert', [App\Http\Controllers\StudentController::class, 'insert']);
     Route::get('/student/single/{id}', [App\Http\Controllers\StudentController::class, 'single']);
-    Route::post('/student/update_student/', [App\Http\Controllers\StudentController::class, 'update_student']);
+    Route::post('/student/update', [App\Http\Controllers\StudentController::class, 'update']);
     Route::get('/student/delete/{id}', [App\Http\Controllers\StudentController::class, 'delete']);
     // Route::get('/student/create/{id}', [App\Http\Controllers\StudentController::class, 'create']);
     // Route::get('/student/add', [App\Http\Controllers\StudentController::class, 'add']);

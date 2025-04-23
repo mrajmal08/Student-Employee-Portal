@@ -105,13 +105,62 @@ class Student extends Model
         if (isset($requestData['passport_status']) && $requestData['passport_status'] !== $student->passport_status) {
             $updatedData['passport_status'] = $requestData['passport_status'];
         }
-
+        if (isset($requestData['english_test']) && $requestData['english_test'] !== $student->english_test) {
+            $updatedData['english_test'] = $requestData['english_test'];
+        }
+        if (isset($requestData['english_test_reason']) && $requestData['english_test_reason'] !== $student->english_test_reason) {
+            $updatedData['english_test_reason'] = $requestData['english_test_reason'];
+        }
+        if (isset($requestData['last_course']) && $requestData['last_course'] !== $student->last_course) {
+            $updatedData['last_course'] = $requestData['last_course'];
+        }
+        if (isset($requestData['last_course_completion_year']) && $requestData['last_course_completion_year'] !== $student->last_course_completion_year) {
+            $updatedData['last_course_completion_year'] = $requestData['last_course_completion_year'];
+        }
+        if (isset($requestData['dependant']) && $requestData['dependant'] !== $student->dependant) {
+            $updatedData['dependant'] = $requestData['dependant'];
+        }
+        if (isset($requestData['dependant_no']) && $requestData['dependant_no'] !== $student->dependant_no) {
+            $updatedData['dependant_no'] = $requestData['dependant_no'];
+        }
+        if (isset($requestData['dependant_financial_info']) && $requestData['dependant_financial_info'] !== $student->dependant_financial_info) {
+            $updatedData['dependant_financial_info'] = $requestData['dependant_financial_info'];
+        }
+        if (isset($requestData['flag_for_compliance']) && $requestData['flag_for_compliance'] !== $student->flag_for_compliance) {
+            $updatedData['flag_for_compliance'] = $requestData['flag_for_compliance'];
+        }
+        if (isset($requestData['travel_outside']) && $requestData['travel_outside'] !== $student->travel_outside) {
+            $updatedData['travel_outside'] = $requestData['travel_outside'];
+        }
+        if (isset($requestData['travel_outside_no']) && $requestData['travel_outside_no'] !== $student->travel_outside_no) {
+            $updatedData['travel_outside_no'] = $requestData['travel_outside_no'];
+        }
+        if (isset($requestData['travel_uk']) && $requestData['travel_uk'] !== $student->travel_uk) {
+            $updatedData['travel_uk'] = $requestData['travel_uk'];
+        }
+        if (isset($requestData['travel_uk_no']) && $requestData['travel_uk_no'] !== $student->travel_uk_no) {
+            $updatedData['travel_uk_no'] = $requestData['travel_uk_no'];
+        }
+        if (isset($requestData['previous_study_uk']) && $requestData['previous_study_uk'] !== $student->previous_study_uk) {
+            $updatedData['previous_study_uk'] = $requestData['previous_study_uk'];
+        }
+        if (isset($requestData['receive_student_visa']) && $requestData['receive_student_visa'] !== $student->receive_student_visa) {
+            $updatedData['receive_student_visa'] = $requestData['receive_student_visa'];
+        }
+        if (isset($requestData['refusal_from_uk']) && $requestData['refusal_from_uk'] !== $student->refusal_from_uk) {
+            $updatedData['refusal_from_uk'] = $requestData['refusal_from_uk'];
+        }
+        if (isset($requestData['course_level_in_uk']) && $requestData['course_level_in_uk'] !== $student->course_level_in_uk) {
+            $updatedData['course_level_in_uk'] = $requestData['course_level_in_uk'];
+        }
+        if (isset($requestData['refusal_from_uk']) && $requestData['refusal_from_uk'] !== $student->refusal_from_uk) {
+            $updatedData['refusal_from_uk'] = $requestData['refusal_from_uk'];
+        }
         $updatedData['updated_by'] = Auth::user()->id;
 
         if (!empty($updatedData)) {
             DB::table('students')->where('id', $student->id)->update($updatedData);
         }
-
         return Student::find($student->id);
     }
 }

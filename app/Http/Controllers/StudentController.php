@@ -92,7 +92,7 @@ class StudentController extends Controller
         return view('students.add', compact('status'));
     }
 
-    public function add_student(Request $request)
+    public function insert(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
@@ -124,7 +124,7 @@ class StudentController extends Controller
     }
 
 
-    public function update_student(Request $request)
+    public function update(Request $request)
     {
         $student = Student::findOrFail($request->id);
 
@@ -144,7 +144,7 @@ class StudentController extends Controller
         }
     }
 
-    public function insert(Request $request)
+    public function insert_old(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
@@ -261,7 +261,7 @@ class StudentController extends Controller
         return view('students.edit', compact('student', 'courses', 'dependants', 'selectedCourses', 'selectedDependants', 'recruitmentAgent', 'status'));
     }
 
-    public function update(Request $request, $id, FlasherInterface $flasher)
+    public function update_old(Request $request, $id, FlasherInterface $flasher)
     {
 
         if ($request->documents_type) {
