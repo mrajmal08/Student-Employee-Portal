@@ -6,10 +6,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\StudentCase;
-use App\Models\Student;
-use App\Models\Session;
-use App\Models\Course;
-use App\Models\User;
 
 class StudentCasesController extends Controller
 {
@@ -66,4 +62,23 @@ class StudentCasesController extends Controller
             return $this->errorResponse('Failed to add case', $e->getMessage());
         }
     }
+
+    public function single($id)
+    {
+        try {
+            $cases = StudentCase::with(['student', 'course', 'session', 'agent'])
+                ->where('student_id', $id)
+                ->get();
+
+            if ($cases->isEmpty()) {
+                return $this->errorResponse('There are no cases related to this patient.', null, 404);
+            }
+
+            return $this->successResponse('Cases retrieved successfully.', $cases, 200);
+
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to retrieve cases.', $e->getMessage());
+        }
+    }
+
 }
