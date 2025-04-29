@@ -42,7 +42,7 @@ class StudentCasesController extends Controller
     }
 
 
-    public function add(Request $request)
+    public function insert(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'course_id' => 'exists:courses,id,deleted_at,NULL',
