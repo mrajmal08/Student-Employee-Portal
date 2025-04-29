@@ -32,6 +32,15 @@ class CreateUsersTable extends Migration
             $table->date('end_date')->nullable();
             $table->string('nationality')->nullable();
             $table->date('date_of_birth')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('address')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('work_phone_no')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('location')->nullable();
+            $table->date('hiring_date')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->date('deleted_at')->nullable();

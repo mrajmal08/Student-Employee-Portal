@@ -70,7 +70,6 @@ class User extends Authenticatable
         $new_user = new User();
         $new_user->name = $user['name'];
         $new_user->email = $user['email'];
-        $new_user->phone_no = $user['phone_no'];
         $new_user->password = $hashedPassword;
         $new_user->department_id = $user['department_id'];
         $new_user->designation_id = $user['designation_id'];
@@ -82,6 +81,15 @@ class User extends Authenticatable
         $new_user->end_date = $user['end_date'];
         $new_user->nationality = $user['nationality'];
         $new_user->date_of_birth = $user['date_of_birth'];
+        $new_user->gender = $user['gender'];
+        $new_user->address = $user['address'];
+        $new_user->zip_code = $user['zip_code'];
+        $new_user->city = $user['city'];
+        $new_user->state = $user['state'];
+        $new_user->work_phone_no = $user['work_phone_no'];
+        $new_user->phone = $user['phone'];
+        $new_user->location = $user['location'];
+        $new_user->hiring_date = $user['hiring_date'];
         $new_user->role_id = 2;
         $new_user->status = 1;
         $new_user->created_by = Auth::user()->id;
@@ -109,10 +117,6 @@ class User extends Authenticatable
             }
 
             $updatedData['email'] = $requestData['email'];
-        }
-
-        if (isset($requestData['phone_no']) && $requestData['phone_no'] !== $user->phone_no) {
-            $updatedData['phone_no'] = $requestData['phone_no'];
         }
 
         if (isset($requestData['status']) && $requestData['status'] !== $user->status) {
@@ -152,6 +156,33 @@ class User extends Authenticatable
         }
         if (isset($requestData['date_of_birth']) && $requestData['date_of_birth'] !== null) {
             $updatedData['date_of_birth'] = $requestData['date_of_birth'];
+        }
+        if (isset($requestData['gender']) && $requestData['gender'] !== null) {
+            $updatedData['gender'] = $requestData['gender'];
+        }
+        if (isset($requestData['address']) && $requestData['address'] !== null) {
+            $updatedData['address'] = $requestData['address'];
+        }
+        if (isset($requestData['zip_code']) && $requestData['zip_code'] !== null) {
+            $updatedData['zip_code'] = $requestData['zip_code'];
+        }
+        if (isset($requestData['city']) && $requestData['city'] !== null) {
+            $updatedData['city'] = $requestData['city'];
+        }
+        if (isset($requestData['state']) && $requestData['state'] !== null) {
+            $updatedData['state'] = $requestData['state'];
+        }
+        if (isset($requestData['work_phone_no']) && $requestData['work_phone_no'] !== null) {
+            $updatedData['work_phone_no'] = $requestData['work_phone_no'];
+        }
+        if (isset($requestData['phone']) && $requestData['phone'] !== null) {
+            $updatedData['phone'] = $requestData['phone'];
+        }
+        if (isset($requestData['location']) && $requestData['location'] !== null) {
+            $updatedData['location'] = $requestData['location'];
+        }
+        if (isset($requestData['hiring_date']) && $requestData['hiring_date'] !== null) {
+            $updatedData['hiring_date'] = $requestData['hiring_date'];
         }
 
         $updatedData['updated_by'] = Auth::user()->id;
