@@ -159,8 +159,16 @@ class Student extends Model
         $updatedData['updated_by'] = Auth::user()->id;
 
         if (!empty($updatedData)) {
-            DB::table('students')->where('id', $student->id)->update($updatedData);
+          $student =  DB::table('students')->where('id', $student->id)->update($updatedData);
         }
+
+        if (isset($requestData['case_id']) && $requestData['case_id'] !== null) {
+            $student =  DB::table('student_cases')->where('id', $requestData['case_id'])->update([
+                'student_id' => $student->id
+            ]);
+
+        }
+
         return Student::find($student->id);
     }
 }

@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="media user-info-case title-bar mt-3 d-flex"><img alt="patient-profile" src="https://nasir.ovadadme.org/assets/images/avatar.jpg" class="user-img">
+                <div class="media user-info-case title-bar mt-3 d-flex"><img alt="student-profile" src="https://nasir.ovadadme.org/assets/images/avatar.jpg" class="user-img">
                     <div class="media-body">
                         <div class="row">
                             <div class="col-md-12">

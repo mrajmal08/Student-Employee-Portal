@@ -71,7 +71,7 @@ class StudentCasesController extends Controller
                 ->get();
 
             if ($cases->isEmpty()) {
-                return $this->errorResponse('There are no cases related to this patient.', null, 404);
+                return $this->errorResponse('There are no cases related to this student.', null, 404);
             }
 
             return $this->successResponse('Cases retrieved successfully.', $cases, 200);
@@ -81,4 +81,21 @@ class StudentCasesController extends Controller
         }
     }
 
+    public function update(Request $request)
+    {
+
+        $case = StudentCase::find($request->case_id);
+        
+        if (!$case) {
+            return $this->errorResponse('Case id not found', null, 404);
+        }
+
+        try {
+            $updatedCase = StudentCase::edit($case, $request->all());
+            return $this->successResponse('Case updated successfully', $updatedCase, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to update Case', $e->getMessage(), 500);
+        }
+
+    }
 }

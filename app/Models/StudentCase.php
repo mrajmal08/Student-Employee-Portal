@@ -45,4 +45,28 @@ class StudentCase extends Model
         $student_case->save();
         return $student_case;
     }
+
+
+    public static function edit($case, $requestData)
+    {
+        $updatedData = [];
+
+        if (isset($requestData['course_id']) && $requestData['course_id'] !== $case->course_id) {
+            $updatedData['course_id'] = $requestData['course_id'];
+        }
+        if (isset($requestData['session_id']) && $requestData['session_id'] !== $case->session_id) {
+            $updatedData['session_id'] = $requestData['session_id'];
+        }
+        if (isset($requestData['agent_id']) && $requestData['agent_id'] !== $case->agent_id) {
+            $updatedData['agent_id'] = $requestData['agent_id'];
+        }
+
+        $updatedData['updated_by'] = Auth::user()->id;
+
+        if (!empty($updatedData)) {
+            DB::table('student_cases')->where('id', $case->id)->update($updatedData);
+        }
+
+        return User::find($case->id);
+    }
 }
