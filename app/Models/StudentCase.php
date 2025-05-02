@@ -60,6 +60,9 @@ class StudentCase extends Model
         if (isset($requestData['agent_id']) && $requestData['agent_id'] !== $case->agent_id) {
             $updatedData['agent_id'] = $requestData['agent_id'];
         }
+        if (isset($requestData['student_id']) && $requestData['student_id'] !== $case->student_id) {
+            $updatedData['student_id'] = $requestData['student_id'];
+        }
 
         $updatedData['updated_by'] = Auth::user()->id;
 
