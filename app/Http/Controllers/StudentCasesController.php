@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\StudentCase;
+use App\Models\User;
 
 class StudentCasesController extends Controller
 {
@@ -36,6 +37,11 @@ class StudentCasesController extends Controller
             $search_data = $query->paginate($perPage);
         } else {
             $search_data = $query->get();
+        }
+
+        foreach ($search_data as $data) {
+            $data->created_by = User::userDetails($data->created_by);
+            $data->updated_by = User::userDetails($data->updated_by);
         }
 
         return $this->successResponse('Case List', $search_data, 201);
@@ -85,7 +91,7 @@ class StudentCasesController extends Controller
     {
 
         $case = StudentCase::find($request->case_id);
-        
+
         if (!$case) {
             return $this->errorResponse('Case id not found', null, 404);
         }
