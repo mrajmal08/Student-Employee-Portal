@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use App\Models\RecruitmentAgent;
 use App\Models\StudentDependant;
@@ -138,6 +139,30 @@ class StudentController extends Controller
 
         try {
             $updatedUser = Student::edit($student, $request->all());
+
+            if ($updatedUser) {
+                $timestamp = Carbon::now()->timestamp;
+                $documents = ['financial_maintenance', 'visa_document', 'visa_document2'];
+
+                foreach ($documents as $doc) {
+                    if ($request->hasFile($doc)) {
+                        foreach ($request->file($doc) as $file) {
+                            $extension = $file->getClientOriginalExtension();
+                            $filename = $doc . '_' . rand(9999, 2367) . '_' . $timestamp . '.' . $extension;
+                            $file->move(public_path('assets/studentFiles'), $filename);
+
+                            DB::table('case_media')->insert([
+                                'case_id' => $request->case_id,
+                                'media_category_id' => 1,
+                                'file_path' => 'assets/studentFiles/' . $filename,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ]);
+                        }
+                    }
+                }
+            }
+
             return $this->successResponse('User updated successfully', $updatedUser, 200);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to update User', $e->getMessage(), 500);
