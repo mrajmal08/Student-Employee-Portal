@@ -163,9 +163,9 @@ class StudentController extends Controller
                 }
             }
 
-            return $this->successResponse('User updated successfully', $updatedUser, 200);
+            return $this->successResponse('Student updated successfully', $updatedUser, 200);
         } catch (\Exception $e) {
-            return $this->errorResponse('Failed to update User', $e->getMessage(), 500);
+            return $this->errorResponse('Failed to update Student', $e->getMessage(), 500);
         }
     }
 
