@@ -49,9 +49,9 @@ class StudentController extends Controller
                 $user->updated_by = User::userDetails($user->updated_by);
             }
 
-            return $this->successResponse('Users data retrieved successfully', $users);
+            return $this->successResponse('Student data retrieved successfully', $users);
         } catch (\Exception $e) {
-            return $this->errorResponse('Error retrieving courses', $e->getMessage());
+            return $this->errorResponse('Error retrieving student', $e->getMessage());
         }
     }
 

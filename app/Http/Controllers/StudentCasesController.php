@@ -14,7 +14,7 @@ class StudentCasesController extends Controller
 
     public function index(Request $request)
     {
-        $query = StudentCase::with(['student', 'course', 'session', 'agent']);
+        $query = StudentCase::with(['student', 'course', 'session', 'agent'])->orderBy('id', 'DESC');
 
         if ($request->filled('student_id')) {
             $query->where('student_id', $request->student_id);
