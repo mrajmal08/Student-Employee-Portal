@@ -16,6 +16,7 @@ class MediaCategoriesSeeder extends Seeder
     {
         DB::table('media_categories')->insert([
             ['name' => 'general', 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'interview', 'created_at' => now(), 'updated_at' => now()],
         ]);
     }
 }

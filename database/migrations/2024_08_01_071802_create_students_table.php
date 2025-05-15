@@ -41,9 +41,9 @@ class CreateStudentsTable extends Migration
             $table->bigInteger('dependant_financial_info')->nullable();
             $table->bigInteger('flag_for_compliance')->nullable();
             $table->bigInteger('travel_outside')->nullable();
-            $table->bigInteger('travel_outside_no')->nullable();
+            $table->string('travel_outside_no')->nullable();
             $table->bigInteger('travel_uk')->nullable();
-            $table->bigInteger('travel_uk_no')->nullable();
+            $table->string('travel_uk_no')->nullable();
             $table->bigInteger('previous_study_uk')->nullable();
             $table->bigInteger('receive_student_visa')->nullable();
             $table->bigInteger('refusal_from_uk')->nullable();

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\Interview;
 use App\Models\User;
+use Carbon\Carbon;
 
 class InterviewController extends Controller
 {
@@ -63,6 +65,53 @@ class InterviewController extends Controller
             return $this->successResponse('Interview added successfully', $interview, 201);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to add interview', $e->getMessage());
+        }
+    }
+
+    public function update(Request $request)
+    {
+        $interview = Interview::findOrFail($request->id);
+
+        try {
+            $updatedUser = Interview::edit($interview, $request->all());
+
+            if ($updatedUser) {
+                $files = ['sample_questions'];
+                $timestamp = Carbon::now()->timestamp;
+                $fileUploaded = false;
+
+                foreach ($files as $doc) {
+                    if ($request->hasFile($doc)) {
+                        $file = $request->file($doc);
+                        $extension = $file->getClientOriginalExtension();
+                        $filename = $doc . '_' . rand(2367, 9999) . '_' . $timestamp . '.' . $extension;
+
+                        $file->move(public_path('assets/interviewFiles'), $filename);
+
+                        // Insert into case_media table
+                        DB::table('case_media')->insert([
+                            'case_id' => $request->case_id,
+                            'media_category_id' => 2,
+                            'file_path' => 'assets/interviewFiles/' . $filename,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+
+                        $fileUploaded = true;
+                    }
+                }
+
+                if ($fileUploaded) {
+                    DB::table('interviews')->where('id', $request->id)->update([
+                        'status_id' => 3,
+                        'updated_at' => now(),
+                    ]);
+                }
+            }
+
+            return $this->successResponse('Student updated successfully', $updatedUser, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to update Student', $e->getMessage(), 500);
         }
     }
 
