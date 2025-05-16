@@ -76,9 +76,8 @@ class InterviewController extends Controller
             $updatedUser = Interview::edit($interview, $request->all());
 
             if ($updatedUser) {
-                $files = ['sample_questions'];
+                $files = ['sample_questions', 'compliance_sample_questions'];
                 $timestamp = Carbon::now()->timestamp;
-                $fileUploaded = false;
 
                 foreach ($files as $doc) {
                     if ($request->hasFile($doc)) {
@@ -96,23 +95,12 @@ class InterviewController extends Controller
                             'created_at' => now(),
                             'updated_at' => now(),
                         ]);
-
-                        $fileUploaded = true;
                     }
                 }
-
-                if ($fileUploaded) {
-                    DB::table('interviews')->where('id', $request->id)->update([
-                        'status_id' => 3,
-                        'updated_at' => now(),
-                    ]);
-                }
             }
-
             return $this->successResponse('Student updated successfully', $updatedUser, 200);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to update Student', $e->getMessage(), 500);
         }
     }
-
 }

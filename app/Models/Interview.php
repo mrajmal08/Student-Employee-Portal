@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 class Interview extends Model
 {
     use HasFactory, SoftDeletes;
@@ -36,17 +37,47 @@ class Interview extends Model
 
         if (isset($requestData['interviewer_name']) && $requestData['interviewer_name'] !== $interview->interviewer_name) {
             $updatedData['interviewer_name'] = $requestData['interviewer_name'];
+            $updatedData['status_id'] = 2;
         }
 
         if (isset($requestData['interview_date']) && $requestData['interview_date'] !== $interview->interview_date) {
             $updatedData['interview_date'] = $requestData['interview_date'];
+            $updatedData['status_id'] = 2;
         }
+
+        if (isset($requestData['sample_questions']) && $requestData['sample_questions'] !== $interview->sample_questions) {
+            $updatedData['status_id'] = 3;
+        }
+
+        if (isset($requestData['compliance_referral_date']) && $requestData['compliance_referral_date'] !== $interview->compliance_referral_date) {
+            $updatedData['compliance_referral_date'] = $requestData['compliance_referral_date'];
+            $updatedData['status_id'] = 4;
+        }
+
+        if (isset($requestData['compliance_student_notified']) && $requestData['compliance_student_notified'] !== $interview->compliance_student_notified) {
+            $updatedData['compliance_student_notified'] = $requestData['compliance_student_notified'];
+            $updatedData['status_id'] = 4;
+        }
+
+        if (isset($requestData['compliance_interviewer_name']) && $requestData['compliance_interviewer_name'] !== $interview->compliance_interviewer_name) {
+            $updatedData['compliance_interviewer_name'] = $requestData['compliance_interviewer_name'];
+            $updatedData['status_id'] = 5;
+        }
+
+        if (isset($requestData['compliance_interview_date']) && $requestData['compliance_interview_date'] !== $interview->compliance_interview_date) {
+            $updatedData['compliance_interview_date'] = $requestData['compliance_interview_date'];
+            $updatedData['status_id'] = 5;
+        }
+
+        if (isset($requestData['compliance_sample_questions']) && $requestData['compliance_sample_questions'] !== $interview->compliance_sample_questions) {
+            $updatedData['status_id'] = 6;
+        }
+
 
         if (isset($requestData['case_id']) && $requestData['case_id'] !== $interview->case_id) {
             $updatedData['case_id'] = $requestData['case_id'];
         }
 
-        $updatedData['status_id'] = 2;
         $updatedData['updated_by'] = Auth::user()->id;
 
         if (!empty($updatedData)) {
@@ -56,5 +87,4 @@ class Interview extends Model
 
         return Interview::find($interviewId);
     }
-
 }
