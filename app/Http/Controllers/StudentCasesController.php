@@ -79,6 +79,10 @@ class StudentCasesController extends Controller
             if ($cases->isEmpty()) {
                 return $this->errorResponse('There are no cases related to this student.', null, 404);
             }
+            foreach ($cases as $data) {
+                $data->created_by = User::userDetails($data->created_by);
+                $data->updated_by = User::userDetails($data->updated_by);
+            }
 
             return $this->successResponse('Cases retrieved successfully.', $cases, 200);
 
