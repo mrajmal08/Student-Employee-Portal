@@ -20,6 +20,7 @@ class CreateStudentCasesTable extends Migration
 			$table->bigInteger('course_id')->unsigned()->nullable();
 			$table->bigInteger('session_id')->unsigned()->nullable();
 			$table->bigInteger('agent_id')->unsigned()->nullable();
+			$table->bigInteger('case_status_id')->unsigned()->nullable();
 
 			//Always Required Columns
 			$table->timestamps();
@@ -34,6 +35,7 @@ class CreateStudentCasesTable extends Migration
 			$table->foreign('course_id')->references('id')->on('courses')->onUpdate('RESTRICT')->onDelete('CASCADE');
 			$table->foreign('session_id')->references('id')->on('sessions')->onUpdate('RESTRICT')->onDelete('CASCADE');
 			$table->foreign('agent_id')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
+			$table->foreign('case_status_id')->references('id')->on('case_statuses')->onUpdate('RESTRICT')->onDelete('CASCADE');
 			$table->foreign('created_by')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
 			$table->foreign('updated_by')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\Interview;
+use App\Models\StudentCase;
 use App\Models\User;
 use Carbon\Carbon;
 
@@ -54,6 +55,7 @@ class InterviewController extends Controller
 
         $validator = Validator::make($request->all(), [
             'referral_date' => 'required',
+            'case_id' => 'required|integer|exists:student_cases,id',
         ]);
 
         if ($validator->fails()) {
@@ -62,6 +64,13 @@ class InterviewController extends Controller
 
         try {
             $interview = Interview::add($request->all());
+
+            if ($interview) {
+                StudentCase::where('id', $request->case_id)->update([
+                    'case_status_id' => 1
+                ]);
+            }
+
             return $this->successResponse('Interview added successfully', $interview, 201);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to add interview', $e->getMessage());

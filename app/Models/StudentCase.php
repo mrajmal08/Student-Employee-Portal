@@ -34,6 +34,11 @@ class StudentCase extends Model
         return $this->belongsTo(User::class, 'agent_id');
     }
 
+    public function case_status()
+    {
+        return $this->belongsTo(CaseStatus::class, 'case_status_id');
+    }
+
     public static function add($case)
     {
         $student_case = new StudentCase();
