@@ -28,6 +28,14 @@ class InterviewController extends Controller
                 $interviewQuery->where('interview_date', $request->interview_date);
             }
 
+            if ($request->filled('compliance_interviewer_name')) {
+                $interviewQuery->where('compliance_interviewer_name', 'like', '%' . $request->compliance_interviewer_name . '%');
+            }
+
+            if ($request->filled('compliance_interview_date')) {
+                $interviewQuery->where('compliance_interview_date', $request->compliance_interview_date);
+            }
+
             if ($request->filled('status_id')) {
                 $interviewQuery->where('status_id', $request->status_id);
             }
@@ -110,6 +118,22 @@ class InterviewController extends Controller
             return $this->successResponse('Student updated successfully', $updatedUser, 200);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to update Student', $e->getMessage(), 500);
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $interview = Interview::find($id);
+
+            if (!$interview) {
+                return $this->errorResponse('Interview id not found', null, 404);
+            }
+
+            $interview->delete();
+            return $this->successResponse('Interview deleted successfully', null, 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to delete Interview', $e->getMessage());
         }
     }
 }

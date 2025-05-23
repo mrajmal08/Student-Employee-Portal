@@ -92,6 +92,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/interview', [App\Http\Controllers\InterviewController::class, 'index']);
     Route::post('/interview/insert', [App\Http\Controllers\InterviewController::class, 'insert']);
     Route::post('/interview/update', [App\Http\Controllers\InterviewController::class, 'update']);
+    Route::post('/interview/delete/{id}', [App\Http\Controllers\InterviewController::class, 'delete']);
 
 
 
