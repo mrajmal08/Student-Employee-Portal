@@ -40,6 +40,10 @@ class InterviewController extends Controller
                 $interviewQuery->where('status_id', $request->status_id);
             }
 
+            if ($request->filled('case_id')) {
+                $interviewQuery->where('case_id', $request->case_id);
+            }
+
             if ($request->has('pagination') && $request->pagination == 1) {
                 $perPage = $request->input('per_page', 20);
                 $interviews = $interviewQuery->paginate($perPage);

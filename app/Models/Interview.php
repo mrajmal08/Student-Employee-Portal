@@ -41,17 +41,31 @@ class Interview extends Model
 
         $caseId = $requestData['case_id'] ?? $interview->case_id;
 
+        if (isset($requestData['is_scheduled']) && $requestData['is_scheduled'] !== $interview->is_scheduled) {
+            $updatedData['is_scheduled'] = $requestData['is_scheduled'];
+            $updatedData['status_id'] = 2;
+            $case_status_id = 2;
+        }
 
         if (isset($requestData['interviewer_name']) && $requestData['interviewer_name'] !== $interview->interviewer_name) {
             $updatedData['interviewer_name'] = $requestData['interviewer_name'];
             $updatedData['status_id'] = 2;
             $case_status_id = 2;
 
-
         }
 
         if (isset($requestData['interview_date']) && $requestData['interview_date'] !== $interview->interview_date) {
             $updatedData['interview_date'] = $requestData['interview_date'];
+            $updatedData['status_id'] = 2;
+            $case_status_id = 2;
+        }
+        if (isset($requestData['start_time']) && $requestData['start_time'] !== $interview->start_time) {
+            $updatedData['start_time'] = $requestData['start_time'];
+            $updatedData['status_id'] = 2;
+            $case_status_id = 2;
+        }
+        if (isset($requestData['end_time']) && $requestData['end_time'] !== $interview->end_time) {
+            $updatedData['end_time'] = $requestData['end_time'];
             $updatedData['status_id'] = 2;
             $case_status_id = 2;
         }
@@ -82,6 +96,16 @@ class Interview extends Model
 
         if (isset($requestData['compliance_interview_date']) && $requestData['compliance_interview_date'] !== $interview->compliance_interview_date) {
             $updatedData['compliance_interview_date'] = $requestData['compliance_interview_date'];
+            $updatedData['status_id'] = 5;
+            $case_status_id = 4;
+        }
+        if (isset($requestData['compliance_start_time']) && $requestData['compliance_start_time'] !== $interview->compliance_start_time) {
+            $updatedData['compliance_start_time'] = $requestData['compliance_start_time'];
+            $updatedData['status_id'] = 5;
+            $case_status_id = 4;
+        }
+        if (isset($requestData['compliance_end_time']) && $requestData['compliance_end_time'] !== $interview->compliance_end_time) {
+            $updatedData['compliance_end_time'] = $requestData['compliance_end_time'];
             $updatedData['status_id'] = 5;
             $case_status_id = 4;
         }
