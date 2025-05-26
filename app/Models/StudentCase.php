@@ -45,6 +45,7 @@ class StudentCase extends Model
         $student_case->course_id = $case['course_id'];
         $student_case->session_id = $case['session_id'];
         $student_case->agent_id = $case['agent_id'];
+        $student_case->case_status_id = 1;
         $student_case->created_by = Auth::user()->id;
         $student_case->updated_by = Auth::user()->id;
         $student_case->save();
