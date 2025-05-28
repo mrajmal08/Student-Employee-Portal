@@ -25,6 +25,7 @@ class Interview extends Model
         $new_interview->referral_date = $interview['referral_date'];
         $new_interview->student_notified = $interview['student_notified'];
         $new_interview->case_id = $interview['case_id'];
+        $new_interview->is_scheduled = 0;
         $new_interview->status_id = 1;
         $new_interview->created_by = Auth::user()->id;
         $new_interview->updated_by = Auth::user()->id;
