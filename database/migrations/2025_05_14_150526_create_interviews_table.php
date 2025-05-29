@@ -34,7 +34,7 @@ class CreateInterviewsTable extends Migration
             $table->date('compliance_referral_date')->nullable();
             $table->string('compliance_student_notified')->nullable();
             $table->text('compliance_sample_questions')->nullable();
-            $table->integer('is_scheduled')->nullable();
+            $table->integer('is_scheduled')->default(0);
             $table->text('recording3')->nullable();
             $table->text('recording4')->nullable();
 
