@@ -44,8 +44,8 @@ class Interview extends Model
 
         if (isset($requestData['is_scheduled']) && $requestData['is_scheduled'] !== $interview->is_scheduled) {
             $updatedData['is_scheduled'] = $requestData['is_scheduled'];
-            $updatedData['status_id'] = 2;
-            $case_status_id = 2;
+            $updatedData['status_id'] = 1;
+            $case_status_id = 1;
         }
 
         if (isset($requestData['interviewer_name']) && $requestData['interviewer_name'] !== $interview->interviewer_name) {
