@@ -62,12 +62,12 @@ class Interview extends Model
         }
         if (isset($requestData['start_time']) && $requestData['start_time'] !== $interview->start_time) {
             $updatedData['start_time'] = $requestData['start_time'];
-            $updatedData['status_id'] = 2;
+            $updatedData['status_id'] = 1;
             $case_status_id = 2;
         }
         if (isset($requestData['end_time']) && $requestData['end_time'] !== $interview->end_time) {
             $updatedData['end_time'] = $requestData['end_time'];
-            $updatedData['status_id'] = 2;
+            $updatedData['status_id'] = 1;
             $case_status_id = 2;
         }
 
@@ -102,12 +102,12 @@ class Interview extends Model
         }
         if (isset($requestData['compliance_start_time']) && $requestData['compliance_start_time'] !== $interview->compliance_start_time) {
             $updatedData['compliance_start_time'] = $requestData['compliance_start_time'];
-            $updatedData['status_id'] = 5;
+            $updatedData['status_id'] = 4;
             $case_status_id = 4;
         }
         if (isset($requestData['compliance_end_time']) && $requestData['compliance_end_time'] !== $interview->compliance_end_time) {
             $updatedData['compliance_end_time'] = $requestData['compliance_end_time'];
-            $updatedData['status_id'] = 5;
+            $updatedData['status_id'] = 4;
             $case_status_id = 4;
         }
 
