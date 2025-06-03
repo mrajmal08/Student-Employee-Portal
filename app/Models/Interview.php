@@ -71,7 +71,7 @@ class Interview extends Model
             $case_status_id = 2;
         }
 
-        if (isset($requestData['sample_questions']) && $requestData['sample_questions'] !== $interview->sample_questions) {
+        if (isset($requestData['sample_questions'])) {
             $updatedData['sample_questions'] = $requestData['sample_questions'];
             $updatedData['status_id'] = 3;
             $case_status_id = 3;
