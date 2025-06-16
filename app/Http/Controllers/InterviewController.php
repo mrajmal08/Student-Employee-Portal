@@ -119,7 +119,7 @@ class InterviewController extends Controller
                     }
                 }
             }
-            return $this->successResponse('Student updated successfully', $updatedUser, 200);
+            return $this->successResponse('Interview updated successfully', $updatedUser, 200);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to update Student', $e->getMessage(), 500);
         }
