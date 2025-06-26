@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use App\Models\RecruitmentAgent;
@@ -157,6 +158,8 @@ class StudentController extends Controller
                                 'file_path' => 'assets/studentFiles/' . $filename,
                                 'created_at' => now(),
                                 'updated_at' => now(),
+                                'created_by' => Auth::user()->id,
+                                'updated_by' => Auth::user()->id,
                             ]);
                         }
                     }

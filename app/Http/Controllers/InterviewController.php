@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
@@ -115,6 +116,8 @@ class InterviewController extends Controller
                             'file_path' => 'assets/interviewFiles/' . $filename,
                             'created_at' => now(),
                             'updated_at' => now(),
+                            'created_by' => Auth::user()->id,
+                            'updated_by' => Auth::user()->id,
                         ]);
                     }
                 }

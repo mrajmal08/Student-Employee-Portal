@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\StudentCase;
+use App\Models\CaseMedia;
 use App\Models\User;
 
 class StudentCasesController extends Controller
@@ -85,7 +87,6 @@ class StudentCasesController extends Controller
             }
 
             return $this->successResponse('Cases retrieved successfully.', $cases, 200);
-
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to retrieve cases.', $e->getMessage());
         }
@@ -106,6 +107,36 @@ class StudentCasesController extends Controller
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to update Case', $e->getMessage(), 500);
         }
+    }
 
+    public function get_media_categories(Request $request)
+    {
+        try {
+            $case_id = $request->has('case_id') ? $request->input('case_id') : null;
+            $mediaCategories = DB::table('media_categories')->select('id', 'name')->get();
+            foreach ($mediaCategories as $category) {
+                $category->counter = is_null($case_id) ? null : DB::table('case_media')->where('media_category_id', $category->id)->where('case_id', $case_id)->count();
+            }
+            return $this->successResponse('Document Manager Categories', $mediaCategories, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to update Case', $e->getMessage(), 500);
+        }
+    }
+
+    //get all  case media
+    public function case_media(Request $request)
+    {
+        $caseId     = $request->get('case_id');
+        $category   = $request->get('category');
+        $pagination = $request->get('pagination');
+        $perPage    = $request->get('per_page');
+
+        $result = CaseMedia::search($caseId, $category, $pagination, $perPage);
+
+        return response()->json([
+            'status'  => true,
+            'message' => 'All Documents List',
+            'result'  => $pagination == 1 ? $result : ['data' => $result]
+        ]);
     }
 }
