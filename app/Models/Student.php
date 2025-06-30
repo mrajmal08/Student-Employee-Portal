@@ -30,6 +30,14 @@ class Student extends Model
         return $this->hasMany(StudentMedia::class, 'student_id', 'id');
     }
 
+    protected static function booted()
+    {
+        static::created(function ($student) {
+            $student->student_id = 'MMC' . str_pad($student->id, 2, '0', STR_PAD_LEFT);
+            $student->save();
+        });
+    }
+
     public static function add($student)
     {
 
