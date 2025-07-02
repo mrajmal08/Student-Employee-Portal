@@ -96,6 +96,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/document/categories', [App\Http\Controllers\StudentCasesController::class, 'get_media_categories']);
     Route::get('/case/media', [App\Http\Controllers\StudentCasesController::class, 'case_media']);
+    Route::post('/add/media', [App\Http\Controllers\StudentCasesController::class, 'add_media']);
 
 
 });

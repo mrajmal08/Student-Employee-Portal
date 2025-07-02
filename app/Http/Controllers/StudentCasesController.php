@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\StudentCase;
 use App\Models\CaseMedia;
 use App\Models\User;
+use Carbon\Carbon;
 
 class StudentCasesController extends Controller
 {
@@ -139,4 +141,49 @@ class StudentCasesController extends Controller
             'result'  => $pagination == 1 ? $result : ['data' => $result]
         ]);
     }
+
+    public function add_media(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'case_id' => 'required|exists:student_cases,id,deleted_at,NULL',
+            'category_id' => 'required|exists:media_categories,id,deleted_at,NULL',
+            'file' => 'required|file|mimes:pdf|max:10240',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
+        }
+
+        try {
+            $timestamp = Carbon::now()->timestamp;
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $extension = $file->getClientOriginalExtension();
+                $filename = 'file_' . rand(2367, 9999) . '_' . $timestamp . '.' . $extension;
+
+                // Save file
+                $file->move(public_path('assets/docs'), $filename);
+
+                // Insert into case_media table
+                DB::table('case_media')->insert([
+                    'case_id' => $request->case_id,
+                    'media_category_id' => $request->category_id,
+                    'file_path' => 'assets/docs/' . $filename,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'created_by' => Auth::id(),
+                    'updated_by' => Auth::id(),
+                ]);
+
+                return $this->successResponse('Media file uploaded successfully.', [], 200);
+            }
+
+            return $this->errorResponse('File not found in request.', [], 400);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Something went wrong.', ['error' => $e->getMessage()], 500);
+        }
+    }
+
+
 }
