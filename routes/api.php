@@ -98,5 +98,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/case/media', [App\Http\Controllers\StudentCasesController::class, 'case_media']);
     Route::post('/add/media', [App\Http\Controllers\StudentCasesController::class, 'add_media']);
 
+    //Finance routes
+    Route::post('/finance/insert', [App\Http\Controllers\FinanceController::class, 'insert']);
+
 
 });
