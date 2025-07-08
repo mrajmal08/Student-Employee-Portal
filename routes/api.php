@@ -100,6 +100,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     //Finance routes
     Route::post('/finance/insert', [App\Http\Controllers\FinanceController::class, 'insert']);
+    Route::get('/finance/single', [App\Http\Controllers\FinanceController::class, 'single']);
+    Route::post('/finance/update', [App\Http\Controllers\FinanceController::class, 'update']);
 
 
 });

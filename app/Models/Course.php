@@ -24,6 +24,11 @@ class Course extends Model
         return $this->belongsToMany(PreCasApplication::class, 'pre_cas_application_courses', 'course_id', 'pre_cas_application_id');
     }
 
+    public function finances()
+    {
+        return $this->hasMany(Finance::class);
+    }
+
     public static function add($course)
     {
         $new_course = new Course();
