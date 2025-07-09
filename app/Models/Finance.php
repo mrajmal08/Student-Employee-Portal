@@ -32,6 +32,7 @@ class Finance extends Model
         $new_finance->living_cost_plan = $finance['living_cost_plan'];
         $new_finance->other = $finance['other'];
         $new_finance->education_loan = $finance['education_loan'];
+        $new_finance->another_education_loan = $finance['another_education_loan'];
         $new_finance->fees_deposit = $finance['fees_deposit'];
         $new_finance->another_deposit = $finance['another_deposit'];
         $new_finance->funds_amount_paid = $finance['funds_amount_paid'];
@@ -88,6 +89,13 @@ class Finance extends Model
         }
         if (isset($requestData['loan_doc']) && $requestData['loan_doc'] !== $finance->loan_doc) {
             $updatedData['loan_doc'] = $requestData['loan_doc'];
+        }
+
+        if (isset($requestData['another_education_loan']) && $requestData['another_education_loan'] !== $finance->another_education_loan) {
+            $updatedData['another_education_loan'] = $requestData['another_education_loan'];
+        }
+        if (isset($requestData['another_loan_doc']) && $requestData['another_loan_doc'] !== $finance->another_loan_doc) {
+            $updatedData['another_loan_doc'] = $requestData['another_loan_doc'];
         }
 
         if (isset($requestData['fees_deposit']) && $requestData['fees_deposit'] !== $finance->fees_deposit) {

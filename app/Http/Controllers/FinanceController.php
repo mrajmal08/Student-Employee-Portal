@@ -30,7 +30,7 @@ class FinanceController extends Controller
             $finance = Finance::add($request->all());
             if ($finance) {
                 $timestamp = Carbon::now()->timestamp;
-                $documents = ['loan_doc', 'deposit_doc', 'another_deposit_doc'];
+                $documents = ['loan_doc', 'deposit_doc', 'another_deposit_doc', 'another_loan_doc'];
 
                 foreach ($documents as $doc) {
                     if ($request->hasFile($doc)) {
@@ -87,7 +87,7 @@ class FinanceController extends Controller
             $updatedUser = Finance::edit($finance, $request->all());
 
             if ($updatedUser) {
-                $documents = ['loan_doc', 'deposit_doc', 'another_deposit_doc'];
+                $documents = ['loan_doc', 'deposit_doc', 'another_deposit_doc', 'another_loan_doc'];
                 $timestamp = Carbon::now()->timestamp;
 
                 foreach ($documents as $doc) {

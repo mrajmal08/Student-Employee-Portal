@@ -26,6 +26,8 @@ class CreateFinanceTable extends Migration
             $table->text('other')->nullable();
             $table->string('education_loan')->nullable();
             $table->string('loan_doc')->nullable();
+            $table->string('another_education_loan')->nullable();
+            $table->string('another_loan_doc')->nullable();
             $table->string('fees_deposit')->nullable();
             $table->string('deposit_doc')->nullable();
             $table->string('another_deposit')->nullable();
