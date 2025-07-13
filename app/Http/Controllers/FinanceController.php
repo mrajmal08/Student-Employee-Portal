@@ -80,7 +80,14 @@ class FinanceController extends Controller
 
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'case_id' => 'required|exists:student_cases,id',
+            'course_id' => 'required|exists:courses,id',
+        ]);
 
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
+        }
         $finance = Finance::findOrFail($request->id);
 
         try {
