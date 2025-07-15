@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
             RolesTableSeeder::class,
             UsersTableSeeder::class,
             InterviewStatusSeeder::class,
-            CaseStatusesSeeder::class
+            CaseStatusesSeeder::class,
+            CommentCategoriesSeeer::class
         ]);
     }
 }
