@@ -103,5 +103,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/finance/single', [App\Http\Controllers\FinanceController::class, 'single']);
     Route::post('/finance/update', [App\Http\Controllers\FinanceController::class, 'update']);
 
+    //Comments routes
+    Route::get('/comments', [App\Http\Controllers\CommentController::class, 'index']);
+    Route::post('/comment/insert', [App\Http\Controllers\CommentController::class, 'insert']);
+
+
 
 });
