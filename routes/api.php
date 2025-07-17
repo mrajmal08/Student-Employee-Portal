@@ -106,6 +106,7 @@ Route::middleware('auth:sanctum')->group(function () {
     //Comments routes
     Route::get('/comments', [App\Http\Controllers\CommentController::class, 'index']);
     Route::post('/comment/insert', [App\Http\Controllers\CommentController::class, 'insert']);
+    Route::get('/comment/categories', [App\Http\Controllers\CommentController::class, 'comment_categories']);
 
 
 

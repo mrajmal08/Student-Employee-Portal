@@ -58,4 +58,14 @@ class commentController extends Controller
             return $this->errorResponse('Failed to add comment details', $e->getMessage());
         }
     }
+
+    public function comment_categories()
+    {
+        try {
+            $categories = DB::table('comment_categories')->get();
+            return $this->successResponse('comment categories retrieving successfully', $categories, 201);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Error retrieving comments categories', $e->getMessage());
+        }
+    }
 }
