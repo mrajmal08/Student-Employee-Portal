@@ -94,6 +94,26 @@ class StudentCasesController extends Controller
         }
     }
 
+    public function view($id){
+
+        try {
+            $cases = StudentCase::with(['student', 'course', 'session', 'agent'])
+                ->where('id', $id)
+                ->get();
+            if ($cases->isEmpty()) {
+                return $this->errorResponse('There are no cases related to this id.', null, 404);
+            }
+            foreach ($cases as $data) {
+                $data->created_by = User::userDetails($data->created_by);
+                $data->updated_by = User::userDetails($data->updated_by);
+            }
+
+            return $this->successResponse('Cases retrieved successfully.', $cases, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to retrieve cases.', $e->getMessage());
+        }
+    }
+
     public function update(Request $request)
     {
 

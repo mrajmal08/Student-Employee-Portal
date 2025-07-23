@@ -87,6 +87,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/case/insert', [App\Http\Controllers\StudentCasesController::class, 'insert']);
     Route::get('/case/single/{id}', [App\Http\Controllers\StudentCasesController::class, 'single']);
     Route::get('/case/update', [App\Http\Controllers\StudentCasesController::class, 'update']);
+    Route::get('/case/view/{id}', [App\Http\Controllers\StudentCasesController::class, 'view']);
 
     //Interview routes
     Route::get('/interview', [App\Http\Controllers\InterviewController::class, 'index']);
