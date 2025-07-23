@@ -19,6 +19,11 @@ class Interview extends Model
         return $this->belongsTo(InterviewStatus::class, 'status_id');
     }
 
+    public function studentCase()
+    {
+        return $this->belongsTo(StudentCase::class, 'case_id');
+    }
+
     public static function add($interview)
     {
         $new_interview = new Interview();

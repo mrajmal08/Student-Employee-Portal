@@ -39,6 +39,11 @@ class StudentCase extends Model
         return $this->belongsTo(CaseStatus::class, 'case_status_id');
     }
 
+    public function interviews()
+    {
+        return $this->hasMany(Interview::class, 'case_id');
+    }
+
     public static function add($case)
     {
         $student_case = new StudentCase();
