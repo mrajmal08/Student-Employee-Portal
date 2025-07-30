@@ -111,5 +111,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/comment/categories', [App\Http\Controllers\CommentController::class, 'comment_categories']);
 
 
+    Route::post('/registry/insert', [App\Http\Controllers\RegistryController::class, 'insert']);
+    Route::post('/registry/update', [App\Http\Controllers\RegistryController::class, 'update']);
+
+
 
 });
