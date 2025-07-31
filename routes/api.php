@@ -113,6 +113,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/registry/insert', [App\Http\Controllers\RegistryController::class, 'insert']);
     Route::post('/registry/update', [App\Http\Controllers\RegistryController::class, 'update']);
+    Route::get('/registry/view/{id}', [App\Http\Controllers\RegistryController::class, 'view']);
 
 
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Traits\ApiResponseTrait;
 use Illuminate\Http\Request;
 use App\Models\Registry;
+use App\Models\User;
 use Carbon\Carbon;
 
 class RegistryController extends Controller
@@ -138,6 +139,25 @@ class RegistryController extends Controller
             return $this->successResponse('Registry updated successfully', $updatedRegistry, 200);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to update Registry', $e->getMessage());
+        }
+    }
+
+    public function view($id)
+    {
+        try {
+
+            $cases = Registry::where('case_id', $id)->get();
+            if ($cases->isEmpty()) {
+                return $this->errorResponse('There are no cases related to this id.', null, 404);
+            }
+            foreach ($cases as $data) {
+                $data->created_by = User::userDetails($data->created_by);
+                $data->updated_by = User::userDetails($data->updated_by);
+            }
+
+            return $this->successResponse('Registry retrieved successfully.', $cases, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to retrieve Registry.', $e->getMessage());
         }
     }
 }
