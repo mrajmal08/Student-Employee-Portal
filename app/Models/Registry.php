@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Registry extends Model
 {
@@ -56,5 +57,67 @@ class Registry extends Model
         $case_registry->updated_by = Auth::user()->id;
         $case_registry->save();
         return $case_registry;
+    }
+
+    public static function edit($registry, $requestData)
+    {
+        $registryId = $registry->id;
+        $jsonFields = [
+            'attendance_monitoring_plan',
+            'fitness_to_study_plan',
+            'pregnancy_evidence',
+            'disability',
+            'risk_assessment',
+            'withdraw_screenshot',
+            'transfer_of_course',
+            'sms_reporting_reasons',
+            'sms_reporting_attachments',
+        ];
+
+        $fields = [
+            'case_id',
+            'student_id',
+            'student_status',
+            'break_in_study',
+            'break_return_date',
+            'break_sms_reporting',
+            'break_sms_date',
+            'student_withdrawn',
+            'withdraw_sms_reporting',
+            'withdraw_date',
+            'personal_tutor',
+            'notes',
+            'course_submission_date',
+            'resubmission_date',
+            'chaser_date',
+            'new_visa_required',
+            'eligible_for',
+            'date_of_award',
+            'sms_intake',
+            'sms_reporting',
+            'student_notified'
+        ];
+
+        $updatedData = [];
+
+        foreach (array_merge($fields, $jsonFields) as $field) {
+            if (isset($requestData[$field])) {
+                $newValue = in_array($field, $jsonFields)
+                    ? json_encode($requestData[$field])
+                    : $requestData[$field];
+
+                if ($newValue !== $registry->$field) {
+                    $updatedData[$field] = $newValue;
+                }
+            }
+        }
+
+        $updatedData['updated_by'] = Auth::id();
+
+        if (!empty($updatedData)) {
+            DB::table('registry')->where('id', $registryId)->update($updatedData);
+        }
+
+        return Registry::find($registryId);
     }
 }

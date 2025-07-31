@@ -26,6 +26,11 @@ class RegistryController extends Controller
             return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
+        $registry = Registry::findOrFail($request->case_id);
+        if ($registry) {
+            return $this->errorResponse('This registry is already added to this case.', null, 404);
+        }
+
         try {
 
             $registry = Registry::add($request->all());
@@ -71,6 +76,68 @@ class RegistryController extends Controller
             return $this->successResponse('Registry added successfully', $registry, 201);
         } catch (\Exception $e) {
             return $this->errorResponse('Failed to add Registry', $e->getMessage());
+        }
+    }
+
+    public function update(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|exists:registry,id',
+            'student_id' => 'exists:students,id,deleted_at,NULL',
+            'case_id' => 'exists:student_cases,id,deleted_at,NULL',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->errorResponse('Validation failed', $validator->errors(), 422);
+        }
+
+        try {
+
+            $registry = Registry::findOrFail($request->id);
+            $updatedRegistry = Registry::edit($registry, $request->all());
+
+            if ($updatedRegistry) {
+                $timestamp = Carbon::now()->timestamp;
+
+                $documents = [
+                    'withdraw_screenshot',
+                    'attendance_monitoring_plan',
+                    'fitness_to_study_plan',
+                    'pregnancy_evidence',
+                    'disability',
+                    'risk_assessment',
+                    'transfer_of_course',
+                    'sms_reporting_attachments'
+                ];
+
+                foreach ($documents as $doc) {
+                    if ($request->hasFile($doc)) {
+                        foreach ($request->file($doc) as $file) {
+                            $extension = $file->getClientOriginalExtension();
+                            $filename = $doc . '_' . rand(2367, 9999) . '_' . $timestamp . '.' . $extension;
+
+                            $file->move(public_path('assets/registryFiles'), $filename);
+
+                            // Insert into case_media table
+                            DB::table('case_media')->insert([
+                                'case_id' => $request->case_id,
+                                'media_category_id' => 24,
+                                'file_path' => 'assets/registryFiles/' . $filename,
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                                'created_by' => Auth::id(),
+                                'updated_by' => Auth::id(),
+                            ]);
+                        }
+                    }
+                }
+            }
+
+
+            return $this->successResponse('Registry updated successfully', $updatedRegistry, 200);
+        } catch (\Exception $e) {
+            return $this->errorResponse('Failed to update Registry', $e->getMessage());
         }
     }
 }
