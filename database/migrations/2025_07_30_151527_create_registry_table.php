@@ -18,6 +18,7 @@ class CreateRegistryTable extends Migration
 
             // Foreign key to student case
             $table->unsignedBigInteger('student_id')->nullable();
+            $table->unsignedBigInteger('case_id')->nullable();
 
             // Dropdown: Student current status
             $table->string('student_status')->nullable();
@@ -69,7 +70,8 @@ class CreateRegistryTable extends Migration
 
         // Add foreign keys
         Schema::table('registry', function (Blueprint $table) {
-            $table->foreign('student_id')->references('id')->on('student_cases')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('student_id')->references('id')->on('students')->onUpdate('RESTRICT')->onDelete('CASCADE');
+            $table->foreign('case_id')->references('id')->on('student_cases')->onUpdate('RESTRICT')->onDelete('CASCADE');
             $table->foreign('created_by')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('SET NULL');
             $table->foreign('updated_by')->references('id')->on('users')->onUpdate('RESTRICT')->onDelete('SET NULL');
         });

@@ -17,6 +17,7 @@ class Registry extends Model
     {
         $case_registry = new Registry();
         $case_registry->student_id = $registry['student_id'] ?? null;
+        $case_registry->case_id = $registry['case_id'] ?? null;
         $case_registry->student_status = $registry['student_status'] ?? null;
         $case_registry->break_in_study = $registry['break_in_study'] ?? null;
         $case_registry->break_return_date = $registry['break_return_date'] ?? null;

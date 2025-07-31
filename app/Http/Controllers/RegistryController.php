@@ -18,7 +18,8 @@ class RegistryController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'student_id' => 'exists:student_cases,id,deleted_at,NULL',
+            'student_id' => 'exists:students,id,deleted_at,NULL',
+            'case_id' => 'exists:student_cases,id,deleted_at,NULL',
         ]);
 
         if ($validator->fails()) {
