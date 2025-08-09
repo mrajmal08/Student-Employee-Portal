@@ -17,7 +17,7 @@ class RegistryController extends Controller
 
     public function insert(Request $request)
     {
-dd('yes');
+
         $validator = Validator::make($request->all(), [
             'student_id' => 'exists:students,id,deleted_at,NULL',
             'case_id' => 'exists:student_cases,id,deleted_at,NULL',
@@ -27,9 +27,9 @@ dd('yes');
             return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
-        $registry = Registry::findOrFail($request->case_id);
+        $registry = Registry::find($request->case_id);
         if ($registry) {
-            return $this->errorResponse('This registry is already added to this case.', null, 404);
+            return $this->errorResponse('This registry is already added to this case.', null, 422);
         }
 
         try {
