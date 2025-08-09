@@ -17,7 +17,7 @@ class RegistryController extends Controller
 
     public function insert(Request $request)
     {
-
+dd('yes');
         $validator = Validator::make($request->all(), [
             'student_id' => 'exists:students,id,deleted_at,NULL',
             'case_id' => 'exists:student_cases,id,deleted_at,NULL',
