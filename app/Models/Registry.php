@@ -74,25 +74,28 @@ class Registry extends Model
             'sms_reporting_attachments',
         ];
 
+        $dateFields = [
+            'break_return_date',
+            'break_sms_date',
+            'withdraw_date',
+            'course_submission_date',
+            'resubmission_date',
+            'chaser_date',
+            'date_of_award'
+        ];
+
         $fields = [
             'case_id',
             'student_id',
             'student_status',
             'break_in_study',
-            'break_return_date',
             'break_sms_reporting',
-            'break_sms_date',
             'student_withdrawn',
             'withdraw_sms_reporting',
-            'withdraw_date',
             'personal_tutor',
             'notes',
-            'course_submission_date',
-            'resubmission_date',
-            'chaser_date',
             'new_visa_required',
             'eligible_for',
-            'date_of_award',
             'sms_intake',
             'sms_reporting',
             'student_notified'
@@ -100,11 +103,20 @@ class Registry extends Model
 
         $updatedData = [];
 
-        foreach (array_merge($fields, $jsonFields) as $field) {
-            if (isset($requestData[$field])) {
-                $newValue = in_array($field, $jsonFields)
-                    ? json_encode($requestData[$field])
-                    : $requestData[$field];
+        foreach (array_merge($fields, $jsonFields, $dateFields) as $field) {
+            if (array_key_exists($field, $requestData)) {
+                if (in_array($field, $jsonFields)) {
+                    // Encode JSON fields
+                    $newValue = json_encode($requestData[$field]);
+                } elseif (in_array($field, $dateFields)) {
+                    // Convert empty or "null" to actual null
+                    $newValue = (!empty($requestData[$field]) && strtolower($requestData[$field]) !== 'null')
+                        ? $requestData[$field]
+                        : null;
+                } else {
+                    // Normal fields
+                    $newValue = $requestData[$field];
+                }
 
                 if ($newValue !== $registry->$field) {
                     $updatedData[$field] = $newValue;
@@ -120,4 +132,5 @@ class Registry extends Model
 
         return Registry::find($registryId);
     }
+
 }

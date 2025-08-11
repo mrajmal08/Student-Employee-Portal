@@ -27,7 +27,7 @@ class RegistryController extends Controller
             return $this->errorResponse('Validation failed', $validator->errors(), 422);
         }
 
-        $registry = Registry::find($request->case_id);
+        $registry = Registry::where('case_id', $request->case_id)->first();
         if ($registry) {
             return $this->errorResponse('This registry is already added to this case.', null, 422);
         }
