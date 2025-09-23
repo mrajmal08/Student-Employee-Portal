@@ -114,4 +114,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/registry/update', [App\Http\Controllers\RegistryController::class, 'update']);
     Route::get('/registry/view/{id}', [App\Http\Controllers\RegistryController::class, 'view']);
 
+     //Student Case routes
+     Route::get('/task_status', [App\Http\Controllers\TaskStatusController::class, 'index']);
+     Route::post('/task_status/insert', [App\Http\Controllers\TaskStatusController::class, 'insert']);
+     Route::get('/task_status/single/{id}', [App\Http\Controllers\TaskStatusController::class, 'single']);
+     Route::post('/task_status/update', [App\Http\Controllers\TaskStatusController::class, 'update']);
+     Route::post('/task_status/delete/{id}', [App\Http\Controllers\TaskStatusController::class, 'delete']);
+
 });
