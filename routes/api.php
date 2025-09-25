@@ -114,19 +114,25 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/registry/update', [App\Http\Controllers\RegistryController::class, 'update']);
     Route::get('/registry/view/{id}', [App\Http\Controllers\RegistryController::class, 'view']);
 
-     //Task Status routes
-     Route::get('/task_status', [App\Http\Controllers\TaskStatusController::class, 'index']);
-     Route::post('/task_status/insert', [App\Http\Controllers\TaskStatusController::class, 'insert']);
-     Route::get('/task_status/single/{id}', [App\Http\Controllers\TaskStatusController::class, 'single']);
-     Route::post('/task_status/update', [App\Http\Controllers\TaskStatusController::class, 'update']);
-     Route::post('/task_status/delete/{id}', [App\Http\Controllers\TaskStatusController::class, 'delete']);
+    //Task Status routes
+    Route::get('/task_status', [App\Http\Controllers\TaskStatusController::class, 'index']);
+    Route::post('/task_status/insert', [App\Http\Controllers\TaskStatusController::class, 'insert']);
+    Route::get('/task_status/single/{id}', [App\Http\Controllers\TaskStatusController::class, 'single']);
+    Route::post('/task_status/update', [App\Http\Controllers\TaskStatusController::class, 'update']);
+    Route::post('/task_status/delete/{id}', [App\Http\Controllers\TaskStatusController::class, 'delete']);
 
-      //Task Priority routes
-      Route::get('/task_priority', [App\Http\Controllers\TaskPriorityController::class, 'index']);
-      Route::post('/task_priority/insert', [App\Http\Controllers\TaskPriorityController::class, 'insert']);
-      Route::get('/task_priority/single/{id}', [App\Http\Controllers\TaskPriorityController::class, 'single']);
-      Route::post('/task_priority/update', [App\Http\Controllers\TaskPriorityController::class, 'update']);
-      Route::post('/task_priority/delete/{id}', [App\Http\Controllers\TaskPriorityController::class, 'delete']);
+    //Task Priority routes
+    Route::get('/task_priority', [App\Http\Controllers\TaskPriorityController::class, 'index']);
+    Route::post('/task_priority/insert', [App\Http\Controllers\TaskPriorityController::class, 'insert']);
+    Route::get('/task_priority/single/{id}', [App\Http\Controllers\TaskPriorityController::class, 'single']);
+    Route::post('/task_priority/update', [App\Http\Controllers\TaskPriorityController::class, 'update']);
+    Route::post('/task_priority/delete/{id}', [App\Http\Controllers\TaskPriorityController::class, 'delete']);
 
+    //Task Type routes
+    Route::get('/task_type', [App\Http\Controllers\TaskTypeController::class, 'index']);
+    Route::post('/task_type/insert', [App\Http\Controllers\TaskTypeController::class, 'insert']);
+    Route::get('/task_type/single/{id}', [App\Http\Controllers\TaskTypeController::class, 'single']);
+    Route::post('/task_type/update', [App\Http\Controllers\TaskTypeController::class, 'update']);
+    Route::post('/task_type/delete/{id}', [App\Http\Controllers\TaskTypeController::class, 'delete']);
 
 });

@@ -14,23 +14,23 @@ class TaskPriority extends Model
     protected $table = "task_priorities";
     protected $guarded = [];
 
-    public static function add($status)
+    public static function add($priority)
     {
-        $new_status = new TaskPriority();
-        $new_status->name = $status['name'];
-        $new_status->description = $status['description'];
-        $new_status->created_by = Auth::user()->id;
-        $new_status->updated_by = Auth::user()->id;
-        $new_status->save();
-        return $new_status;
+        $new_priority = new TaskPriority();
+        $new_priority->name = $priority['name'];
+        $new_priority->description = $priority['description'];
+        $new_priority->created_by = Auth::user()->id;
+        $new_priority->updated_by = Auth::user()->id;
+        $new_priority->save();
+        return $new_priority;
     }
 
-    public static function edit($status)
+    public static function edit($priority)
     {
-        DB::table('task_priorities')->where('id', $status['id'])->update(
+        DB::table('task_priorities')->where('id', $priority['id'])->update(
             [
-                'name' => isset($status['name']) ? $status['name'] : Null,
-                'description' => isset($status['description']) ? $status['description'] : Null,
+                'name' => isset($priority['name']) ? $priority['name'] : Null,
+                'description' => isset($priority['description']) ? $priority['description'] : Null,
                 'updated_by' => Auth::user()->id
             ]
         );
