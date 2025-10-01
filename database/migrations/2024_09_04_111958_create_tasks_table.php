@@ -23,8 +23,6 @@ class CreateTasksTable extends Migration
             $table->date('due_date')->nullable();
             $table->date('remind_date')->nullable();
             $table->time('due_time')->nullable();
-            $table->text('media')->nullable();
-            $table->bigInteger('assing_to')->nullable();
             $table->timestamps();
             $table->date('deleted_at')->nullable();
             $table->bigInteger('created_by')->nullable();
